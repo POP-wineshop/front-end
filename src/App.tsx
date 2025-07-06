@@ -2,6 +2,7 @@ import WineListPage from './pages/WineListPage';
 import WineDescriptionPage from './pages/WineDescriptionPage';
 import OrderPage from './pages/OrderPage';
 import CartPage from './pages/CartPage';
+import LikesPage from './pages/LikesPage';
 
 // import WinePostPage from './pages/WinePostPage';
 
@@ -28,43 +29,46 @@ function App() {
 
   return (
     <>
-      {shouldShowBackOffice ? (
-        <div className="backOffice-layout">
-          <Routes>
-            <Route path="/backoffice/*" element={<BackOfficePage />} />
-          </Routes>
-        </div>
-      ) : shouldShowTossPayments ? (
-        <div className="tossPayments-layout">
-          <Routes>
-            <Route path="/tosspayments/*" element={<TossPaymentPage />} />
-          </Routes>
-        </div>
-      ) : (
-        <div className="main-layout">
-          <Header />
-          {shouldShowWineFilter && <WineFilter />}
-          <main>
+      <div className="background-wrapper">
+        {shouldShowBackOffice ? (
+          <div className="backOffice-layout">
             <Routes>
-              <Route index element={<Navigate to="login" />} />
-
-              <Route path="/signup" element={<SignupPage />} />
-              <Route path="/login" element={<LoginPage />} />
-              <Route path="/mypage" element={<MyPage />} />
-              <Route path="/list" element={<WineListPage />} />
-              <Route
-                path="/description/:id"
-                element={<WineDescriptionPage />}
-              />
-              <Route path="/order" element={<OrderPage />} />
-              <Route path="/cart" element={<CartPage />} />
-              {/* <Route path="/checkout" element={<TossPaymentPage />} /> */}
-              {/* <Route path="/post" element={<WinePostPage />} /> */}
-              <Route path="/apitest" element={<WineApiTestPage />} />
+              <Route path="/backoffice/*" element={<BackOfficePage />} />
             </Routes>
-          </main>
-        </div>
-      )}
+          </div>
+        ) : shouldShowTossPayments ? (
+          <div className="tossPayments-layout">
+            <Routes>
+              <Route path="/tosspayments/*" element={<TossPaymentPage />} />
+            </Routes>
+          </div>
+        ) : (
+          <div className="main-layout">
+            <Header />
+            {shouldShowWineFilter && <WineFilter />}
+            <main>
+              <Routes>
+                <Route index element={<Navigate to="login" />} />
+
+                <Route path="/signup" element={<SignupPage />} />
+                <Route path="/login" element={<LoginPage />} />
+                <Route path="/likes" element={<LikesPage />} />
+                <Route path="/mypage" element={<MyPage />} />
+                <Route path="/list" element={<WineListPage />} />
+                <Route
+                  path="/description/:id"
+                  element={<WineDescriptionPage />}
+                />
+                <Route path="/order" element={<OrderPage />} />
+                <Route path="/cart" element={<CartPage />} />
+                {/* <Route path="/checkout" element={<TossPaymentPage />} /> */}
+                {/* <Route path="/post" element={<WinePostPage />} /> */}
+                <Route path="/apitest" element={<WineApiTestPage />} />
+              </Routes>
+            </main>
+          </div>
+        )}
+      </div>
     </>
   );
 }

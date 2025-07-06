@@ -68,7 +68,16 @@
 }
 
 .main-layout {
+  background-color: white;
   max-width: 960px; /* 일반적인 웹사이트 가로 길이 */
   margin: 0 auto; /* 가운데 정렬 */
   padding: 0 1rem; /* 좌우 여백 살짝 주기 */
+}
+
+/* 배경 적용용 wrapper */
+.background-wrapper {
+  background-image: url('/src/assets/background/bg-wine-pattern.png');
+  background-repeat: repeat;
+  background-size: 500px; /* 패턴 크기 조절 */
+  min-height: 100vh;
 }
