@@ -78,6 +78,6 @@
 .background-wrapper {
   background-image: url('/src/assets/background/bg-wine-pattern.png');
   background-repeat: repeat;
-  background-size: 500px; /* 패턴 크기 조절 */
+  background-size: 900px; /* 패턴 크기 조절 */
   min-height: 100vh;
 }
