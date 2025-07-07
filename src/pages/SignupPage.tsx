@@ -33,7 +33,11 @@ const SignupPage = () => {
 
   return (
     <>
-      <div className="flex justify-center items-center min-h-screen">
+      <div
+        className="flex justify-center items-center"
+        // 스크린 높이 - 헤더 높이 (120px)
+        style={{ minHeight: 'calc(100vh - 120px)' }}
+      >
         <form
           onSubmit={(e) => {
             e.preventDefault();
@@ -55,7 +59,7 @@ const SignupPage = () => {
               type="text"
               onChange={(e) => setUserName(e.target.value)}
               placeholder="아이디를 입력해주세요"
-              className="w-full p-2 border border-gray-300 rounded-md focus:outline-none focus:ring focus:border-blue-500"
+              className="w-full p-2 border border-[#D4D4D4] rounded-md focus:outline-none focus:ring focus:ring-1 focus:ring-[#6A1B1A]"
             />
           </div>
 
@@ -71,7 +75,7 @@ const SignupPage = () => {
               type="password"
               onChange={(e) => setPassword(e.target.value)}
               placeholder="비밀번호를 입력해주세요"
-              className="w-full p-2 border border-gray-300 rounded-md focus:outline-none focus:ring focus:border-blue-500"
+              className="w-full p-2 border border-[#D4D4D4] rounded-md focus:outline-none focus:ring focus:ring-1 focus:ring-[#6A1B1A]"
             />
           </div>
 
@@ -87,7 +91,7 @@ const SignupPage = () => {
               type="password"
               onChange={(e) => setPwForConfirming(e.target.value)}
               placeholder="비밀번호를 다시 입력해주세요"
-              className="w-full p-2 border border-gray-300 rounded-md focus:outline-none focus:ring focus:border-blue-500"
+              className="w-full p-2 border border-[#D4D4D4] rounded-md focus:outline-none focus:ring focus:ring-1 focus:ring-[#6A1B1A]"
             />
           </div>
 
@@ -103,13 +107,13 @@ const SignupPage = () => {
               type="text"
               onChange={(e) => setName(e.target.value)}
               placeholder="이름을 입력해주세요"
-              className="w-full p-2 border border-gray-300 rounded-md focus:outline-none focus:ring focus:border-blue-500"
+              className="w-full p-2 border border-[#D4D4D4] rounded-md focus:outline-none focus:ring focus:ring-1 focus:ring-[#6A1B1A]"
             />
           </div>
 
           <button
             type="submit"
-            className="mt-4 py-2 bg-blue-600 text-white font-semibold rounded-md hover:bg-blue-700 transition"
+            className="mt-4 py-2 bg-[#6A1B1A] text-white font-semibold rounded-md hover:bg-[#4E1212] transition"
           >
             회원 가입
           </button>
@@ -119,7 +123,7 @@ const SignupPage = () => {
             </span>
             <Link
               to="/login"
-              className="text-sm text-blue-600 hover:underline font-medium"
+              className="text-sm text-[#6A1B1A] hover:underline font-medium"
             >
               로그인
             </Link>
