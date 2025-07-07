@@ -9,10 +9,10 @@ import { useLocation } from 'react-router-dom';
 // ✅ 날짜 기반 readable ID (user_xxx용으로만 사용 중)
 const today = new Date();
 const dateStr = `${today.getFullYear()}${(today.getMonth() + 1)
-    .toString()
-    .padStart(2, '0')}${today.getDate().toString().padStart(2, '0')}`;
+  .toString()
+  .padStart(2, '0')}${today.getDate().toString().padStart(2, '0')}`;
 const generateReadableId = (prefix: 'order' | 'user', id: number) =>
-    `${dateStr}_${prefix}_${id}`;
+  `${dateStr}_${prefix}_${id}`;
 
 const clientKey = 'test_gck_docs_Ovk5rk1EwkEbP0W43n07xlzm';
 
@@ -32,7 +32,9 @@ export function WidgetCheckout() {
   useEffect(() => {
     async function fetchPaymentWidgets() {
       const tossPayments = await loadTossPayments(clientKey);
-      const customerKey = userId ? generateReadableId('user', userId) : ANONYMOUS;
+      const customerKey = userId
+        ? generateReadableId('user', userId)
+        : ANONYMOUS;
 
       const newWidgets = tossPayments.widgets({ customerKey });
       setWidgets(newWidgets);
@@ -89,16 +91,20 @@ export function WidgetCheckout() {
   };
 
   return (
-      <div className="wrapper w-100">
-        <div className="max-w-540 w-100">
-          <div id="payment-method" className="w-100" />
-          <div id="agreement" className="w-100" />
-          <div className="btn-wrapper w-100">
-            <button className="btn primary w-100" onClick={handleRequestPayment} disabled={!ready}>
-              결제하기
-            </button>
-          </div>
+    <div className="wrapper w-100">
+      <div className="w-100">
+        <div id="payment-method" className="w-100" />
+        <div id="agreement" className="w-100" />
+        <div className="btn-wrapper bg-white w-100">
+          <button
+            className="btn primary mb-6 w-100"
+            onClick={handleRequestPayment}
+            disabled={!ready}
+          >
+            결제하기
+          </button>
         </div>
       </div>
+    </div>
   );
 }

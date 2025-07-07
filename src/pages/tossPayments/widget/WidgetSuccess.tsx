@@ -4,25 +4,22 @@ import { Link, useNavigate, useSearchParams } from 'react-router-dom';
 export function WidgetSuccess() {
   const navigate = useNavigate();
   const [searchParams] = useSearchParams();
-  const [responseData, setResponseData] = useState(null);
+  const [responseData, setResponseData] = useState<any>(null);
   const hasCalled = useRef(false);
 
   useEffect(() => {
     async function confirm() {
       const requestData = {
         orderId: searchParams.get('orderId'),
-        // orderId: searchParams.get('orderId')?.split('_')[2],
         amount: searchParams.get('amount'),
         paymentKey: searchParams.get('paymentKey'),
       };
 
       console.log('requestData: ', requestData);
-      // const orderIdInNumber = requestData.orderId?.split('_')[2];
 
       try {
         const response = await fetch(
           `http://localhost:8080/api/payments/confirm`,
-          // `http://localhost:8080/api/payments/${requestData.orderId}/confirm`,
           {
             method: 'POST',
             headers: {
@@ -53,7 +50,9 @@ export function WidgetSuccess() {
         alert('결제 확인 화면으로 이동합니다');
         navigate('/');
       } catch (error: any) {
-        navigate(`/fail?code=${error.code}&message=${error.message}`);
+        navigate(
+          `/tosspayments/fail?code=${error.code}&message=${error.message}`
+        );
       }
     }
 
@@ -63,64 +62,65 @@ export function WidgetSuccess() {
   }, []);
 
   return (
-    <>
-      <div className="box_section" style={{ width: '600px' }}>
+    <div className="wrapper mx-auto max-w-[500px] font-pretendard">
+      <div className="mx-auto bg-white rounded-2xl shadow-md p-6 flex flex-col items-center gap-6">
         <img
-          width="100px"
           src="https://static.toss.im/illusts/check-blue-spot-ending-frame.png"
+          alt="결제 완료"
+          className="w-[100px]"
         />
-        <h2>결제를 완료했어요</h2>
-        <div className="p-grid typography--p" style={{ marginTop: '50px' }}>
-          <div className="p-grid-col text--left">
-            <b>결제금액</b>
+        <h2 className="text-xl font-semibold text-center">결제를 완료했어요</h2>
+
+        <div className="w-full text-base mt-4 border-t border-gray-200 pt-4 space-y-2">
+          <div className="flex justify-between">
+            <span className="text-gray-600 font-medium">결제금액</span>
+            <span
+              id="amount"
+              className="text-gray-800 font-semibold text-right"
+            >
+              {`${Number(searchParams.get('amount')).toLocaleString()}원`}
+            </span>
           </div>
-          <div className="p-grid-col text--right" id="amount">
-            {`${Number(searchParams.get('amount')).toLocaleString()}원`}
+          <div className="flex flex-col gap-1">
+            <span className="text-gray-600 font-medium">주문번호</span>
+            <span
+              className="pl-4 text-gray-800 text-sm text-right"
+              id="orderId"
+            >
+              {searchParams.get('orderId')}
+            </span>
+          </div>
+          <div className="flex flex-col gap-1">
+            <span className="text-gray-600 font-medium">PaymentKey</span>
+            <span
+              className="text-gray-800 text-sm break-words text-right"
+              id="paymentKey"
+            >
+              {searchParams.get('paymentKey')}
+            </span>
           </div>
         </div>
-        <div className="p-grid typography--p" style={{ marginTop: '10px' }}>
-          <div className="p-grid-col text--left">
-            <b>주문번호</b>
-          </div>
-          <div className="p-grid-col text--right" id="orderId">
-            {`${searchParams.get('orderId')}`}
-          </div>
-        </div>
-        <div className="p-grid typography--p" style={{ marginTop: '10px' }}>
-          <div className="p-grid-col text--left">
-            <b>paymentKey</b>
-          </div>
-          <div
-            className="p-grid-col text--right"
-            id="paymentKey"
-            style={{ whiteSpace: 'initial', width: '250px' }}
-          >
-            {`${searchParams.get('paymentKey')}`}
-          </div>
-        </div>
-        <div className="p-grid-col">
+
+        <div className="flex flex-col gap-2 w-full mt-6">
           <Link to="https://docs.tosspayments.com/guides/v2/payment-widget/integration">
-            <button className="button p-grid-col5">연동 문서</button>
+            <button className="w-full py-2 text-sm font-medium border border-gray-300 rounded-md hover:bg-gray-50">
+              연동 문서
+            </button>
           </Link>
           <Link to="https://discord.gg/A4fRFXQhRu">
-            <button
-              className="button p-grid-col5"
-              style={{ backgroundColor: '#e8f3ff', color: '#1b64da' }}
-            >
+            <button className="w-full py-2 text-sm font-medium bg-[#e8f3ff] text-[#1b64da] rounded-md hover:bg-[#d6e8ff]">
               실시간 문의
             </button>
           </Link>
         </div>
       </div>
-      <div
-        className="box_section"
-        style={{ width: '600px', textAlign: 'left' }}
-      >
-        <b>Response Data :</b>
-        <div id="response" style={{ whiteSpace: 'initial' }}>
-          {responseData && <pre>{JSON.stringify(responseData, null, 4)}</pre>}
+
+      {responseData && (
+        <div className="w-[600px] mx-auto mt-8 p-4 bg-gray-50 rounded-lg shadow-sm text-sm text-gray-800 whitespace-pre-wrap">
+          <b className="block mb-2">Response Data :</b>
+          <pre>{JSON.stringify(responseData, null, 2)}</pre>
         </div>
-      </div>
-    </>
+      )}
+    </div>
   );
 }
