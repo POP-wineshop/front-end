@@ -1,3 +1,4 @@
+import { Search } from 'lucide-react';
 import { useEffect, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 
@@ -110,7 +111,7 @@ const WineFilter = () => {
           <div className="wine-filter-country items-center">
             <select
               onChange={(e) => setCountry(e.target.value)}
-              className="border w-32 p-2 rounded"
+              className="w-32 p-2 rounded border border-[#D4D4D4] text-[#171717] shadow-sm focus:outline-none focus:ring-1 focus:ring-[#6A1B1A] transition duration-200 ease-in-out"
             >
               {countries.map((country) => (
                 <option key={country.key} value={country.value}>
@@ -123,7 +124,7 @@ const WineFilter = () => {
           <div className="wine-filter-region items-center">
             <select
               onChange={(e) => setRegion(e.target.value)}
-              className="border w-32 p-2 rounded"
+              className="w-32 p-2 rounded border border-[#D4D4D4] text-[#171717] shadow-sm focus:outline-none focus:ring-1 focus:ring-[#6A1B1A] transition duration-200 ease-in-out"
             >
               {regions.map((region) => (
                 <option key={region}>{region}</option>
@@ -134,7 +135,7 @@ const WineFilter = () => {
           <div className="wine-filter-wineType items-center">
             <select
               onChange={(e) => setWineType(e.target.value)}
-              className="border w-32 p-2 rounded"
+              className="w-32 p-2 rounded border border-[#D4D4D4] text-[#171717] shadow-sm focus:outline-none focus:ring-1 focus:ring-[#6A1B1A] transition duration-200 ease-in-out"
             >
               {wineTypes.map((wineType) => (
                 <option key={wineType.key} value={wineType.value}>
@@ -150,14 +151,14 @@ const WineFilter = () => {
             <input
               type="text"
               placeholder="와인 이름을 적어주세요!"
-              className="border w-64 p-2 rounded"
+              className="w-64 p-2 rounded border border-[#D4D4D4] text-[#171717] shadow-sm focus:outline-none focus:ring-1 focus:ring-[#6A1B1A] transition duration-200 ease-in-out"
               onChange={(e) => setKeyword(e.target.value)}
             />
             <button
               onClick={handleFilterIncludingKeyword}
-              className="border p-2 rounded"
+              className="p-2 rounded text-white bg-[#6A1B1A] hover:bg-[#4E1212] shadow-sm transition duration-200 ease-in-out"
             >
-              검색
+              <Search />
             </button>
           </div>
         </div>
