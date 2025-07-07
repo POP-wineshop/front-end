@@ -53,7 +53,7 @@ function App() {
                 <Route path="/signup" element={<SignupPage />} />
                 <Route path="/login" element={<LoginPage />} />
                 <Route path="/likes" element={<LikesPage />} />
-                <Route path="/mypage" element={<MyPage />} />
+                <Route path="/mypage/*" element={<MyPage />} />
                 <Route path="/list" element={<WineListPage />} />
                 <Route
                   path="/description/:id"
