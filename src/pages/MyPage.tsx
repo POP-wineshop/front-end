@@ -1,5 +1,5 @@
 import { useEffect, useState } from 'react';
-import { useNavigate } from 'react-router-dom';
+import { Navigate, Route, Routes, useNavigate } from 'react-router-dom';
 
 type OrderItem = {
   wineId: number;
@@ -28,6 +28,7 @@ const MyPage = () => {
     email: 'testuseremail@example.com',
     phoneNumber: '010-XXXX-XXXX',
   });
+  const [isEmailOnUpdate, setIsEmailOnUpdate] = useState<boolean>(false);
   const [orderList, setOrderList] = useState<Order[]>([]);
 
   useEffect(() => {
@@ -68,7 +69,30 @@ const MyPage = () => {
           <span className="text-[48px] font-bold italic">My Page</span>
         </div>
 
+        <div className="my-page-tab">
+          <div className="border-b flex ">
+            <div className="px-3 py-1 text-gray-500 hover:font-semibold hover:text-gray-800 hover:shadow-sm hover:bg-gray-100 cursor-pointer">
+              회원 정보
+            </div>
+            <div className="px-3 py-1 text-gray-500 hover:font-semibold hover:text-gray-800 hover:shadow-sm hover:bg-gray-100 cursor-pointer">
+              주문 내역
+            </div>
+            <div className="px-3 py-1 text-gray-500 hover:font-semibold hover:text-gray-800 hover:shadow-sm hover:bg-gray-100 cursor-pointer">
+              배송지
+            </div>
+            <div className="px-3 py-1 text-gray-500 hover:font-semibold hover:text-gray-800 hover:shadow-sm hover:bg-gray-100 cursor-pointer">
+              좋아요 목록
+            </div>
+          </div>
+        </div>
+
         <div className="space-y-6 p-6">
+          {/* <Routes>
+            <Route index element={<Navigate to="userinfo" />} />
+            <Route path='userinfo' element={< />} />
+
+          </Routes> */}
+
           {/* 아이디 */}
           <div>
             <label
@@ -82,7 +106,7 @@ const MyPage = () => {
               type="text"
               placeholder={userInfo.id}
               defaultValue={userInfo.id}
-              className="w-full px-4 py-2 border border-gray-300 text-gray-300 rounded-md focus:outline-none focus:ring-2"
+              className="w-1/3 px-4 py-2 border border-gray-300 text-gray-300 rounded-md focus:outline-none focus:ring-2"
               readOnly
             />
             <p className="text-xs text-gray-500 mt-2">
@@ -103,9 +127,65 @@ const MyPage = () => {
               type="text"
               placeholder={userInfo.name}
               defaultValue={userInfo.name}
-              className="w-full px-4 py-2 border border-gray-300 text-gray-300 rounded-md focus:outline-none focus:ring-2"
+              className="w-1/3 px-4 py-2 border border-gray-300 text-gray-300 rounded-md focus:outline-none focus:ring-2"
               readOnly
             />
+          </div>
+
+          {/* 이메일 */}
+          <div>
+            <label
+              htmlFor="eamil"
+              className="block text-lg font-semibold text-gray-800 mb-2"
+            >
+              이메일 <span className="text-red-500">*</span>
+            </label>
+            <div className="flex justify-between">
+              {!isEmailOnUpdate ? (
+                <>
+                  <input
+                    id="email"
+                    type="text"
+                    placeholder={userInfo.email}
+                    defaultValue={userInfo.email}
+                    className="w-1/2 px-4 py-2 border border-gray-300 text-gray-300 rounded-md focus:outline-none focus:ring-2"
+                    readOnly
+                  />
+                  <button
+                    type="button"
+                    className="px-4 py-2 bg-gray-500 text-white text-sm rounded-md hover:bg-blue-600 focus:outline-none focus:ring-2"
+                    onClick={() => setIsEmailOnUpdate(true)}
+                  >
+                    이메일 변경
+                  </button>
+                </>
+              ) : (
+                <>
+                  <div className="w-1/2 flex gap-2">
+                    <input
+                      id="email"
+                      type="text"
+                      placeholder="변경하실 이메일을 적어주세요"
+                      className="px-4 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2"
+                    />
+                    <button
+                      type="button"
+                      className="px-4 py-2 bg-gray-500 text-white text-sm rounded-md hover:bg-blue-600 focus:outline-none focus:ring-2 focus:ring-blue-300"
+                      onClick={() => setIsEmailOnUpdate(false)}
+                    >
+                      변경
+                    </button>
+                  </div>
+                  <button
+                    type="button"
+                    className="px-4 py-2 bg-gray-500 text-white text-sm rounded-md hover:bg-blue-600 focus:outline-none focus:ring-2 focus:ring-blue-300"
+                    onClick={() => setIsEmailOnUpdate(false)}
+                  >
+                    이메일 변경 취소
+                  </button>
+                </>
+              )}
+            </div>
           </div>
 
           {/* 전화번호 */}
@@ -116,59 +196,65 @@ const MyPage = () => {
             >
               전화번호 <span className="text-red-500">*</span>
             </label>
+            <div className="flex justify-between">
+              <div className="w-1/2 flex justify-between items-center gap-2">
+                <input
+                  id="mobile1"
+                  name="mobile1"
+                  className="w-[120px] px-4 py-2 border border-gray-300 text-gray-300 text-center rounded-md focus:outline-none focus:ring-2"
+                  value={userInfo.phoneNumber.split('-')[0]}
+                  readOnly
+                ></input>
+                {/* <select
+                  id="mobile1"
+                  name="mobile1"
+                  className="w-[120px] px-4 py-2 border border-gray-300 text-gray-300 text-center rounded-md focus:outline-none focus:ring-2"
+                  value={userInfo.phoneNumber.split('-')[0]}
+                >
+                  <option value="010">010</option>
+                  <option value="011">011</option>
+                  <option value="016">016</option>
+                  <option value="017">017</option>
+                  <option value="018">018</option>
+                  <option value="019">019</option>
+                </select>*/}
+                <span>-</span>
 
-            <div className="flex justify-between items-center gap-2">
-              <select
-                id="mobile1"
-                name="mobile1"
-                className="w-[120px] px-4 py-2 border border-gray-300 text-center rounded-md focus:outline-none focus:ring-2"
-                value={userInfo.phoneNumber.split('-')[0]}
+                <input
+                  type="text"
+                  id="mobile2"
+                  name="mobile2"
+                  maxLength={4}
+                  placeholder="XXXX"
+                  className="w-[120px] px-4 py-2 border border-gray-300 text-gray-300 text-center rounded-md focus:outline-none focus:ring-2"
+                  defaultValue={userInfo.phoneNumber.split('-')[1]}
+                  readOnly
+                  // onChange={handleChange}
+                />
 
-                // onChange={handleChange}
+                <span>-</span>
+
+                <input
+                  type="text"
+                  id="mobile3"
+                  name="mobile3"
+                  maxLength={4}
+                  placeholder="XXXX"
+                  className="w-[120px] px-4 py-2 border border-gray-300 text-gray-300 text-center rounded-md focus:outline-none focus:ring-2"
+                  defaultValue={userInfo.phoneNumber.split('-')[2]}
+                  readOnly
+                  // onChange={handleChange}
+                />
+              </div>
+
+              <button
+                type="button"
+                className="px-4 py-2 bg-gray-500 text-white text-sm rounded-md hover:bg-blue-600 focus:outline-none focus:ring-2 focus:ring-blue-300"
+                // onClick={handleSendVerification}
               >
-                <option value="010">010</option>
-                <option value="011">011</option>
-                <option value="016">016</option>
-                <option value="017">017</option>
-                <option value="018">018</option>
-                <option value="019">019</option>
-              </select>
-
-              <span>-</span>
-
-              <input
-                type="text"
-                id="mobile2"
-                name="mobile2"
-                maxLength={4}
-                placeholder="XXXX"
-                className="w-1/3 px-4 py-2 border border-gray-300 text-center rounded-md focus:outline-none focus:ring-2"
-                defaultValue={userInfo.phoneNumber.split('-')[1]}
-                // onChange={handleChange}
-              />
-
-              <span>-</span>
-
-              <input
-                type="text"
-                id="mobile3"
-                name="mobile3"
-                maxLength={4}
-                placeholder="XXXX"
-                className="w-1/3 px-4 py-2 border border-gray-300 text-center rounded-md focus:outline-none focus:ring-2"
-                defaultValue={userInfo.phoneNumber.split('-')[2]}
-                // onChange={handleChange}
-              />
+                본인인증으로 정보 수정하기
+              </button>
             </div>
-
-            <button
-              type="button"
-              className="mt-2 text-sm text-blue-600 hover:underline"
-              // onClick={handleSendVerification}
-            >
-              인증번호 받기
-            </button>
-
             {/* 성공/실패 메시지는 조건부 렌더링
             {sendFail && (
               <p className="text-sm text-red-500 mt-1">
@@ -181,23 +267,6 @@ const MyPage = () => {
                 <li>받지 못했다면 번호를 다시 확인하세요.</li>
               </ul>
             )} */}
-          </div>
-
-          {/* 이메일 */}
-          <div>
-            <label
-              htmlFor="eamil"
-              className="block text-lg font-semibold text-gray-800 mb-2"
-            >
-              이메일 <span className="text-red-500">*</span>
-            </label>
-            <input
-              id="email"
-              type="text"
-              placeholder={userInfo.email}
-              defaultValue={userInfo.email}
-              className="w-full px-4 py-2 border border-gray-300 text-gray-300 rounded-md focus:outline-none focus:ring-2"
-            />
           </div>
 
           <div className="flex justify-between gap-4">
