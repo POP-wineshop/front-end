@@ -215,7 +215,7 @@ const CartPage = () => {
   return (
     <div className="w-full flex flex-col items-center">
       <div className="w-[800px]">
-        <div className="items-left py-8 w-full">
+        <div className="items-left py-20 w-full">
           <span className="cart-page-title text-[48px] font-bold italic">
             Cart
           </span>
