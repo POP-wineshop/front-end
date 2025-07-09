@@ -1,5 +1,15 @@
 import { useEffect, useState } from 'react';
-import { Navigate, Route, Routes, useNavigate } from 'react-router-dom';
+import {
+  Navigate,
+  NavLink,
+  Route,
+  Routes,
+  useNavigate,
+} from 'react-router-dom';
+import UserInfo from '@/components/myPage/userInfo/UserInfo';
+import OrderInfo from '@/components/myPage/orderInfo/OrderInfo';
+import AddressInfo from '@/components/myPage/addressInfo/AddressInfo';
+import LikesInfo from '@/components/myPage/likesInfo/LikesInfo';
 
 type OrderItem = {
   wineId: number;
@@ -32,6 +42,7 @@ const MyPage = () => {
   const [orderList, setOrderList] = useState<Order[]>([]);
 
   useEffect(() => {
+    // 주문 목록 조회 API 호출
     fetch(`http://localhost:8080/api/orders/my`, {
       headers: {
         Authorization: `${localStorage.getItem('Access Token')}`,
@@ -43,6 +54,7 @@ const MyPage = () => {
       });
   }, []);
 
+  // 주문 취소 API 호출
   const handleRequestOrderCancel = (
     e: React.MouseEvent<HTMLButtonElement>,
     orderId: number
@@ -65,308 +77,98 @@ const MyPage = () => {
   return (
     <div className="w-full flex flex-col items-center">
       <div className="w-[800px]">
-        <div className="py-8">
+        <div className="py-20">
           <span className="text-[48px] font-bold italic">My Page</span>
         </div>
 
+        {/* 추후 경로 모듈화 통해서 리팩토링 */}
+        {/* // src/constants/routes.ts
+        export const ROUTES = {
+          MYPAGE: '/mypage',
+          USER_INFO: '/mypage/user',
+          ORDER_INFO: '/mypage/order',
+          ADDRESS_INFO: '/mypage/address',
+          LIKES_INFO: '/mypage/likes',
+        }; */}
+
         <div className="my-page-tab">
-          <div className="border-b flex ">
-            <div className="px-3 py-1 text-gray-500 hover:font-semibold hover:text-gray-800 hover:shadow-sm hover:bg-gray-100 cursor-pointer">
+          <div className="flex ">
+            <NavLink
+              to="/mypage/user"
+              className={({ isActive }) =>
+                [
+                  'px-4 py-1 border-b cursor-pointer',
+                  isActive
+                    ? 'font-semibold text-gray-800 shadow-sm bg-gray-100'
+                    : 'text-gray-500 hover:font-semibold hover:text-gray-800 hover:shadow-sm hover:bg-gray-100',
+                ].join(' ')
+              }
+            >
+              회원 정보
+            </NavLink>
+            <NavLink
+              to="/mypage/order"
+              className={({ isActive }) =>
+                [
+                  'px-4 py-1 border-b cursor-pointer',
+                  isActive
+                    ? 'font-semibold text-gray-800 shadow-sm bg-gray-100'
+                    : 'text-gray-500 hover:font-semibold hover:text-gray-800 hover:shadow-sm hover:bg-gray-100',
+                ].join(' ')
+              }
+            >
+              주문 내역
+            </NavLink>
+            <NavLink
+              to="/mypage/address"
+              className={({ isActive }) =>
+                [
+                  'px-4 py-1 border-b cursor-pointer',
+                  isActive
+                    ? 'font-semibold text-gray-800 shadow-sm bg-gray-100'
+                    : 'text-gray-500 hover:font-semibold hover:text-gray-800 hover:shadow-sm hover:bg-gray-100',
+                ].join(' ')
+              }
+            >
+              배송지 목록
+            </NavLink>
+            <NavLink
+              to="/mypage/likes"
+              className={({ isActive }) =>
+                [
+                  'px-4 py-1 border-b cursor-pointer',
+                  isActive
+                    ? 'font-semibold text-gray-800 shadow-sm bg-gray-100'
+                    : 'text-gray-500 hover:font-semibold hover:text-gray-800 hover:shadow-sm hover:bg-gray-100',
+                ].join(' ')
+              }
+            >
+              좋아요 목록
+            </NavLink>
+
+            {/* <div className="px-4 py-1 border-b text-gray-500 hover:font-semibold hover:text-gray-800 hover:shadow-sm hover:bg-gray-100 cursor-pointer">
               회원 정보
             </div>
-            <div className="px-3 py-1 text-gray-500 hover:font-semibold hover:text-gray-800 hover:shadow-sm hover:bg-gray-100 cursor-pointer">
+            <div className="px-4 py-1 border-b text-gray-500 hover:font-semibold hover:text-gray-800 hover:shadow-sm hover:bg-gray-100 cursor-pointer">
               주문 내역
             </div>
-            <div className="px-3 py-1 text-gray-500 hover:font-semibold hover:text-gray-800 hover:shadow-sm hover:bg-gray-100 cursor-pointer">
-              배송지
+            <div className="px-4 py-1 border-b text-gray-500 hover:font-semibold hover:text-gray-800 hover:shadow-sm hover:bg-gray-100 cursor-pointer">
+              배송지 목록
             </div>
-            <div className="px-3 py-1 text-gray-500 hover:font-semibold hover:text-gray-800 hover:shadow-sm hover:bg-gray-100 cursor-pointer">
+            <div className="px-4 py-1 border-b text-gray-500 hover:font-semibold hover:text-gray-800 hover:shadow-sm hover:bg-gray-100 cursor-pointer">
               좋아요 목록
-            </div>
+            </div> */}
           </div>
         </div>
 
-        <div className="space-y-6 p-6">
-          {/* <Routes>
-            <Route index element={<Navigate to="userinfo" />} />
-            <Route path='userinfo' element={< />} />
-
-          </Routes> */}
-
-          {/* 아이디 */}
-          <div>
-            <label
-              htmlFor="userId"
-              className="block text-lg font-semibold text-gray-800 mb-2"
-            >
-              아이디 <span className="text-red-500">*</span>
-            </label>
-            <input
-              id="userId"
-              type="text"
-              placeholder={userInfo.id}
-              defaultValue={userInfo.id}
-              className="w-1/3 px-4 py-2 border border-gray-300 text-gray-300 rounded-md focus:outline-none focus:ring-2"
-              readOnly
-            />
-            <p className="text-xs text-gray-500 mt-2">
-              (영문 소문자 / 숫자 / 특수문자 포함 4~16자)
-            </p>
-          </div>
-
-          {/* 이름 */}
-          <div>
-            <label
-              htmlFor="userName"
-              className="block text-lg font-semibold text-gray-800 mb-2"
-            >
-              이름 <span className="text-red-500">*</span>
-            </label>
-            <input
-              id="userName"
-              type="text"
-              placeholder={userInfo.name}
-              defaultValue={userInfo.name}
-              className="w-1/3 px-4 py-2 border border-gray-300 text-gray-300 rounded-md focus:outline-none focus:ring-2"
-              readOnly
-            />
-          </div>
-
-          {/* 이메일 */}
-          <div>
-            <label
-              htmlFor="eamil"
-              className="block text-lg font-semibold text-gray-800 mb-2"
-            >
-              이메일 <span className="text-red-500">*</span>
-            </label>
-            <div className="flex justify-between">
-              {!isEmailOnUpdate ? (
-                <>
-                  <input
-                    id="email"
-                    type="text"
-                    placeholder={userInfo.email}
-                    defaultValue={userInfo.email}
-                    className="w-1/2 px-4 py-2 border border-gray-300 text-gray-300 rounded-md focus:outline-none focus:ring-2"
-                    readOnly
-                  />
-                  <button
-                    type="button"
-                    className="px-4 py-2 bg-gray-500 text-white text-sm rounded-md hover:bg-blue-600 focus:outline-none focus:ring-2"
-                    onClick={() => setIsEmailOnUpdate(true)}
-                  >
-                    이메일 변경
-                  </button>
-                </>
-              ) : (
-                <>
-                  <div className="w-1/2 flex gap-2">
-                    <input
-                      id="email"
-                      type="text"
-                      placeholder="변경하실 이메일을 적어주세요"
-                      className="px-4 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2"
-                    />
-                    <button
-                      type="button"
-                      className="px-4 py-2 bg-gray-500 text-white text-sm rounded-md hover:bg-blue-600 focus:outline-none focus:ring-2 focus:ring-blue-300"
-                      onClick={() => setIsEmailOnUpdate(false)}
-                    >
-                      변경
-                    </button>
-                  </div>
-                  <button
-                    type="button"
-                    className="px-4 py-2 bg-gray-500 text-white text-sm rounded-md hover:bg-blue-600 focus:outline-none focus:ring-2 focus:ring-blue-300"
-                    onClick={() => setIsEmailOnUpdate(false)}
-                  >
-                    이메일 변경 취소
-                  </button>
-                </>
-              )}
-            </div>
-          </div>
-
-          {/* 전화번호 */}
-          <div>
-            <label
-              htmlFor="mobile1"
-              className="block text-lg font-semibold text-gray-800 mb-2"
-            >
-              전화번호 <span className="text-red-500">*</span>
-            </label>
-            <div className="flex justify-between">
-              <div className="w-1/2 flex justify-between items-center gap-2">
-                <input
-                  id="mobile1"
-                  name="mobile1"
-                  className="w-[120px] px-4 py-2 border border-gray-300 text-gray-300 text-center rounded-md focus:outline-none focus:ring-2"
-                  value={userInfo.phoneNumber.split('-')[0]}
-                  readOnly
-                ></input>
-                {/* <select
-                  id="mobile1"
-                  name="mobile1"
-                  className="w-[120px] px-4 py-2 border border-gray-300 text-gray-300 text-center rounded-md focus:outline-none focus:ring-2"
-                  value={userInfo.phoneNumber.split('-')[0]}
-                >
-                  <option value="010">010</option>
-                  <option value="011">011</option>
-                  <option value="016">016</option>
-                  <option value="017">017</option>
-                  <option value="018">018</option>
-                  <option value="019">019</option>
-                </select>*/}
-                <span>-</span>
-
-                <input
-                  type="text"
-                  id="mobile2"
-                  name="mobile2"
-                  maxLength={4}
-                  placeholder="XXXX"
-                  className="w-[120px] px-4 py-2 border border-gray-300 text-gray-300 text-center rounded-md focus:outline-none focus:ring-2"
-                  defaultValue={userInfo.phoneNumber.split('-')[1]}
-                  readOnly
-                  // onChange={handleChange}
-                />
-
-                <span>-</span>
-
-                <input
-                  type="text"
-                  id="mobile3"
-                  name="mobile3"
-                  maxLength={4}
-                  placeholder="XXXX"
-                  className="w-[120px] px-4 py-2 border border-gray-300 text-gray-300 text-center rounded-md focus:outline-none focus:ring-2"
-                  defaultValue={userInfo.phoneNumber.split('-')[2]}
-                  readOnly
-                  // onChange={handleChange}
-                />
-              </div>
-
-              <button
-                type="button"
-                className="px-4 py-2 bg-gray-500 text-white text-sm rounded-md hover:bg-blue-600 focus:outline-none focus:ring-2 focus:ring-blue-300"
-                // onClick={handleSendVerification}
-              >
-                본인인증으로 정보 수정하기
-              </button>
-            </div>
-            {/* 성공/실패 메시지는 조건부 렌더링
-            {sendFail && (
-              <p className="text-sm text-red-500 mt-1">
-                인증번호 발송에 실패했습니다.
-              </p>
-            )}
-            {sendSuccess && (
-              <ul className="text-sm text-green-600 mt-1">
-                <li>인증번호가 발송되었습니다.</li>
-                <li>받지 못했다면 번호를 다시 확인하세요.</li>
-              </ul>
-            )} */}
-          </div>
-
-          <div className="flex justify-between gap-4">
-            <button className="w-1/3 px-4 py-2 bg-gray-500 text-white rounded-md hover:bg-blue-600 focus:outline-none focus:ring-2 focus:ring-blue-300">
-              회원 정보 수정
-            </button>
-            <button className="w-1/3 px-4 py-2 bg-gray-500 text-white rounded-md hover:bg-yellow-600 focus:outline-none focus:ring-2 focus:ring-yellow-300">
-              비밀번호 변경
-            </button>
-            <button className="w-1/3 px-4 py-2 bg-red-400 text-white rounded-md hover:bg-red-600 focus:outline-none focus:ring-2 focus:ring-red-300">
-              회원 탈퇴
-            </button>
-          </div>
-        </div>
-
-        <div className="my-6">
-          <h2 className="text-xl font-bold mb-2">주문 내역</h2>
-          {orderList.length > 0 ? (
-            orderList.map((order) => (
-              <div key={order.orderId} className="mb-6">
-                <div className="border px-4 py-2 cursor-pointer hover:bg-gray-100">
-                  <div className="flex items-center w-full">
-                    <div className="flex w-full">
-                      <span className="font-semibold border-r text-center px-2 w-1/4">
-                        주문 번호: {order.orderId}
-                      </span>
-                      <span className="font-semibold border-r text-center px-2 w-1/4">
-                        {/* 주문 일시: {order.orderDate} */}
-                        주문 일시: 2025년 XX월 XX일 XX:XX
-                      </span>
-                      <span className="font-semibold border-r text-center px-2 w-1/4">
-                        총 금액: {order.totalPrice.toLocaleString()}원
-                      </span>
-                      <span className="font-semibold text-center px-2 w-1/4">
-                        주문 상태: {order.orderStatus}
-                      </span>
-                    </div>
-                    <div className="flex justify-end pr-4">
-                      <button
-                        className="bg-red-400 text-white rounded px-4 py-1 whitespace-nowrap"
-                        onClick={(e) =>
-                          handleRequestOrderCancel(e, order.orderId)
-                        }
-                      >
-                        취소 요청
-                      </button>
-                    </div>
-                  </div>
-                </div>
-
-                <div className="border max-h-100 px-4 py-2 mt-2">
-                  <table className="w-full text-sm">
-                    <thead>
-                      <tr className="border-b">
-                        <th className="text-left py-1">이미지</th>
-                        <th className="text-left py-1">상품명</th>
-                        <th className="text-center py-1">수량</th>
-                        <th className="text-right py-1">가격</th>
-                        <th className="text-right py-1">합계</th>
-                      </tr>
-                    </thead>
-                    <tbody>
-                      {order.orderItems.map((item) => (
-                        <tr key={item.wineId} className="border-b">
-                          <td className="py-1">
-                            <img
-                              src={item.wineImageUrl}
-                              alt={item.wineNameKor}
-                              className="w-12 h-12 object-cover"
-                            />
-                          </td>
-                          <td
-                            className="py-1 cursor-pointer hover:underline hover:font-semibold"
-                            onClick={() => {
-                              navigate(`/description/${item.wineId}`, {
-                                state: { id: `${item.wineId}` },
-                              });
-                            }}
-                          >
-                            {item.wineNameKor}
-                          </td>
-                          <td className="text-center py-1">
-                            {item.orderedQuantity}
-                          </td>
-                          <td className="text-right py-1">
-                            {item.winePrice.toLocaleString()}원
-                          </td>
-                          <td className="text-right py-1 font-semibold">
-                            {item.orderedPrice.toLocaleString()}원
-                          </td>
-                        </tr>
-                      ))}
-                    </tbody>
-                  </table>
-                </div>
-              </div>
-            ))
-          ) : (
-            <p>주문 내역이 없습니다.</p>
-          )}
+        <div className="flex flex-col space-y-6 p-6">
+          <Routes>
+            <Route index element={<Navigate to="user" />} />
+            <Route path="user" element={<UserInfo />} />
+            <Route path="order" element={<OrderInfo />} />
+            <Route path="address" element={<AddressInfo />} />
+            <Route path="likes" element={<LikesInfo />} />
+          </Routes>
         </div>
       </div>
     </div>
