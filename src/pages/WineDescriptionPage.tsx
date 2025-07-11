@@ -5,7 +5,7 @@ import WineDescriptionTop from '../components/wineDescription/WineDescriptionTop
 import OrderModal from '../components/wineDescription/OrderModal';
 import { useLocation } from 'react-router-dom';
 
-type Wine = {
+type WineData = {
   id: number;
   price: number;
   vintage: number;
@@ -29,7 +29,7 @@ const WineDescriptionPage = () => {
   // WineListPage 내 WineItem에서 받아온 id값
   const location = useLocation();
 
-  const [wineData, setWineData] = useState<Wine>();
+  const [wineData, setWineData] = useState<WineData>();
   // const [isModalOn, setIsModalOn] = useState<boolean>(false);
 
   useEffect(() => {

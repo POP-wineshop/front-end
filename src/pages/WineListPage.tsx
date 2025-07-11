@@ -111,21 +111,11 @@ const WineListPage = () => {
         <div className="flex items-center justify-center gap-4 my-8">
           <img src={ToFirstPage} alt="첫 페이지" />
           <img src={ToPreviousPage} alt="이전 페이지" />
-          <span>
-            <a href="">1</a>
-          </span>
-          <span>
-            <a href="">2</a>
-          </span>
-          <span>
-            <a href="">3</a>
-          </span>
-          <span>
-            <a href="">4</a>
-          </span>
-          <span>
-            <a href="">5</a>
-          </span>
+          {[1, 2, 3, 4, 5].map((page) => (
+            <span key={page}>
+              <a href="">{page}</a>
+            </span>
+          ))}
           <img src={ToNextPage} alt="다음 페이지" />
           <img src={ToLastPage} alt="마지막 페이지" />
         </div>

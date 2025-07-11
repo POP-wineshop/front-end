@@ -3,7 +3,7 @@ import DuckhornMerlot from '@/assets/wineItem/Duckhorn_Napa Valley_Merlot.png';
 import { Heart, HeartPlus } from 'lucide-react';
 import { useNavigate } from 'react-router-dom';
 
-type Wine = {
+type WineData = {
   id: number;
   price: number;
   vintage: number;
@@ -23,17 +23,27 @@ type Wine = {
   engName: string;
 };
 
-type WineDataProps = { wineData: Wine };
+type WineDataProps = { wineData: WineData };
 
-const WineDescriptionTop: React.FC<WineDataProps> = ({ wineData }) => {
-  // const [wineNameEng, setWineNameEng] = useState<string>(wineData.engName);
-  // const [wineNameKor, setWineNameKor] = useState<string>(wineData.korName);
+const WineDescriptionTop = ({ wineData }: WineDataProps) => {
   const [isLiked, setIsLiked] = useState<boolean>(false);
   const [itemQuantity, setItemQuantity] = useState<number>(1);
 
-  const wineNameEng = wineData.engName;
-  const wineNameKor = wineData.korName;
-  const itemPrice = wineData.price;
+  const {
+    korName,
+    engName,
+    price,
+    vintage,
+    country,
+    grapeVariety,
+    region,
+    alcoholContent,
+    imageUrl,
+    // tasteProfile: { sweetness, acidity, body },
+    wineType,
+    stock,
+    id,
+  } = wineData;
 
   const navigate = useNavigate();
 
@@ -51,12 +61,12 @@ const WineDescriptionTop: React.FC<WineDataProps> = ({ wineData }) => {
   };
 
   const instantOrderData = {
-    wineId: wineData.id,
+    wineId: id,
     quantity: itemQuantity,
   };
 
   const cartOrderData = {
-    wineId: wineData.id,
+    wineId: id,
     quantity: itemQuantity,
   };
 
@@ -133,37 +143,37 @@ const WineDescriptionTop: React.FC<WineDataProps> = ({ wineData }) => {
   };
 
   const wineDescriptionDetails = [
-    { key: '타입', value: `${wineData.wineType}` },
+    { key: '타입', value: `${wineType}` },
     {
       key: '생산국 / 생산지',
-      value: `${wineData.country} > ${wineData.region}`,
+      value: `${country} > ${region}`,
     },
     { key: '와이너리', value: `와이너리` },
-    { key: '포도품종', value: `${wineData.grapeVariety}` },
+    { key: '포도품종', value: `${grapeVariety}` },
   ];
 
   const tasteProfiles = [
-    { label: '당도', low: '드라이', high: '스위트' },
-    { label: '산도', low: '낮음', high: '높음' },
-    { label: '바디', low: '가벼움', high: '무거움' },
+    { labelEng: 'sweetness', labelKor: '당도', low: '드라이', high: '스위트' },
+    { labelEng: 'acidity', labelKor: '산도', low: '낮음', high: '높음' },
+    { labelEng: 'body', labelKor: '바디', low: '가벼움', high: '무거움' },
   ];
 
   return (
-    <div className="wine-description-top flex gap-2 px-8 py-8 w-full min-h-[500px] mx-auto justify-center items-center">
-      <div className="wine-description-top-left w-2/5 flex justify-center items-center h-full">
+    <div className="wine-description-top flex gap-4 m-8 min-w-[800px] min-h-[500px] justify-evenly items-center">
+      <div className="wine-description-top-left">
         <img
           className="object-contain w-auto h-[480px] mx-auto my-auto"
           src={DuckhornMerlot}
           alt="와인 상세 이미지"
         />
       </div>
-      <div className="wine-description-top-right w-3/5">
+      <div className="wine-description-top-right font-pretendard w-[500px]">
         <div className="wine-description-name mb-8 relative">
-          <p className="wine-description-name-eng text-base text-[#333] mb-1">
-            {wineNameEng}
+          <p className="wine-description-name-eng italic text-lg font-light text-[#666666] mb-1">
+            {engName}
           </p>
           <p className="wine-description-name-kor text-3xl font-semibold text-[#111]">
-            {wineNameKor}
+            {korName}
           </p>
           <div className="wine-description-isLiked-button absolute right-0 top-1/2 -translate-y-1/2">
             <button className="text-black" onClick={() => setIsLiked(!isLiked)}>
@@ -188,9 +198,9 @@ const WineDescriptionTop: React.FC<WineDataProps> = ({ wineData }) => {
           </table>
         </div>
         <div className="wine-description-taste-profile border-t border-b">
-          {tasteProfiles.map(({ label, low, high }) => (
-            <div key={label} className="flex items-center my-4 pr-4">
-              <strong className="w-40">{label}</strong>
+          {tasteProfiles.map(({ labelEng, labelKor, low, high }) => (
+            <div key={labelEng} className="flex items-center my-4 pr-4">
+              <strong className="w-40">{labelKor}</strong>
               <span className="w-12 text-xs text-right">{low}</span>
               <div className="flex gap-4 mx-3">
                 {/* 수평 간격 12px = 3 * 4px */}
@@ -222,7 +232,7 @@ const WineDescriptionTop: React.FC<WineDataProps> = ({ wineData }) => {
               <span className="font-semibold text-xl">TOTAL</span>
               {/* <span>₩{itemQuantity * itemPrice}</span> */}
               <span className="font-semibold text-xl">
-                ₩{(itemPrice * itemQuantity).toLocaleString()}
+                ₩{(price * itemQuantity).toLocaleString()}
               </span>
             </div>
           </div>

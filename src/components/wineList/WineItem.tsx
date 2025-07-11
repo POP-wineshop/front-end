@@ -34,36 +34,45 @@ const WineItem = ({ wineData }: WineItemProps) => {
 
   return (
     <>
-      <div
-        className="wine-item w-full flex flex-col items-center bg-white rounded-lg p-4 h-96 cursor-pointer"
-        onClick={() => {
-          navigate(`/description/${wineData.id}`, {
-            state: { id: `${wineData.id}` },
-          });
-        }}
-      >
-        <div className="w-full h-3/4 flex items-center justify-center overflow-hidden border ">
+      <div className="wine-item w-full flex flex-col items-center bg-white rounded-lg p-4 h-full">
+        <div className="w-full h-full flex items-center justify-center border hover:ring-1 hover:ring-[#6A1B1A] transition duration-200 ease-in-out cursor-pointer">
           <img
             src={DuckhornMerlot}
             alt="와인 이미지"
-            className="object-contain w-full h-56"
+            className="object-contain w-full h-64"
+            onClick={() => {
+              navigate(`/description/${wineData.id}`, {
+                state: { id: `${wineData.id}` },
+              });
+            }}
           />
         </div>
-
         <div className="wine-name w-full text-left mt-4">
-          <p className="font-bold text-xl">{wineData.korName}</p>
-          <p className="text-lg text-gray-500">{wineData.engName}</p>
-          {/* <p className="font-bold text-2xl">{wineNameKor}</p>
-          <p className="text-lg text-gray-500">{wineNameEng}</p> */}
+          <div
+            onClick={() => {
+              navigate(`/description/${wineData.id}`, {
+                state: { id: `${wineData.id}` },
+              });
+            }}
+            className="inline-block cursor-pointer hover:underline "
+          >
+            <span className="font-pretendard font-semibold line-clamp-1">
+              {wineData.korName}
+            </span>
+            <span className="italic text-gray-500 line-clamp-1">
+              {wineData.engName}
+            </span>
+          </div>
         </div>
-
-        <div className="w-full mt-2 text-left text-base text-gray-600">
-          <p>간략한 와인 설명</p>
+        <div className="w-full text-left text-sm text-gray-600">
+          <p className="line-clamp-1">간략한 와인 설명</p>
         </div>
-
-        <div className="w-full mt-2 text-right text-base font-bold text-gray-600">
+        <div className="w-full mt-2 text-right text-xl font-semibold text-gray-600">
           {/* <p>₩{price}</p> */}
-          <p>₩{wineData.price.toLocaleString()}</p>
+          <p>
+            ₩{wineData.price.toLocaleString()}{' '}
+            <span className="text-gray-500 text-sm">/ btl.</span>
+          </p>
         </div>
       </div>
     </>
