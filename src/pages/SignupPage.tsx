@@ -6,6 +6,8 @@ const SignupPage = () => {
   const [password, setPassword] = useState<string>('');
   const [pwForConfirming, setPwForConfirming] = useState<string>('');
   const [name, setName] = useState<string>('');
+  const [email, setEmail] = useState<string>('');
+  const [phoneNumber, setPhoneNumber] = useState<string>('');
 
   const navigate = useNavigate();
 
@@ -34,18 +36,18 @@ const SignupPage = () => {
   return (
     <>
       <div
-        className="flex justify-center items-center"
+        className="w-full"
         // 스크린 높이 - 헤더 높이 (120px)
-        style={{ minHeight: 'calc(100vh - 120px)' }}
+        // style={{ minHeight: 'calc(100vh - 120px)' }}
       >
         <form
           onSubmit={(e) => {
             e.preventDefault();
             handleSignup();
           }}
-          className="flex flex-col gap-4 w-full max-w-md p-8 bg-white rounded-xl shadow-md"
+          className="mx-auto my-16 flex flex-col gap-4 w-full max-w-md min-w-[400px] p-8 bg-white rounded-xl shadow-md"
         >
-          <h2 className="text-2xl font-bold text-center mb-4">회원가입</h2>
+          <p className="italic text-3xl font-bold text-center mb-4">Sign Up</p>
 
           <div>
             <label
@@ -54,13 +56,18 @@ const SignupPage = () => {
             >
               아이디
             </label>
-            <input
-              id="userName"
-              type="text"
-              onChange={(e) => setUserName(e.target.value)}
-              placeholder="아이디를 입력해주세요"
-              className="w-full p-2 border border-[#D4D4D4] rounded-md focus:outline-none focus:ring focus:ring-1 focus:ring-[#6A1B1A]"
-            />
+            <div className="flex gap-2 justify-between items-center">
+              <input
+                id="userName"
+                type="text"
+                onChange={(e) => setUserName(e.target.value)}
+                placeholder="아이디를 입력해주세요"
+                className="w-full p-2 border border-[#D4D4D4] rounded-md focus:outline-none focus:ring focus:ring-1 focus:ring-[#6A1B1A]"
+              />
+              <button className="w-1/4 px-4 py-2 border border-[#6A1B1A] rounded-md bg-[#6A1B1A] text-white whitespace-nowrap hover:bg-[#8B2E2E] hover:border-[#8B2E2E] transition-colors duration-150">
+                <span>중복 확인</span>
+              </button>
+            </div>
           </div>
 
           <div>
@@ -109,6 +116,49 @@ const SignupPage = () => {
               placeholder="이름을 입력해주세요"
               className="w-full p-2 border border-[#D4D4D4] rounded-md focus:outline-none focus:ring focus:ring-1 focus:ring-[#6A1B1A]"
             />
+          </div>
+
+          <div>
+            <label
+              htmlFor="email"
+              className="block mb-1 text-sm font-medium text-gray-700"
+            >
+              이메일 주소
+            </label>
+            <div className="flex gap-2 justify-between items-center">
+              <input
+                id="email"
+                type="email"
+                onChange={(e) => setEmail(e.target.value)}
+                placeholder="메일 주소를 입력해주세요"
+                className="w-full p-2 border border-[#D4D4D4] rounded-md focus:outline-none focus:ring focus:ring-1 focus:ring-[#6A1B1A]"
+              />
+              <button className="w-1/4 px-4 py-2 border border-[#6A1B1A] rounded-md bg-[#6A1B1A] text-white whitespace-nowrap hover:bg-[#8B2E2E] hover:border-[#8B2E2E] transition-colors duration-150">
+                <span>중복 확인</span>
+              </button>
+            </div>
+          </div>
+
+          <div>
+            <label
+              htmlFor="phone"
+              className="block mb-1 text-sm font-medium text-gray-700"
+            >
+              전화번호
+            </label>
+
+            <div className="flex gap-2 justify-between items-center">
+              <input
+                id="phone"
+                type="tel"
+                onChange={(e) => setPhoneNumber(e.target.value)}
+                placeholder="전화번호를 입력해주세요"
+                className="w-full p-2 border border-[#D4D4D4] rounded-md focus:outline-none focus:ring focus:ring-1 focus:ring-[#6A1B1A]"
+              />
+              <button className="w-1/4 px-4 py-2 border border-[#6A1B1A] rounded-md bg-[#6A1B1A] text-white whitespace-nowrap hover:bg-[#8B2E2E] hover:border-[#8B2E2E] transition-colors duration-150">
+                <span>중복 확인</span>
+              </button>
+            </div>
           </div>
 
           <button

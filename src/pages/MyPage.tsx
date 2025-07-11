@@ -77,7 +77,7 @@ const MyPage = () => {
   return (
     <div className="w-full flex flex-col items-center">
       <div className="w-[800px]">
-        <div className="py-20">
+        <div className="py-16">
           <span className="text-[48px] font-bold italic">My Page</span>
         </div>
 
@@ -91,13 +91,13 @@ const MyPage = () => {
           LIKES_INFO: '/mypage/likes',
         }; */}
 
-        <div className="my-page-tab">
-          <div className="flex ">
+        <div className="my-page-tab w-full border-b border-gray-300">
+          <div className="flex">
             <NavLink
               to="/mypage/user"
               className={({ isActive }) =>
                 [
-                  'px-4 py-1 border-b cursor-pointer',
+                  'w-1/4 py-2 cursor-pointer',
                   isActive
                     ? 'font-semibold text-gray-800 shadow-sm bg-gray-100'
                     : 'text-gray-500 hover:font-semibold hover:text-gray-800 hover:shadow-sm hover:bg-gray-100',
@@ -110,7 +110,7 @@ const MyPage = () => {
               to="/mypage/order"
               className={({ isActive }) =>
                 [
-                  'px-4 py-1 border-b cursor-pointer',
+                  'w-1/4 py-2 cursor-pointer',
                   isActive
                     ? 'font-semibold text-gray-800 shadow-sm bg-gray-100'
                     : 'text-gray-500 hover:font-semibold hover:text-gray-800 hover:shadow-sm hover:bg-gray-100',
@@ -123,7 +123,7 @@ const MyPage = () => {
               to="/mypage/address"
               className={({ isActive }) =>
                 [
-                  'px-4 py-1 border-b cursor-pointer',
+                  'w-1/4 py-2 cursor-pointer',
                   isActive
                     ? 'font-semibold text-gray-800 shadow-sm bg-gray-100'
                     : 'text-gray-500 hover:font-semibold hover:text-gray-800 hover:shadow-sm hover:bg-gray-100',
@@ -136,7 +136,7 @@ const MyPage = () => {
               to="/mypage/likes"
               className={({ isActive }) =>
                 [
-                  'px-4 py-1 border-b cursor-pointer',
+                  'w-1/4 py-2 cursor-pointer',
                   isActive
                     ? 'font-semibold text-gray-800 shadow-sm bg-gray-100'
                     : 'text-gray-500 hover:font-semibold hover:text-gray-800 hover:shadow-sm hover:bg-gray-100',
@@ -145,19 +145,6 @@ const MyPage = () => {
             >
               좋아요 목록
             </NavLink>
-
-            {/* <div className="px-4 py-1 border-b text-gray-500 hover:font-semibold hover:text-gray-800 hover:shadow-sm hover:bg-gray-100 cursor-pointer">
-              회원 정보
-            </div>
-            <div className="px-4 py-1 border-b text-gray-500 hover:font-semibold hover:text-gray-800 hover:shadow-sm hover:bg-gray-100 cursor-pointer">
-              주문 내역
-            </div>
-            <div className="px-4 py-1 border-b text-gray-500 hover:font-semibold hover:text-gray-800 hover:shadow-sm hover:bg-gray-100 cursor-pointer">
-              배송지 목록
-            </div>
-            <div className="px-4 py-1 border-b text-gray-500 hover:font-semibold hover:text-gray-800 hover:shadow-sm hover:bg-gray-100 cursor-pointer">
-              좋아요 목록
-            </div> */}
           </div>
         </div>
 
@@ -166,7 +153,7 @@ const MyPage = () => {
             <Route index element={<Navigate to="user" />} />
             <Route path="user" element={<UserInfo />} />
             <Route path="order" element={<OrderInfo />} />
-            <Route path="address" element={<AddressInfo />} />
+            <Route path="/address/*" element={<AddressInfo />} />
             <Route path="likes" element={<LikesInfo />} />
           </Routes>
         </div>
