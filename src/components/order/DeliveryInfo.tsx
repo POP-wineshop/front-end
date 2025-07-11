@@ -18,7 +18,7 @@ const DeliveryInfo = () => {
 
   return (
     <>
-      <div className="delivery-info w-1/2 flex flex-col gap-3">
+      <div className="delivery-info flex flex-col gap-3">
         <div className="delivery-info-header">
           <p className="text-2xl font-bold">배송 정보</p>
         </div>
