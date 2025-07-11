@@ -153,7 +153,7 @@ export const CartItem = ({
                 onClick={handleInstantOrder}
                 className="cart-item-button-order bg-[#e8e5eb] px-4 py-2 rounded-xl font-bold"
               >
-                개별 주문하기
+                따로 주문하기
               </button>
             </div>
           </div>

@@ -1,4 +1,4 @@
-import { useEffect, useState } from 'react';
+import { use, useEffect, useState } from 'react';
 
 type CartWineItem = {
   cartItemId: number;
@@ -48,6 +48,11 @@ const CartPayment = ({
     { key: '할인/부가결제', value: 0 },
     { key: '총 결제 예정 금액', value: 0 },
   ]);
+
+  // 선택된 장바구니 아이템 목록이 변경될 때마다 로그 출력
+  // useEffect(() => {
+  //   console.log('selectedCartItemList:', selectedCartItemList);
+  // }, [selectedCartItemList]);
 
   // function toCurrencyFormat(value: number): string {
   //   return value.toString().replace(/\B(?<!\.\d*)(?=(\d{3})+(?!\d))/g, ',');
@@ -120,6 +125,7 @@ const CartPayment = ({
             onClick={async () => {
               await onPatchCartQuantities();
               onOrderSelected();
+              console.log('selectedCartItemList:', selectedCartItemList);
             }}
           >
             선택 상품 <span>{selectedPaymentPrice.toLocaleString()}</span>원

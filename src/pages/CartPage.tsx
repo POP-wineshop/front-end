@@ -63,21 +63,27 @@ const CartPage = () => {
     }
   };
 
-  // 아이템 개별 선택
+  // 장바구니 아이템 개별 선택/해제 함수
   const handleSelectCartItem = (id: number) => {
+    // 이미 선택된 아이템이면(같은 wineId가 있으면)
     if (selectedCartItemList.some((item) => item.wineId === id)) {
+      // 해당 아이템만 빼고(selected 해제) 새로운 리스트 생성
       const updatedList = selectedCartItemList.filter(
         (cartItem) => cartItem.wineId !== id
       );
+      // 선택된 아이템 리스트 갱신
       setSelectedCartItemList(updatedList);
     } else {
+      // 아직 선택되지 않은 아이템일 경우, 원본 리스트에서 해당 아이템 찾기
       const targetItem = cartItemList.find(
         (cartItem) => cartItem.wineId === id || ''
       );
 
+      // 찾은 아이템이 존재하면
       if (targetItem) {
-        // targetItem이 없을 경우에 대한 방지
+        // 기존 선택 리스트에 추가해서 새로운 리스트 생성
         const updatedList = [...(selectedCartItemList || []), targetItem];
+        // 선택된 아이템 리스트 갱신
         setSelectedCartItemList(updatedList);
       }
     }
@@ -115,6 +121,7 @@ const CartPage = () => {
 
   // 장바구니 수량 상태를 서버에 PATCH 요청으로 동기화하는 함수
   const handlePatchCartQuantities = async () => {
+    // patch 요청의 반환값을 배열로 받기 위해 map 사용
     const patchRequests = cartItemList.map((item) =>
       fetch(`http://localhost:8080/api/carts/${item.cartItemId}`, {
         method: 'PATCH',
@@ -157,65 +164,63 @@ const CartPage = () => {
 
   // 선택된 장바구니 아이템 주문 생성
   const handleOrderSelectedCartItems = () => {
-    selectedCartItemList?.forEach((item) => {
-      fetch(`http://localhost:8080/api/orders/from-cart`, {
-        method: 'POST',
-        headers: {
-          Authorization: `${localStorage.getItem('Access Token')}`,
-          'Content-Type': 'application/json',
-        },
-        body: JSON.stringify(selectedCartItemList),
-      })
-        .then((res) => res.json())
-        .then((jsonRes) => {
-          console.log(
-            `장바구니 내 선택된 아이템 주문 생성 성공 : `,
-            item.wineId
-          );
-          alert(`장바구니 내 선택된 아이템 주문 생성 성공!`);
-          // navigate(`/order`, { state: { orderId: jsonRes.data.orderId } });
-          navigate(`/order`, {
-            state: {
-              orderId: jsonRes.data.orderId,
-              tossOrderId: jsonRes.data.tossOrderId,
-            },
-          });
-        })
-        .catch((error) => {
-          console.error(`장바구니 내 선택된 아이템 주문 생성 실패 : `, error);
-          alert(`장바구니 내 선택된 아이템 주문 생성 실패 ㅠ : ${error}`);
+    const selectedCartItemIds = selectedCartItemList.map(
+      (item) => item.cartItemId
+    );
+    console.log(`선택된 장바구니 아이템 ID 목록 : `, selectedCartItemIds);
+
+    fetch(`http://localhost:8080/api/orders/cart`, {
+      method: 'POST',
+      headers: {
+        Authorization: `${localStorage.getItem('Access Token')}`,
+        'Content-Type': 'application/json',
+      },
+      body: JSON.stringify(selectedCartItemIds),
+    })
+      .then((res) => res.json())
+      .then((jsonRes) => {
+        console.log(`장바구니 내 선택된 아이템 주문 생성 성공: `, jsonRes);
+        alert(`장바구니 내 선택된 아이템 주문 생성 성공!`);
+        // navigate(`/order`, { state: { orderId: jsonRes.data.orderId } });
+        navigate(`/order`, {
+          state: {
+            orderId: jsonRes.data.orderId,
+          },
         });
-    });
+        console.log('Cart Page에서 보낸 orderId :', jsonRes.data.orderId);
+      })
+      .catch((error) => {
+        console.error(`장바구니 내 선택된 아이템 주문 생성 실패 : `, error);
+        alert(`장바구니 내 선택된 아이템 주문 생성 실패 ㅠ : ${error}`);
+      });
   };
 
   // 모든 장바구니 아이템 주문 생성
   const handleOrderAllCartItems = () => {
-    cartItemList.forEach((item) => {
-      fetch(`http://localhost:8080/api/orders/from-cart`, {
-        method: 'POST',
-        headers: {
-          Authorization: `${localStorage.getItem('Access Token')}`,
-          'Content-Type': 'application/json',
-        },
-        body: JSON.stringify(cartItemList),
+    fetch(`http://localhost:8080/api/orders/from-cart`, {
+      method: 'POST',
+      headers: {
+        Authorization: `${localStorage.getItem('Access Token')}`,
+        'Content-Type': 'application/json',
+      },
+      body: JSON.stringify(cartItemList),
+    })
+      .then((res) => res.json())
+      .then((jsonRes) => {
+        console.log(`장바구니 내 모든 아이템 주문 생성 성공 : `, jsonRes);
+        alert(`장바구니 내 모든 아이템 주문 생성 성공!`);
+        navigate(`/order`, { state: { orderId: jsonRes.data.orderId } });
       })
-        .then((res) => res.json())
-        .then((jsonRes) => {
-          console.log(`장바구니 내 모든 아이템 주문 생성 성공 : `, jsonRes);
-          alert(`장바구니 내 모든 아이템 주문 생성 성공!`);
-          navigate(`/order`, { state: { orderId: jsonRes.data.orderId } });
-        })
-        .catch((error) => {
-          console.error(`장바구니 내 모든 아이템 주문 생성 실패 : `, error);
-          alert(`장바구니 내 모든 아이템 주문 생성 실패 ㅠ : ${error}`);
-        });
-    });
+      .catch((error) => {
+        console.error(`장바구니 내 모든 아이템 주문 생성 실패 : `, error);
+        alert(`장바구니 내 모든 아이템 주문 생성 실패 ㅠ : ${error}`);
+      });
   };
 
   return (
     <div className="w-full flex flex-col items-center">
       <div className="w-[800px]">
-        <div className="items-left py-20 w-full">
+        <div className="items-left py-16 w-full">
           <span className="cart-page-title text-[48px] font-bold italic">
             Cart
           </span>
