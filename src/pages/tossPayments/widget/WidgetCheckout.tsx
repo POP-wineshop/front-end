@@ -91,7 +91,7 @@ export function WidgetCheckout() {
   };
 
   return (
-    <div className="wrapper w-100">
+    <div className="wrapper w-[600px] mx-auto">
       <div className="w-100">
         <div id="payment-method" className="w-100" />
         <div id="agreement" className="w-100" />

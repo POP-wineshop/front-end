@@ -4,7 +4,7 @@ export function WidgetFail() {
   const [searchParams] = useSearchParams();
 
   return (
-    <div className="wrapper mx-auto max-w-[500px] font-pretendard">
+    <div className="wrapper mx-auto w-[500px] font-pretendard">
       <div className="mx-auto bg-white rounded-2xl shadow-md p-6 flex flex-col items-center gap-6">
         <img
           src="https://static.toss.im/lotties/error-spot-no-loop-space-apng.png"
@@ -44,6 +44,11 @@ export function WidgetFail() {
           <Link to="https://discord.gg/A4fRFXQhRu">
             <button className="w-full py-2 text-sm font-medium bg-[#e8f3ff] text-[#1b64da] rounded-md hover:bg-[#d6e8ff]">
               실시간 문의
+            </button>
+          </Link>
+          <Link to="/">
+            <button className="w-full py-2 text-sm font-medium bg-[#fff3e0] text-[#ef6c00] rounded-md hover:bg-[#ffe0b2]">
+              홈 화면으로 이동
             </button>
           </Link>
         </div>
