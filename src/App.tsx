@@ -2,7 +2,6 @@ import WineListPage from './pages/WineListPage';
 import WineDescriptionPage from './pages/WineDescriptionPage';
 import OrderPage from './pages/OrderPage';
 import CartPage from './pages/CartPage';
-import LikesPage from './pages/LikesPage';
 
 // import WinePostPage from './pages/WinePostPage';
 
@@ -11,6 +10,7 @@ import WineApiTestPage from './pages/WineApiTestPage';
 import './App.css';
 import { Navigate, Route, Routes, useLocation } from 'react-router-dom';
 import Header from './components/common/Header';
+import Footer from './components/common/Footer';
 import BackOfficePage from './pages/backOffice/BackOfficePage';
 import WineFilter from './components/common/WineFilter';
 import SignupPage from './pages/SignupPage';
@@ -43,16 +43,18 @@ function App() {
             </Routes>
           </div>
         ) : (
-          <div className="main-layout">
+          <div className="service-page-layout">
             <Header />
             {shouldShowWineFilter && <WineFilter />}
-            <main>
+            <main
+              className="main-layout"
+              style={{ minHeight: `calc(100vh - 120px)` }}
+            >
               <Routes>
-                <Route index element={<Navigate to="login" />} />
+                <Route index element={<Navigate to="list" />} />
 
                 <Route path="/signup" element={<SignupPage />} />
                 <Route path="/login" element={<LoginPage />} />
-                <Route path="/likes" element={<LikesPage />} />
                 <Route path="/mypage/*" element={<MyPage />} />
                 <Route path="/list" element={<WineListPage />} />
                 <Route
@@ -66,6 +68,7 @@ function App() {
                 <Route path="/apitest" element={<WineApiTestPage />} />
               </Routes>
             </main>
+            <Footer />
           </div>
         )}
       </div>
