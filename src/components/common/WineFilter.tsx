@@ -17,16 +17,16 @@ const WineFilter = () => {
   ];
 
   const regions = [
-    '생산지',
-    '꼬드 드 뉘 > 뉘 생 조르쥬',
-    '꼬뜨 드 뉘',
-    '꼬뜨 드 뉘 빌라쥐',
-    '꼬뜨 드 본',
-    '꼬뜨 드 본 > 뫼르소',
-    '꼬뜨 드 본 > 뽀마르',
-    '꼬뜨 드 본 > 상뜨네',
-    '꼬뜨 드 본 > 알록스 꼬르통',
-    '마꼬네',
+    { key: '생산지', value: '' },
+    { key: '꼬드 드 뉘 > 뉘 생 조르쥬', value: '꼬드 드 뉘 > 뉘 생 조르쥬' },
+    { key: '꼬뜨 드 뉘', value: '꼬뜨 드 뉘' },
+    { key: '꼬뜨 드 뉘 빌라쥐', value: '꼬뜨 드 뉘 빌라쥐' },
+    { key: '꼬뜨 드 본', value: '꼬뜨 드 본' },
+    { key: '꼬뜨 드 본 > 뫼르소', value: '꼬뜨 드 본 > 뫼르소' },
+    { key: '꼬뜨 드 본 > 뽀마르', value: '꼬뜨 드 본 > 뽀마르' },
+    { key: '꼬뜨 드 본 > 상뜨네', value: '꼬뜨 드 본 > 상뜨네' },
+    { key: '꼬뜨 드 본 > 알록스 꼬르통', value: '꼬뜨 드 본 > 알록스 꼬르통' },
+    { key: '마꼬네', value: '마꼬네' },
   ];
 
   const wineTypes = [
@@ -106,7 +106,7 @@ const WineFilter = () => {
 
   return (
     <>
-      <div className="wine-filter-search flex justify-between items-center my-8 px-8 w-full min-w-[700px] mx-auto">
+      <div className="wine-filter-search flex justify-between items-center gap-4 border rounded-lg bg-[#A83E3E] m-8 px-8 py-4 min-w-[800px]">
         <div className="wine-filter flex gap-4 items-center">
           <div className="wine-filter-country items-center">
             <select
@@ -127,7 +127,9 @@ const WineFilter = () => {
               className="w-32 p-2 rounded border border-[#D4D4D4] text-[#171717] shadow-sm focus:outline-none focus:ring-1 focus:ring-[#6A1B1A] transition duration-200 ease-in-out"
             >
               {regions.map((region) => (
-                <option key={region}>{region}</option>
+                <option key={region.key} value={region.value}>
+                  {region.key}
+                </option>
               ))}
             </select>
           </div>
@@ -151,7 +153,7 @@ const WineFilter = () => {
             <input
               type="text"
               placeholder="와인 이름을 적어주세요!"
-              className="w-64 p-2 rounded border border-[#D4D4D4] text-[#171717] shadow-sm focus:outline-none focus:ring-1 focus:ring-[#6A1B1A] transition duration-200 ease-in-out"
+              className="font-pretendard w-64 px-4 py-2 rounded border border-[#D4D4D4] text-[#171717] shadow-sm focus:outline-none focus:ring-1 focus:ring-[#6A1B1A] transition duration-200 ease-in-out"
               onChange={(e) => setKeyword(e.target.value)}
             />
             <button

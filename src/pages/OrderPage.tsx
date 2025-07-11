@@ -25,7 +25,6 @@ interface OrderInfo {
 const OrderPage = () => {
   const location = useLocation();
   const orderId = location.state.orderId;
-  const tossOrderId = location.state.tossOrderId;
 
   const [orderInfo, setOrderInfo] = useState<OrderInfo | null>();
 
@@ -52,7 +51,7 @@ const OrderPage = () => {
     <>
       <div className="w-full flex flex-col items-center">
         <div className="w-[800px]">
-          <div className="items-left py-20 w-full">
+          <div className="items-left py-16 w-full">
             <span className="order-page-title text-[48px] font-bold italic">
               Order
             </span>
@@ -73,9 +72,9 @@ const OrderPage = () => {
               <div>로딩 중입니다...</div>
             )}
           </div>
-          <div className="delivery-info-payment-method-container w-full py-8 flex justify-between gap-8">
+          <div className="delivery-info-container w-full py-8">
             <DeliveryInfo />
-            <PaymentMethod />
+            {/* <PaymentMethod /> */}
           </div>
           <div className="order-payment-container w-full py-8">
             {orderInfo ? (

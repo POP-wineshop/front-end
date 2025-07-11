@@ -44,19 +44,15 @@ const LoginPage = () => {
   };
 
   return (
-    <div
-      className="flex justify-center items-center"
-      // 스크린 높이 - 헤더 높이 (120px)
-      style={{ minHeight: 'calc(100vh - 120px)' }}
-    >
+    <div className="mx-auto pt-32 mb-32 ">
       <form
         onSubmit={(e) => {
           e.preventDefault();
           handleLogin();
         }}
-        className="flex flex-col gap-4 w-full max-w-md p-8 bg-white rounded-xl shadow-md"
+        className="m-auto flex flex-col gap-4 w-full max-w-md p-8 bg-white rounded-xl shadow-md"
       >
-        <h2 className="text-2xl font-bold text-center mb-4">로그인</h2>
+        <p className="italic text-3xl font-bold text-center mb-4">Login</p>
 
         <div>
           <label
@@ -97,7 +93,9 @@ const LoginPage = () => {
           로그인
         </button>
         <div className="text-center">
-          <span className="text-sm text-gray-600">계정이 없나요? </span>
+          <span className="text-sm text-gray-600">
+            가입된 계정이 없으신가요?{' '}
+          </span>
           <Link
             to="/signup"
             className="text-sm text-[#6A1B1A] hover:underline font-medium"

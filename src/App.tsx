@@ -48,7 +48,7 @@ function App() {
             {shouldShowWineFilter && <WineFilter />}
             <main
               className="main-layout"
-              style={{ minHeight: `calc(100vh - 120px)` }}
+              style={{ minHeight: `calc(100vh - 280px)` }}
             >
               <Routes>
                 <Route index element={<Navigate to="list" />} />
