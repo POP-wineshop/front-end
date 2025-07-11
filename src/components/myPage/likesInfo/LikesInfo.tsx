@@ -1,6 +1,11 @@
 import { useEffect, useState } from 'react';
-import LikesItem from '../components/likes/LikesItem';
+import LikesItem from '@/components/myPage/likesInfo/LikesItem';
 import { useNavigate } from 'react-router-dom';
+
+import ToFirstPage from '@/assets/pagination/WineListPage_Pagination_ToFirstPage.svg';
+import ToPreviousPage from '@/assets/pagination/WineListPage_Pagination_ToPreviousPage.svg';
+import ToNextPage from '@/assets/pagination/WineListPage_Pagination_ToNextPage.svg';
+import ToLastPage from '@/assets/pagination/WineListPage_Pagination_ToLastPage.svg';
 
 // type LikesWineItem = {
 //   wineName: string;
@@ -29,7 +34,7 @@ type LikesWineItemExample = {
   };
 };
 
-const LikesPage = () => {
+const LikesInfo = () => {
   const navigate = useNavigate();
   const [likesItemList, setLikesItemList] = useState<LikesWineItemExample[]>(
     []
@@ -57,21 +62,31 @@ const LikesPage = () => {
 
   return (
     <div className="w-full flex flex-col items-center">
-      <div className="w-[800px]">
-        <div className="items-left py-20 w-full">
+      {/* <div className="items-left py-20 w-full">
           <span className="likes-page-title text-[48px] font-bold italic">
             Likes
           </span>
-        </div>
-        <div className="likes-items-container w-full py-8">
-          {/* 주문 진행 중인 상품 목록의 데이터 형태에 따라 달라짐 */}
-          {likesItemList?.map((likesItem) => (
-            <LikesItem key={likesItem.id} likesWineItem={likesItem} />
-          ))}
-        </div>
+        </div> */}
+      <div className="likes-items-container w-full py-8">
+        {/* 주문 진행 중인 상품 목록의 데이터 형태에 따라 달라짐 */}
+        {likesItemList?.map((likesItem) => (
+          <LikesItem key={likesItem.id} likesWineItem={likesItem} />
+        ))}
+        <hr />
+      </div>
+      <div className="flex items-center justify-center gap-4 my-8">
+        <img src={ToFirstPage} alt="첫 페이지" />
+        <img src={ToPreviousPage} alt="이전 페이지" />
+        {[1, 2, 3, 4, 5].map((page) => (
+          <span key={page}>
+            <a href="">{page}</a>
+          </span>
+        ))}
+        <img src={ToNextPage} alt="다음 페이지" />
+        <img src={ToLastPage} alt="마지막 페이지" />
       </div>
     </div>
   );
 };
 
-export default LikesPage;
+export default LikesInfo;

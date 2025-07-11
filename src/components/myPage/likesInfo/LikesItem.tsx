@@ -144,18 +144,19 @@ export const LikesItem = ({ likesWineItem }: LikesItemProps) => {
             className="flex flex-col justify-center cursor-pointer hover:underline"
             title="해당 와인 상세페이지 이동"
           >
-            <span className="italic likes-item-name-eng text-lg font-base transition">
-              {wineNameEng}
-            </span>
-            <span className="likes-item-name-kor text-xl font-semibold transition">
+            <span className="text-xl font-pretendard font-semibold line-clamp-1">
               {wineNameKor}
             </span>
+            <span className="italic text-gray-500 line-clamp-1">
+              {wineNameEng}
+            </span>
           </div>
-          <div className="flex justify-between items-center">
+          <div className="flex justify-between items-center ">
             <div>
-              <span className="likes-item-cost italic text-2xl font-bold">
-                ₩{likesItemPrice.toLocaleString()}
-              </span>
+              <p className="text-xl font-semibold text-gray-600">
+                ₩{likesItemPrice.toLocaleString()}{' '}
+                <span className="text-gray-500 text-sm">/ btl.</span>
+              </p>
             </div>
             <div className="likes-item-buttons flex items-center gap-4">
               <button
