@@ -1,8 +1,6 @@
 import WineItem from '../components/wineList/WineItem';
-import ToFirstPage from '@/assets/pagination/WineListPage_Pagination_ToFirstPage.svg';
-import ToPreviousPage from '@/assets/pagination/WineListPage_Pagination_ToPreviousPage.svg';
-import ToNextPage from '@/assets/pagination/WineListPage_Pagination_ToNextPage.svg';
-import ToLastPage from '@/assets/pagination/WineListPage_Pagination_ToLastPage.svg';
+import Pagination from '@/components/common/Pagination';
+
 import { useEffect, useState } from 'react';
 import { useLocation, useNavigate } from 'react-router-dom';
 
@@ -34,9 +32,9 @@ const WineListPage = () => {
   const location = useLocation();
 
   // 페이지네이션 관련 상태
-  const [totalItems, setTotalItems] = useState<number | ''>('');
-  const [totalPages, setTotalPages] = useState<number | ''>('');
-  const [currentPage, setCurrentPage] = useState<number>(1);
+  // const [totalItems, setTotalItems] = useState<number | ''>('');
+  // const [totalPages, setTotalPages] = useState<number | ''>('');
+  // const [currentPage, setCurrentPage] = useState<number>(1);
   // const [finalUrl, setFinalUrl] = useState<string>(
   //   `http://localhost:8080/api/wines/search`
   // );
@@ -108,17 +106,7 @@ const WineListPage = () => {
             <p>조건에 만족하는 와인이 없습니다!</p>
           </div>
         )}
-        <div className="flex items-center justify-center gap-4 my-8">
-          <img src={ToFirstPage} alt="첫 페이지" />
-          <img src={ToPreviousPage} alt="이전 페이지" />
-          {[1, 2, 3, 4, 5].map((page) => (
-            <span key={page}>
-              <a href="">{page}</a>
-            </span>
-          ))}
-          <img src={ToNextPage} alt="다음 페이지" />
-          <img src={ToLastPage} alt="마지막 페이지" />
-        </div>
+        <Pagination />
       </div>
     </>
   );
