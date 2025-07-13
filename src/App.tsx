@@ -29,9 +29,9 @@ function App() {
 
   return (
     <>
-      <div className="background-wrapper">
+      <div className={`${!shouldShowBackOffice ? 'background-wrapper' : ''}`}>
         {shouldShowBackOffice ? (
-          <div className="backOffice-layout">
+          <div className="backOffice-layout font-pretendard">
             <Routes>
               <Route path="/backoffice/*" element={<BackOfficePage />} />
             </Routes>
