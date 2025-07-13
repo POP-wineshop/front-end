@@ -102,11 +102,14 @@ const WineListPage = () => {
             ))}
           </div>
         ) : (
-          <div className="w-full px-8">
-            <p>조건에 만족하는 와인이 없습니다!</p>
+          <div className="w-full px-8 m-auto text-center">
+            <p className="text-3xl font-bold">
+              조건에 만족하는 와인이 없습니다!
+            </p>
           </div>
         )}
-        <Pagination />
+
+        <Pagination list={wineList} itemsPerPage={9} />
       </div>
     </>
   );
