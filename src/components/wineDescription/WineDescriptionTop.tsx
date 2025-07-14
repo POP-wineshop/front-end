@@ -39,7 +39,8 @@ const WineDescriptionTop = ({ wineData }: WineDataProps) => {
     region,
     alcoholContent,
     imageUrl,
-    // tasteProfile: { sweetness, acidity, body },
+    tasteProfile,
+    // : { sweetness, acidity, body }
     wineType,
     stock,
     id,
@@ -81,21 +82,6 @@ const WineDescriptionTop = ({ wineData }: WineDataProps) => {
     })
       .then((res) => res.json())
       .then((jsonRes) => {
-        // data가 객체이면 배열로 변환
-        // const dataList = Array.isArray(jsonRes.data)
-        //   ? jsonRes.data
-        //   : [jsonRes.data];
-
-        // if (dataList.length === 0) {
-        //   console.warn('빈 주문 응답 수신됨');
-        //   alert('주문 항목이 비어 있음. 다시 시도하세요.');
-        //   return;
-        // }
-
-        // console.log(`주문 생성 성공 : `,  dataList);
-        // alert(`주문 생성 성공!`);
-        // navigate(`/order`, { state: { orderId: dataList.orderId } });
-
         console.log(`주문 생성 성공 : `, jsonRes.data);
         alert(`주문 생성 성공!`);
         navigate(`/order`, {
@@ -152,7 +138,7 @@ const WineDescriptionTop = ({ wineData }: WineDataProps) => {
     { key: '포도품종', value: `${grapeVariety}` },
   ];
 
-  const tasteProfiles = [
+  const tasteProfileDetails = [
     { labelEng: 'sweetness', labelKor: '당도', low: '드라이', high: '스위트' },
     { labelEng: 'acidity', labelKor: '산도', low: '낮음', high: '높음' },
     { labelEng: 'body', labelKor: '바디', low: '가벼움', high: '무거움' },
@@ -168,22 +154,19 @@ const WineDescriptionTop = ({ wineData }: WineDataProps) => {
         />
       </div>
       <div className="wine-description-top-right font-pretendard w-[500px]">
-        <div className="wine-description-name mb-8 relative">
-          <p className="wine-description-name-eng italic text-lg font-light text-[#666666] mb-1">
+        <div className="wine-description-name mb-8">
+          <p
+            className="wine-description-name-eng italic text-lg font-light text-[#666666] mb-1 line-clamp-1"
+            title={`${engName}`}
+          >
             {engName}
           </p>
-          <p className="wine-description-name-kor text-3xl font-semibold text-[#111]">
+          <p
+            className="wine-description-name-kor text-3xl font-semibold text-[#111] line-clamp-1"
+            title={`${korName}`}
+          >
             {korName}
           </p>
-          <div className="wine-description-isLiked-button absolute right-0 top-1/2 -translate-y-1/2">
-            <button className="text-black" onClick={() => setIsLiked(!isLiked)}>
-              {isLiked === false ? (
-                <HeartPlus className="w-6 h-6 stroke-black fill-transparent" />
-              ) : (
-                <Heart className="w-6 h-6 stroke-red-500 fill-red-500" />
-              )}
-            </button>
-          </div>
         </div>
         <div className="wine-description-details">
           <table className="border-separate border-spacing-y-4">
@@ -198,7 +181,7 @@ const WineDescriptionTop = ({ wineData }: WineDataProps) => {
           </table>
         </div>
         <div className="wine-description-taste-profile border-t border-b">
-          {tasteProfiles.map(({ labelEng, labelKor, low, high }) => (
+          {tasteProfileDetails.map(({ labelEng, labelKor, low, high }) => (
             <div key={labelEng} className="flex items-center my-4 pr-4">
               <strong className="w-40">{labelKor}</strong>
               <span className="w-12 text-xs text-right">{low}</span>
@@ -207,7 +190,17 @@ const WineDescriptionTop = ({ wineData }: WineDataProps) => {
                 {[1, 2, 3, 4, 5].map((n) => (
                   <div
                     key={n}
-                    className="bg-[#e8e5eb] text-[#c1acbf] text-sm w-6 h-6 rounded-full flex items-center justify-center"
+                    className={`text-sm w-6 h-6 rounded-full flex items-center justify-center ${
+                      // 값과 일치하면 강조, 아니면 기본색
+                      // typeof로 객체의 타입을 먼저 추출, 그 다음 keyof로 키들의 유니언 타입('a' | 'b' | 'c' 같이 여러 값 중 하나만 가질 수 있는 타입) 만듦
+                      // 순서를 바꾸면 타입스크립트 에러, 항상 keyof typeof 순서로 사용해야 함
+                      n ===
+                      wineData.tasteProfile[
+                        labelEng as keyof typeof wineData.tasteProfile
+                      ]
+                        ? 'bg-[#6A1B1A] text-white'
+                        : 'bg-[#e8e5eb] text-[#c1acbf]'
+                    }`}
                   >
                     <li className="list-none">{n}</li>
                   </div>
@@ -228,24 +221,41 @@ const WineDescriptionTop = ({ wineData }: WineDataProps) => {
                 +
               </button>
             </div>
-            <div className="total-cost w-1/2 flex gap-2 justify-end items-center text-right">
-              <span className="font-semibold text-xl">TOTAL</span>
-              {/* <span>₩{itemQuantity * itemPrice}</span> */}
-              <span className="font-semibold text-xl">
+            <div className="total-cost w-1/2 flex gap-2 justify-end items-center text-right italic">
+              {itemQuantity !== 1 && (
+                <span className="text-sm text-gray-500 whitespace-nowrap">
+                  ₩ {price.toLocaleString()}/btl. * {itemQuantity} =
+                </span>
+              )}{' '}
+              <span className="font-semibold text-2xl">TOTAL</span>
+              <span className="font-semibold text-2xl">
                 ₩{(price * itemQuantity).toLocaleString()}
               </span>
             </div>
           </div>
-          <div className="wine-description-buttons flex items-center gap-2">
+          <div className="wine-description-buttons flex justify-between items-center gap-2">
+            <button
+              className="text-black p-2 w-[200px] rounded-xl border flex justify-center items-center"
+              onClick={() => setIsLiked(!isLiked)}
+              title={`${
+                isLiked ? '클릭 시 좋아요 취소' : '클릭 시 좋아요 추가'
+              }`}
+            >
+              {isLiked === false ? (
+                <HeartPlus className="w-6 h-6 stroke-black fill-transparent" />
+              ) : (
+                <Heart className="w-6 h-6 stroke-red-500 fill-red-500 transition-colors " />
+              )}
+            </button>
             <button
               onClick={handleInstantOrder}
-              className="bg-[#e8e5eb] p-2 w-1/2 rounded-xl font-bold"
+              className="bg-[#e8e5eb] p-2 w-full rounded-xl font-bold"
             >
               주문하기
             </button>
             <button
               onClick={handleAddToCart}
-              className="bg-[#e8e5eb] p-2 w-1/2 rounded-xl font-bold"
+              className="bg-[#e8e5eb] p-2 w-full rounded-xl font-bold"
             >
               장바구니
             </button>
