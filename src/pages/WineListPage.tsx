@@ -31,16 +31,18 @@ const WineListPage = () => {
   // useLocation() 이용
   const location = useLocation();
 
-  // 페이지네이션 관련 상태
-  // const [totalItems, setTotalItems] = useState<number | ''>('');
-  // const [totalPages, setTotalPages] = useState<number | ''>('');
-  // const [currentPage, setCurrentPage] = useState<number>(1);
-  // const [finalUrl, setFinalUrl] = useState<string>(
-  //   `http://localhost:8080/api/wines/search`
-  // );
-
   // 데이터 수신 및 저장 관련 상태
   const [wineList, setWineList] = useState<Wine[]>([]);
+
+  // 페이지네이션 관련 상태
+  const [currentPage, setCurrentPage] = useState<number>(1);
+  console.log(`와인 목록 현재 페이지: ${currentPage}`);
+  const itemsPerPage = 9;
+
+  // 현재 페이지에 해당하는 아이템 계산
+  const startItemIndex = (currentPage - 1) * itemsPerPage;
+  const endItemIndex = startItemIndex + itemsPerPage;
+  const currentItems = wineList.slice(startItemIndex, endItemIndex);
 
   useEffect(() => {
     // fetch(`http://localhost:8080/api/wines`)
@@ -97,7 +99,7 @@ const WineListPage = () => {
       <div className="flex flex-col items-center ">
         {wineList.length > 0 ? (
           <div className="grid grid-cols-3 gap-4 w-full px-8">
-            {wineList.map((wine) => (
+            {currentItems.map((wine) => (
               <WineItem key={wine.id} wineData={wine} />
             ))}
           </div>
@@ -109,7 +111,12 @@ const WineListPage = () => {
           </div>
         )}
 
-        <Pagination list={wineList} itemsPerPage={9} />
+        <Pagination
+          list={wineList}
+          itemsPerPage={itemsPerPage}
+          currentPage={currentPage}
+          setCurrentPage={setCurrentPage}
+        />
       </div>
     </>
   );
