@@ -45,7 +45,7 @@ const SignupPage = () => {
             e.preventDefault();
             handleSignup();
           }}
-          className="mx-auto my-16 flex flex-col gap-4 w-full max-w-md min-w-[400px] p-8 bg-white rounded-xl shadow-md"
+          className="mx-auto my-32 flex flex-col gap-4 w-full max-w-md min-w-[400px] p-8 bg-white rounded-xl shadow-md"
         >
           <p className="italic text-3xl font-bold text-center mb-4">Sign Up</p>
 

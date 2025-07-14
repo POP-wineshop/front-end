@@ -2,8 +2,6 @@ import ToFirstPage from '@/assets/pagination/WineListPage_Pagination_ToFirstPage
 import ToPreviousPage from '@/assets/pagination/WineListPage_Pagination_ToPreviousPage.svg';
 import ToNextPage from '@/assets/pagination/WineListPage_Pagination_ToNextPage.svg';
 import ToLastPage from '@/assets/pagination/WineListPage_Pagination_ToLastPage.svg';
-import { useState } from 'react';
-import { setCurrentPage } from '@/stores/wineList/useWineListStore';
 
 const pagination = ({
   // list의 초기값을 빈 배열로 설정
@@ -157,7 +155,7 @@ const pagination = ({
             <img
               src={ToNextPage}
               alt="다음 페이지"
-              title="마지막 페이지입니다."
+              title="현재 마지막 페이지입니다."
             />
           </button>
           <button
@@ -167,7 +165,7 @@ const pagination = ({
             <img
               src={ToLastPage}
               alt="마지막 페이지"
-              title="마지막 페이지입니다."
+              title="현재 마지막 페이지입니다."
             />
           </button>
         </>
