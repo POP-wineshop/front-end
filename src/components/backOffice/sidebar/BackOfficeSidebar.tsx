@@ -1,81 +1,100 @@
-import { useEffect, useState } from 'react';
-import { Link } from 'react-router-dom';
+// 백오피스 스타일 Sidebar 개선 버전
+import { Link, useLocation } from 'react-router-dom';
+import { LayoutDashboard, Package, Users, ClipboardList } from 'lucide-react'; // 아이콘
 
-/**
- * [2025-05-24]
- * 굳이 해당 메뉴가 쓰여지고 있다는 걸 사이드바에서 보여줄 필요는 없다고 생각
- * 만약 보여줘야 한다면 상태가 아닌 pathname을 이용해서 그에 따라 CSS를 다르게 적용하면 됨
- * 추후 리팩토링 필요 시 적용
- */
-
-interface Props {
-  setSelectedMenu: (value: string) => void;
-}
+const menu = [
+  {
+    label: 'Dashboard',
+    icon: <LayoutDashboard size={20} />,
+    path: '/backoffice/dashboard',
+  },
+  {
+    label: 'Product',
+    icon: <Package size={20} />,
+    children: [
+      {
+        label: 'Product List',
+        path: '/backoffice/product/list',
+      },
+      {
+        label: 'Product Register',
+        path: '/backoffice/product/register',
+      },
+    ],
+  },
+  {
+    label: 'User',
+    icon: <Users size={20} />,
+    children: [
+      {
+        label: 'User List',
+        path: '/backoffice/user/list',
+      },
+    ],
+  },
+  {
+    label: 'Order',
+    icon: <ClipboardList size={20} />,
+    children: [
+      {
+        label: 'Order List',
+        path: '/backoffice/order/list',
+      },
+    ],
+  },
+];
 
 const BackOfficeSidebar = () => {
+  const location = useLocation();
+
   return (
-    <>
-      <div className="sidebar-container flex flex-col w-[18rem]">
-        {/* Dashboard */}
-        <div className="dashboard-container ">
-          <div className="dashboard-title bg-gray-300 border px-8 py-2 cursor-pointer">
-            <span className="font-bold">Dashboard</span>
-          </div>
-        </div>
-
-        {/* Products */}
-        <div className="products-container relative">
-          <div className="products-title bg-gray-300 border px-8 py-2">
-            <span className="font-bold">Product</span>
-          </div>
-
-          <div className="flex flex-col text-sm border">
-            <Link
-              to="/backoffice/product/list"
-              className="text-right px-4 py-2 cursor-pointer hover:bg-gray-100 hover:underline"
-            >
-              <span>Product List</span>
-            </Link>
-            <Link
-              to="/backoffice/product/register"
-              className="text-right px-4 py-2 cursor-pointer hover:bg-gray-100 hover:underline"
-            >
-              <span>Product Register</span>
-            </Link>
-          </div>
-        </div>
-
-        {/* User */}
-        <div className="customers-container relative">
-          <div className="customers-title bg-gray-300 border px-8 py-2">
-            <span className="font-bold">User</span>
-          </div>
-          <div className="flex flex-col text-sm border">
-            <Link
-              to="/backoffice/user/list"
-              className="text-right px-4 py-2 cursor-pointer hover:bg-gray-100 hover:underline"
-            >
-              <span>User List</span>
-            </Link>
-          </div>
-        </div>
-
-        {/* Order */}
-        <div>
-          <div className="bg-gray-300 border px-8 py-2 cursor-pointer">
-            <span className="font-bold">Order</span>
-          </div>
-          <div className="flex flex-col text-sm border">
-            <Link
-              to="/backoffice/order/list"
-              className="text-right px-4 py-2 cursor-pointer hover:bg-gray-100 hover:underline"
-            >
-              <span>Order List</span>
-            </Link>
-          </div>
-        </div>
+    <aside className="h-screen w-72 bg-[#18181b] text-white shadow-xl flex flex-col py-6 px-4 gap-2">
+      {/* 로고 or 타이틀 */}
+      <div className="mb-8 text-xl font-extrabold tracking-tight px-2">
+        Winehalle Backoffice
       </div>
-    </>
+      {/* 메뉴 */}
+      <nav className="flex flex-col gap-2">
+        {menu.map((item, i) =>
+          item.children ? (
+            <div key={i} className="mb-1">
+              <div className="flex items-center gap-2 px-2 py-2 font-semibold opacity-90">
+                {item.icon}
+                {item.label}
+              </div>
+              <div className="ml-7 flex flex-col gap-1">
+                {item.children.map((child, ci) => (
+                  <Link
+                    key={ci}
+                    to={child.path}
+                    className={`rounded px-2 py-1 text-sm hover:bg-gray-800 transition
+                      ${
+                        location.pathname === child.path
+                          ? 'bg-gray-700 font-bold'
+                          : ''
+                      }
+                    `}
+                  >
+                    {child.label}
+                  </Link>
+                ))}
+              </div>
+            </div>
+          ) : (
+            <Link
+              key={i}
+              to={item.path}
+              className={`flex items-center gap-2 px-2 py-2 text-base rounded font-semibold hover:bg-gray-800 transition
+                ${location.pathname === item.path ? 'bg-gray-700' : ''}
+              `}
+            >
+              {item.icon}
+              {item.label}
+            </Link>
+          )
+        )}
+      </nav>
+    </aside>
   );
 };
 
