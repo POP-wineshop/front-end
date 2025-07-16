@@ -19,6 +19,7 @@ const AddressRegister = () => {
 
   const addressReq: AddressReq[] = [
     {
+      zipcode: 
       address: address,
       detailAddress: detailAddress,
       recipientName: recipientName,
@@ -79,6 +80,8 @@ const AddressRegister = () => {
             <input
               type="text"
               placeholder="우편번호"
+              value={detailAddress}
+              onChange={(e) => setAddress(e.target.value)}
               className="w-full p-2 border border-[#D4D4D4] rounded-md focus:outline-none focus:ring focus:ring-1 focus:ring-[#6A1B1A]"
             />
             <button
@@ -91,11 +94,15 @@ const AddressRegister = () => {
           <input
             type="text"
             placeholder="기본주소 (시, 구, 동 등)"
+            value={address}
+            onChange={(e) => setAddress(e.target.value)}
             className="mt-2 w-full p-2 border border-[#D4D4D4] rounded-md focus:outline-none focus:ring focus:ring-1 focus:ring-[#6A1B1A]"
           />
           <input
             type="text"
             placeholder="상세주소 (아파트, 빌라, 동호수 등)"
+            value={detailAddress}
+            onChange={(e) => setAddress(e.target.value)}
             className="mt-2 w-full p-2 border border-[#D4D4D4] rounded-md focus:outline-none focus:ring focus:ring-1 focus:ring-[#6A1B1A]"
           />
         </div>
@@ -107,6 +114,8 @@ const AddressRegister = () => {
           <input
             type="tel"
             placeholder="010-1234-5678"
+            value={phoneNumber}
+            onChange={(e) => setAddress(e.target.value)}
             className="w-full p-2 border border-[#D4D4D4] rounded-md focus:outline-none focus:ring focus:ring-1 focus:ring-[#6A1B1A]"
           />
         </div>
