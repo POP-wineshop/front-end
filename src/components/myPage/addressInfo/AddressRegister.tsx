@@ -1,11 +1,59 @@
-import { Link } from 'react-router-dom';
+import { useState } from 'react';
+import { Link, useNavigate } from 'react-router-dom';
+import { AddressReq, AddressRes } from '@/types/userPage/myPage/Address';
 
 const AddressRegister = () => {
+  const navigate = useNavigate();
+  const [recipientName, setRecipientName] = useState<string>('김예시');
+  const [address, setAddress] =
+    useState<string>('서울특별시 강남구 테헤란로 123');
+  const [detailAddress, setDetailAddress] =
+    useState<string>('동원빌딩 3층 312호');
+  const [phoneNumber, setPhoneNumber] = useState<string>('010-1234-5678');
+  const [isDefault, setIsDefault] = useState<boolean>(false);
+  const [deliveryMessage, setDeliveryMessage] =
+    useState<string>('배송 메시지 예시입니다.');
+
+  const userIdStr = localStorage.getItem('User Name');
+  const userId = userIdStr ? Number(userIdStr) : 0; // fallback to 0 or handle as needed
+
+  const addressReq: AddressReq[] = [
+    {
+      address: address,
+      detailAddress: detailAddress,
+      recipientName: recipientName,
+      recipientPhoneNumber: phoneNumber,
+      deliveryMessage: deliveryMessage,
+      default: isDefault,
+    },
+  ];
+
+  const registerAddress = () => {
+    fetch(`http://localhost:8080/api/delivery/create`, {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+        Authorization: `${localStorage.getItem('Access Token')}`,
+      },
+      body: JSON.stringify(addressReq),
+    })
+      .then((res) => res.json())
+      .then((jsonRes) => {
+        console.log(jsonRes.data);
+        alert(`배송지 등록 성공! 배송지 목록으로 이동합니다.`);
+        navigate('/mypage/address');
+      })
+      .catch((error) => {
+        alert(`배송지 등록 실패: ${error}`);
+      });
+  };
+
   return (
     <div className="w-full">
       <form
         onSubmit={(e) => {
           e.preventDefault();
+          registerAddress();
           alert('배송지 추가 완료');
         }}
         className="mx-auto my-16 flex flex-col gap-4 w-full max-w-md min-w-[400px] p-8 bg-white rounded-xl shadow-md"

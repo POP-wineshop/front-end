@@ -1,14 +1,23 @@
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
+import { AddressRes } from '@/types/userPage/myPage/Address';
 
-const AddressItem = () => {
+interface AddressItemProps {
+  addr: AddressRes;
+}
+
+const AddressItem = ({ addr }: AddressItemProps) => {
+  const [addressItem, setAddressItem] = useState<AddressRes | null>(null);
+
   const [recipientName, setRecipientName] = useState<string>('김예시');
   const [address, setAddress] =
     useState<string>('서울특별시 강남구 테헤란로 123');
+  const [detailAddress, setDetailAddress] =
+    useState<string>('동원빌딩 3층 317호');
   const [phoneNumber, setPhoneNumber] = useState<string>('010-1234-5678');
+  const [deliveryMessage, setDeliveryMessage] =
+    useState<string>('배송 메시지 예시입니다.');
   const [isDefault, setIsDefault] = useState<boolean>(false);
   const [isRecent, setIsRecent] = useState<boolean>(true);
-
-  const deliveryMessage = '배송 메시지 예시입니다.';
   const handleEdit = () => {
     alert('수정 기능은 아직 구현되지 않았습니다.');
   };
@@ -16,6 +25,16 @@ const AddressItem = () => {
   const handleDelete = () => {
     alert('삭제 기능은 아직 구현되지 않았습니다.');
   };
+
+  useEffect(() => {
+    setAddressItem(addr);
+    setAddress(addr.address);
+    setDetailAddress(addr.detailAddress);
+    setRecipientName(addr.recipientName);
+    setPhoneNumber(addr.recipientPhoneNumber);
+    setDeliveryMessage(addr.deliveryMessage);
+    console.log('AddressItem 컴포넌트에 전달된 address data:', addr);
+  }, [addressItem]);
 
   return (
     <div className="flex flex-col space-y-2 border rounded p-4 relative">
