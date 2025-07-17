@@ -78,7 +78,9 @@ const MyPage = () => {
     <div className="w-full flex flex-col items-center">
       <div className="w-[800px]">
         <div className="py-16">
-          <span className="text-[48px] font-bold italic">My Page</span>
+          <span className="font-mapodacapo text-[48px] font-bold italic">
+            My Page
+          </span>
         </div>
 
         {/* 추후 경로 모듈화 통해서 리팩토링 */}
@@ -91,61 +93,59 @@ const MyPage = () => {
           LIKES_INFO: '/mypage/likes',
         }; */}
 
-        <div className="my-page-tab w-full border-b border-gray-300">
-          <div className="flex">
-            <NavLink
-              to="/mypage/user"
-              className={({ isActive }) =>
-                [
-                  'w-1/4 py-2 cursor-pointer',
-                  isActive
-                    ? 'font-semibold text-gray-800 shadow-sm bg-gray-100'
-                    : 'text-gray-500 hover:font-semibold hover:text-gray-800 hover:shadow-sm hover:bg-gray-100',
-                ].join(' ')
-              }
-            >
-              회원 정보
-            </NavLink>
-            <NavLink
-              to="/mypage/order"
-              className={({ isActive }) =>
-                [
-                  'w-1/4 py-2 cursor-pointer',
-                  isActive
-                    ? 'font-semibold text-gray-800 shadow-sm bg-gray-100'
-                    : 'text-gray-500 hover:font-semibold hover:text-gray-800 hover:shadow-sm hover:bg-gray-100',
-                ].join(' ')
-              }
-            >
-              주문 내역
-            </NavLink>
-            <NavLink
-              to="/mypage/address"
-              className={({ isActive }) =>
-                [
-                  'w-1/4 py-2 cursor-pointer',
-                  isActive
-                    ? 'font-semibold text-gray-800 shadow-sm bg-gray-100'
-                    : 'text-gray-500 hover:font-semibold hover:text-gray-800 hover:shadow-sm hover:bg-gray-100',
-                ].join(' ')
-              }
-            >
-              배송지 목록
-            </NavLink>
-            <NavLink
-              to="/mypage/likes"
-              className={({ isActive }) =>
-                [
-                  'w-1/4 py-2 cursor-pointer',
-                  isActive
-                    ? 'font-semibold text-gray-800 shadow-sm bg-gray-100'
-                    : 'text-gray-500 hover:font-semibold hover:text-gray-800 hover:shadow-sm hover:bg-gray-100',
-                ].join(' ')
-              }
-            >
-              좋아요 목록
-            </NavLink>
-          </div>
+        <div className="my-page-tab w-full flex bg-[#F7F4F1] overflow-hidden border-b border-[#A83E3E]/20 -mb-px">
+          <NavLink
+            to="/mypage/user"
+            className={({ isActive }) =>
+              [
+                'w-1/4 py-3 text-center cursor-pointer text-lg font-bold transition-all duration-200',
+                isActive
+                  ? 'bg-[#A83E3E] text-white shadow-md border-b-2 border-[#A83E3E]'
+                  : 'bg-gray-100 text-gray-500 hover:text-[#A83E3E] border-b-2 border-transparent hover:border-[#A83E3E] transition',
+              ].join(' ')
+            }
+          >
+            회원 정보
+          </NavLink>
+          <NavLink
+            to="/mypage/order"
+            className={({ isActive }) =>
+              [
+                'w-1/4 py-3 text-center cursor-pointer text-lg font-bold transition-all duration-200',
+                isActive
+                  ? 'bg-[#A83E3E] text-white shadow-md'
+                  : 'bg-gray-100 text-gray-500 hover:text-[#A83E3E] border-b-2 border-transparent hover:border-[#A83E3E] transition',
+              ].join(' ')
+            }
+          >
+            주문 내역
+          </NavLink>
+          <NavLink
+            to="/mypage/address"
+            className={({ isActive }) =>
+              [
+                'w-1/4 py-3 text-center cursor-pointer text-lg font-bold transition-all duration-200',
+                isActive
+                  ? 'bg-[#A83E3E] text-white shadow-md'
+                  : 'bg-gray-100 text-gray-500 hover:text-[#A83E3E] border-b-2 border-transparent hover:border-[#A83E3E] transition',
+              ].join(' ')
+            }
+          >
+            배송지 목록
+          </NavLink>
+          <NavLink
+            to="/mypage/likes"
+            className={({ isActive }) =>
+              [
+                'w-1/4 py-3 text-center cursor-pointer text-lg font-bold transition-all duration-200',
+                isActive
+                  ? 'bg-[#A83E3E] text-white shadow-md z-10'
+                  : 'bg-gray-100 text-gray-500 hover:text-[#A83E3E] border-b-2 border-transparent hover:border-[#A83E3E] transition',
+              ].join(' ')
+            }
+          >
+            좋아요 목록
+          </NavLink>
         </div>
 
         <div className="flex flex-col space-y-6 p-6">

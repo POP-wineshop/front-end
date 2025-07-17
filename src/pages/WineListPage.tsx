@@ -37,7 +37,7 @@ const WineListPage = () => {
   // 페이지네이션 관련 상태
   const [currentPage, setCurrentPage] = useState<number>(1);
   console.log(`와인 목록 현재 페이지: ${currentPage}`);
-  const itemsPerPage = 9;
+  const itemsPerPage = 12;
 
   // 현재 페이지에 해당하는 아이템 계산
   const startItemIndex = (currentPage - 1) * itemsPerPage;
@@ -96,9 +96,9 @@ const WineListPage = () => {
 
   return (
     <>
-      <div className="flex flex-col items-center ">
+      <div className="m-auto w-[1600px] flex flex-col items-center min-h-screen ">
         {wineList.length > 0 ? (
-          <div className="grid grid-cols-3 gap-4 w-full px-8">
+          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-10 w-full px-8 py-12">
             {currentItems.map((wine) => (
               <WineItem key={wine.id} wineData={wine} />
             ))}

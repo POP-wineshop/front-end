@@ -52,7 +52,7 @@ const OrderPage = () => {
       <div className="w-full flex flex-col items-center">
         <div className="w-[800px]">
           <div className="items-left py-16 w-full">
-            <span className="order-page-title text-[48px] font-bold italic">
+            <span className="order-page-title font-mapodacapo text-[48px] font-bold italic">
               Order
             </span>
           </div>

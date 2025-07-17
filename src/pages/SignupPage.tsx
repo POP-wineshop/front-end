@@ -36,7 +36,7 @@ const SignupPage = () => {
   return (
     <>
       <div
-        className="w-full"
+        className="m-auto w-full py-32"
         // 스크린 높이 - 헤더 높이 (120px)
         // style={{ minHeight: 'calc(100vh - 120px)' }}
       >
@@ -45,9 +45,11 @@ const SignupPage = () => {
             e.preventDefault();
             handleSignup();
           }}
-          className="mx-auto my-32 flex flex-col gap-4 w-full max-w-md min-w-[400px] p-8 bg-white rounded-xl shadow-md"
+          className="mx-auto flex flex-col gap-4 w-full max-w-md min-w-[400px] p-8 bg-white rounded-xl shadow-md"
         >
-          <p className="italic text-3xl font-bold text-center mb-4">Sign Up</p>
+          <p className="font-mapodacapo italic text-3xl font-bold text-center mb-4">
+            Sign Up
+          </p>
 
           <div>
             <label

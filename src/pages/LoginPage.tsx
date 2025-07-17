@@ -52,7 +52,9 @@ const LoginPage = () => {
         }}
         className="m-auto flex flex-col gap-4 w-full max-w-md p-8 bg-white rounded-xl shadow-md"
       >
-        <p className="italic text-3xl font-bold text-center mb-4">Login</p>
+        <p className="font-mapodacapo italic text-3xl font-bold text-center mb-4">
+          Login
+        </p>
 
         <div>
           <label
