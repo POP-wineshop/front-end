@@ -105,67 +105,57 @@ const WineFilter = () => {
   // };
 
   return (
-    <>
-      <div className="wine-filter-search flex justify-between items-center gap-4 border rounded-lg bg-[#A83E3E] m-8 px-8 py-4 min-w-[800px]">
-        <div className="wine-filter flex gap-4 items-center">
-          <div className="wine-filter-country items-center">
-            <select
-              onChange={(e) => setCountry(e.target.value)}
-              className="w-32 p-2 rounded border border-[#D4D4D4] text-[#171717] shadow-sm focus:outline-none focus:ring-1 focus:ring-[#6A1B1A] transition duration-200 ease-in-out"
-            >
-              {countries.map((country) => (
-                <option key={country.key} value={country.value}>
-                  {country.key}
-                </option>
-              ))}
-            </select>
-          </div>
-
-          <div className="wine-filter-region items-center">
-            <select
-              onChange={(e) => setRegion(e.target.value)}
-              className="w-32 p-2 rounded border border-[#D4D4D4] text-[#171717] shadow-sm focus:outline-none focus:ring-1 focus:ring-[#6A1B1A] transition duration-200 ease-in-out"
-            >
-              {regions.map((region) => (
-                <option key={region.key} value={region.value}>
-                  {region.key}
-                </option>
-              ))}
-            </select>
-          </div>
-
-          <div className="wine-filter-wineType items-center">
-            <select
-              onChange={(e) => setWineType(e.target.value)}
-              className="w-32 p-2 rounded border border-[#D4D4D4] text-[#171717] shadow-sm focus:outline-none focus:ring-1 focus:ring-[#6A1B1A] transition duration-200 ease-in-out"
-            >
-              {wineTypes.map((wineType) => (
-                <option key={wineType.key} value={wineType.value}>
-                  {wineType.key}
-                </option>
-              ))}
-            </select>
-          </div>
-        </div>
-
-        <div className="wine-search flex items-center justify-end">
-          <div className="flex items-center gap-2">
+    <section className="absolute left-1/2 -translate-x-1/2 flex justify-center my-6">
+      <div className="flex flex-col md:flex-row items-center gap-4 bg-white/80 shadow-md rounded-2xl px-8 py-4">
+        <div className="flex gap-4">
+          <select
+            onChange={(e) => setCountry(e.target.value)}
+            className="font-montserrat w-28 px-3 py-2 rounded-lg border border-gray-200 bg-gray-50 text-gray-700 shadow-sm focus:outline-none focus:ring-2 focus:ring-[#A83E3E] transition"
+          >
+            {countries.map((country) => (
+              <option key={country.key} value={country.value}>
+                {country.key}
+              </option>
+            ))}
+          </select>
+          <select
+            onChange={(e) => setRegion(e.target.value)}
+            className="font-montserrat w-28 px-3 py-2 rounded-lg border border-gray-200 bg-gray-50 text-gray-700 shadow-sm focus:outline-none focus:ring-2 focus:ring-[#A83E3E] transition"
+          >
+            {regions.map((region) => (
+              <option key={region.key} value={region.value}>
+                {region.key}
+              </option>
+            ))}
+          </select>
+          <select
+            onChange={(e) => setWineType(e.target.value)}
+            className="font-montserrat w-28 px-3 py-2 rounded-lg border border-gray-200 bg-gray-50 text-gray-700 shadow-sm focus:outline-none focus:ring-2 focus:ring-[#A83E3E] transition"
+          >
+            {wineTypes.map((wineType) => (
+              <option key={wineType.key} value={wineType.value}>
+                {wineType.key}
+              </option>
+            ))}
+          </select>
+          <div className="flex justify-end items-center gap-2">
             <input
               type="text"
-              placeholder="와인 이름을 적어주세요!"
-              className="font-pretendard w-64 px-4 py-2 rounded border border-[#D4D4D4] text-[#171717] shadow-sm focus:outline-none focus:ring-1 focus:ring-[#6A1B1A] transition duration-200 ease-in-out"
+              placeholder="와인 이름 검색"
+              className="font-pretendard w-full md:w-64 px-4 py-2 rounded-lg border border-gray-200 bg-gray-50 text-gray-700 shadow-sm focus:outline-none focus:ring-2 focus:ring-[#A83E3E] transition"
               onChange={(e) => setKeyword(e.target.value)}
             />
             <button
               onClick={handleFilterIncludingKeyword}
-              className="p-2 rounded text-white bg-[#6A1B1A] hover:bg-[#4E1212] shadow-sm transition duration-200 ease-in-out"
+              className="p-2 rounded-lg bg-[#A83E3E] text-white hover:bg-[#7a2229] transition"
+              title="검색"
             >
               <Search />
             </button>
           </div>
         </div>
       </div>
-    </>
+    </section>
   );
 };
 

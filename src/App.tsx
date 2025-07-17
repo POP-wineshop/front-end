@@ -17,6 +17,7 @@ import SignupPage from './pages/SignupPage';
 import LoginPage from './pages/LoginPage';
 import MyPage from './pages/MyPage';
 import TossPaymentPage from './pages/tossPayments/TossPaymentPage';
+import Sidebar from './components/common/SideBar';
 
 function App() {
   const location = useLocation();
@@ -44,11 +45,12 @@ function App() {
           </div>
         ) : (
           <div className="service-page-layout">
+            {/* <Sidebar /> */}
             <Header />
-            {shouldShowWineFilter && <WineFilter />}
+            {/* {shouldShowWineFilter && <WineFilter />} */}
             <main
               className="main-layout"
-              style={{ minHeight: `calc(100vh - 280px)` }}
+              style={{ minHeight: `calc(100vh - 315px)` }}
             >
               <Routes>
                 <Route index element={<Navigate to="list" />} />

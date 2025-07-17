@@ -1,5 +1,6 @@
 import { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
+import WineFilter from './WineFilter';
 
 const Header = () => {
   const [userName, setUserName] = useState<string>('XXX');
@@ -12,71 +13,67 @@ const Header = () => {
   };
 
   return (
-    <div className="min-w-[800px] h-[120px] flex items-center justify-between mx-8 border-b">
-      <div className="flex items-center gap-8 ">
-        <img
-          className="w-24 h-24 rounded hover:scale-105 hover:cursor-pointer transition duration-200 ease-in-out shadow-sm"
+    <header className="relative w-full flex items-center justify-between px-12 py-4 bg-[#7a2229] shadow-sm border-b sticky top-0 z-20">
+      <div className="w-[400px] flex justify-start items-center gap-6">
+        {/* <img
+          className="w-16 h-16 rounded-xl hover:scale-105 cursor-pointer transition"
           src="src/assets/logo/logo-Image.png"
           alt="로고 이미지"
           onClick={() => navigate(`/list`)}
-        />
-        <strong
+        /> */}
+        <span
           onClick={() => navigate('/list')}
-          className="text-[40px] italic transition-all duration-200 ease-in-out cursor-pointer hover:scale-105 hover:text-[#7B0033] hover:drop-shadow-lg"
+          className="font-mapodacapo text-[64px] text-white font-semibold italic cursor-pointer hover:text-[#A83E3E] transition"
         >
           WINEHALLE
-        </strong>
+        </span>
       </div>
-      <div className="flex flex-col gap-1">
-        {/* 회원 이름 및 환영 문구 렌더링 (보류) */}
-        {/* <div className="flex justify-end items-center gap-2 italic font-light tracking-tight">
-          <span className="">SALUTE🍷</span>
-          <span className="">{userName}님, 환영합니다!</span>
-        </div> */}
-        <div className="flex items-end gap-12 font-medium italic text-xl">
+      <WineFilter />
+      <nav>
+        <ul className="w-[400px] flex justify-end items-center gap-8 font-mapodacapo italic text-white text-[24px] font-medium whitespace-nowrap">
           {!localStorage.getItem('Access Token') ? (
             <>
-              <span
+              <li
                 onClick={() => navigate(`/login`)}
-                className="cursor-pointer transition-all duration-200 ease-in-out cursor-pointer hover:scale-105 hover:text-[#7B0033]"
+                className="cursor-pointer hover:text-[#A83E3E] transition"
               >
                 Login
-              </span>
-              <span
+              </li>
+              <li
                 onClick={() => navigate(`/signup`)}
-                className="cursor-pointer transition-all duration-200 ease-in-out cursor-pointer hover:scale-105 hover:text-[#7B0033]"
+                className="cursor-pointer hover:text-[#A83E3E] transition"
               >
                 Sign Up
-              </span>
+              </li>
             </>
           ) : (
             <>
-              <span
+              <li
                 onClick={() => navigate(`/mypage`)}
-                className="cursor-pointer transition-all duration-200 ease-in-out cursor-pointer hover:scale-105 hover:text-[#7B0033]"
+                className="cursor-pointer hover:text-[#A83E3E] transition"
               >
                 My Page
-              </span>
-              <span
+              </li>
+              <li
                 onClick={() => navigate(`/cart`)}
-                className="cursor-pointer transition-all duration-200 ease-in-out cursor-pointer hover:scale-105 hover:text-[#7B0033]"
+                className="cursor-pointer hover:text-[#A83E3E] transition"
               >
                 Cart
-              </span>
-              <span
+              </li>
+              <li
                 onClick={() => {
                   handleLogout();
                   navigate(`/list`);
                 }}
-                className="cursor-pointer transition-all duration-200 ease-in-out cursor-pointer hover:scale-105 hover:text-[#7B0033]"
+                className="cursor-pointer hover:text-[#A83E3E] transition"
               >
                 Logout
-              </span>
+              </li>
             </>
           )}
-        </div>
-      </div>
-    </div>
+        </ul>
+      </nav>
+    </header>
   );
 };
 
