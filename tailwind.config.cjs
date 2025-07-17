@@ -5,7 +5,13 @@ module.exports = {
   theme: {
     extend: {
       fontFamily: {
-        pretendard: ['Pretendard', 'sans-serif'],
+        pretendard: ['Pretendard', 'Noto Sans KR', 'sans-serif'],
+        montserrat: ['Montserrat', 'Roboto', 'Arial', 'sans-serif'],
+        playfair: ['Playfair Display', 'serif'],
+        cormorant: ['Cormorant Garamond', 'serif'],
+        ebgaramond: ['EB Garamond', 'serif'],
+        roehoe: ['ROEHOE-CHAN', 'sans-serif'],
+        mapodacapo: ['MapoDacapo', 'sans-serif'],
       },
       borderRadius: {
         lg: 'var(--radius)',

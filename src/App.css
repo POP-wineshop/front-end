@@ -68,17 +68,17 @@
 }
 
 .service-page-layout {
-  background-color: white;
-  max-width: 1280px; /* 일반적인 웹사이트 가로 길이 */
+  /* background-color: #7a2229; */
+  /* max-width: 1280px; 일반적인 웹사이트 가로 길이 */
   margin: 0 auto; /* 가운데 정렬 */
-  padding: 0 1rem; /* 좌우 여백 살짝 주기 */
   font-family: font-pretendard;
   min-height: 100vh;
 }
 
 /* 배경 적용용 wrapper */
 .background-wrapper {
-  background-image: url('/src/assets/background/bg-wine-pattern.png');
+  /* background-image: url('/src/assets/background/bg-wine-pattern.png'); */
+  background-color: #f7f4f1;
   background-repeat: repeat;
   background-size: 900px; /* 패턴 크기 조절 */
   min-height: 100vh;
