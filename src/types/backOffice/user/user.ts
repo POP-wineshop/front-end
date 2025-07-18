@@ -1,4 +1,5 @@
-// types/UserWithOrders.ts
+import { Address } from '@/types/backOffice/user/Address';
+
 export interface Order {
   orderNumber: string;
   totalPayment: number;
@@ -6,14 +7,15 @@ export interface Order {
   status: string;
 }
 
-export interface UserWithOrders {
+export interface UserItemType {
   id: number;
   userId: string;
   name: string;
   email: string;
   phone: string;
-  role: 'user' | 'admin';
+  role: string;
   createdAt: string;
-  status: 'active' | 'inactive';
-  orders: Order[];
+  status: string;
+  orders?: Order[];
+  addresses?: Address[];
 }
