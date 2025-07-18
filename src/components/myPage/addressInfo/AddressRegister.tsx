@@ -4,22 +4,19 @@ import { AddressReq, AddressRes } from '@/types/userPage/myPage/Address';
 
 const AddressRegister = () => {
   const navigate = useNavigate();
-  const [recipientName, setRecipientName] = useState<string>('김예시');
-  const [address, setAddress] =
-    useState<string>('서울특별시 강남구 테헤란로 123');
-  const [detailAddress, setDetailAddress] =
-    useState<string>('동원빌딩 3층 312호');
-  const [phoneNumber, setPhoneNumber] = useState<string>('010-1234-5678');
+  const [userId, setUserId] = useState<number>(2);
+  const [zipcode, setZipcode] = useState<string>('');
+  const [address, setAddress] = useState<string>('');
+  const [detailAddress, setDetailAddress] = useState<string>('');
+  const [recipientName, setRecipientName] = useState<string>('');
+  const [phoneNumber, setPhoneNumber] = useState<string>('');
   const [isDefault, setIsDefault] = useState<boolean>(false);
-  const [deliveryMessage, setDeliveryMessage] =
-    useState<string>('배송 메시지 예시입니다.');
-
-  const userIdStr = localStorage.getItem('User Name');
-  const userId = userIdStr ? Number(userIdStr) : 0; // fallback to 0 or handle as needed
+  const [deliveryMessage, setDeliveryMessage] = useState<string>('');
 
   const addressReq: AddressReq[] = [
     {
-      zipcode: 
+      // zipcode:
+      userId: userId,
       address: address,
       detailAddress: detailAddress,
       recipientName: recipientName,
@@ -68,7 +65,10 @@ const AddressRegister = () => {
           <input
             type="text"
             placeholder="받으실 분의 이름을 입력해주세요"
+            value={recipientName}
+            onChange={(e) => setRecipientName(e.target.value)}
             className="w-full p-2 border border-[#D4D4D4] rounded-md focus:outline-none focus:ring focus:ring-1 focus:ring-[#6A1B1A]"
+            required
           />
         </div>
 
@@ -80,9 +80,10 @@ const AddressRegister = () => {
             <input
               type="text"
               placeholder="우편번호"
-              value={detailAddress}
-              onChange={(e) => setAddress(e.target.value)}
+              value={zipcode}
+              onChange={(e) => setZipcode(e.target.value)}
               className="w-full p-2 border border-[#D4D4D4] rounded-md focus:outline-none focus:ring focus:ring-1 focus:ring-[#6A1B1A]"
+              required
             />
             <button
               type="button"
@@ -97,12 +98,13 @@ const AddressRegister = () => {
             value={address}
             onChange={(e) => setAddress(e.target.value)}
             className="mt-2 w-full p-2 border border-[#D4D4D4] rounded-md focus:outline-none focus:ring focus:ring-1 focus:ring-[#6A1B1A]"
+            required
           />
           <input
             type="text"
             placeholder="상세주소 (아파트, 빌라, 동호수 등)"
             value={detailAddress}
-            onChange={(e) => setAddress(e.target.value)}
+            onChange={(e) => setDetailAddress(e.target.value)}
             className="mt-2 w-full p-2 border border-[#D4D4D4] rounded-md focus:outline-none focus:ring focus:ring-1 focus:ring-[#6A1B1A]"
           />
         </div>
@@ -115,14 +117,33 @@ const AddressRegister = () => {
             type="tel"
             placeholder="010-1234-5678"
             value={phoneNumber}
-            onChange={(e) => setAddress(e.target.value)}
+            onChange={(e) => setPhoneNumber(e.target.value)}
             className="w-full p-2 border border-[#D4D4D4] rounded-md focus:outline-none focus:ring focus:ring-1 focus:ring-[#6A1B1A]"
+            required
+          />
+        </div>
+
+        <div>
+          <label className="block mb-1 text-sm font-medium text-gray-700">
+            배송 메시지
+          </label>
+          <select name="" id="">
+            <option value=""></option>
+          </select>
+          <input
+            type="text"
+            placeholder="배송 메시지를 입력해주세요"
+            value={deliveryMessage}
+            onChange={(e) => setPhoneNumber(e.target.value)}
+            className="w-full p-2 border border-[#D4D4D4] rounded-md focus:outline-none focus:ring focus:ring-1 focus:ring-[#6A1B1A]"
+            required
           />
         </div>
 
         <button
           type="submit"
           className="mt-4 py-2 bg-[#6A1B1A] text-white font-semibold rounded-md hover:bg-[#4E1212] transition"
+          onClick={registerAddress}
         >
           추가하기
         </button>

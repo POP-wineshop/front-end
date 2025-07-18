@@ -1,4 +1,5 @@
 export interface AddressReq {
+  userId: number;
   address: string;
   detailAddress: string;
   recipientName: string;
