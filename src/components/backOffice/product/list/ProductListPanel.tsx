@@ -9,7 +9,7 @@ import {
 import { useState } from 'react';
 import ProductList from './ProductList';
 import ProductDetail from './ProductDetail';
-import { ProductRes } from '@/types/backOffice/product/productRes';
+import { ProductRes } from '@/types/backOffice/product/ProductRes';
 
 const ProductListPanel = () => {
   const [selectedProduct, setSelectedProduct] = useState<ProductRes | null>(
@@ -81,11 +81,11 @@ const ProductListPanel = () => {
         </div>
       </div>
       {/* 상세 영역 */}
-      <div className="w-[600px] flex-1 flex items-center justify-center bg-gray-50 p-8">
+      <div className="w-[600px] flex-1 flex items-start justify-center bg-gray-50 p-8 overflow-y-scroll">
         {selectedProduct ? (
           <ProductDetail product={selectedProduct} />
         ) : (
-          <div className="text-gray-400 text-center flex flex-col items-center">
+          <div className="m-auto text-gray-400 text-center flex flex-col items-center">
             <span className="text-4xl mb-2">🛒</span>
             <p>상품을 선택하면 상세 정보가 여기에 표시됨</p>
           </div>

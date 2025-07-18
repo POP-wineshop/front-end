@@ -1,4 +1,4 @@
-import { ProductRes } from '@/types/backOffice/product/productRes';
+import { ProductRes } from '@/types/backOffice/product/ProductRes';
 import { ArrowRight } from 'lucide-react';
 
 interface ProductItemProps {

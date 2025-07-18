@@ -1,11 +1,11 @@
-import { ProductRes } from '@/types/backOffice/product/productRes';
+import { ProductRes } from '@/types/backOffice/product/ProductRes';
 import { Pencil, Trash2 } from 'lucide-react';
 
 const ProductDetail = ({ product }: { product: ProductRes }) => {
   if (!product) return null;
 
   return (
-    <div className="w-full max-w-2xl mx-auto bg-white rounded-xl shadow-md p-8 border">
+    <div className="m-auto w-full max-w-2xl mx-auto bg-white rounded-xl shadow-md p-8 border">
       {/* 기존 상세 테이블 */}
       <table className="w-full border-collapse text-sm table-fixed">
         <colgroup>

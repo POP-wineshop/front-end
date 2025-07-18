@@ -1,6 +1,6 @@
 import { useEffect, useState } from 'react';
 import ProductItem from './ProductItem';
-import { ProductRes } from '@/types/backOffice/product/productRes';
+import { ProductRes } from '@/types/backOffice/product/ProductRes';
 
 interface ProductListProps {
   onSelect: (product: ProductRes) => void;
