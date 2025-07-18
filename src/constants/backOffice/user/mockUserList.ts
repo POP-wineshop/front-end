@@ -1,7 +1,7 @@
 // mock/mockUserWithOrders.ts
-import { UserWithOrders } from '@/types/backOffice/user/user';
+import { UserItemType } from '@/types/backOffice/user/user';
 
-export const mockUserList: UserWithOrders[] = [
+export const mockUserList: UserItemType[] = [
   {
     id: 1,
     userId: 'alpha01',
@@ -25,6 +25,28 @@ export const mockUserList: UserWithOrders[] = [
         status: '취소',
       },
     ],
+    addresses: [
+      {
+        id: 1,
+        recipient: '홍길동',
+        phone: '010-1111-1111',
+        address: '서울 강남구 테헤란로 123',
+        detailAddress: '101동 101호',
+        deliveryMessage: '문 앞에 놔주세요',
+        isDefault: true,
+        isRecent: false,
+      },
+      {
+        id: 2,
+        recipient: '홍길동',
+        phone: '010-1111-1111',
+        address: '경기도 성남시 분당구 정자동 12',
+        detailAddress: '303동 203호',
+        deliveryMessage: '경비실에 맡겨주세요',
+        isDefault: false,
+        isRecent: true,
+      },
+    ],
   },
   {
     id: 2,
@@ -41,6 +63,18 @@ export const mockUserList: UserWithOrders[] = [
         totalPayment: 99000,
         orderDate: '2024-07-03',
         status: '결제완료',
+      },
+    ],
+    addresses: [
+      {
+        id: 3,
+        recipient: '김철수',
+        phone: '010-2222-2222',
+        address: '서울 마포구 독막로 234',
+        detailAddress: '2층 205호',
+        deliveryMessage: '빠른 배송 부탁드립니다',
+        isDefault: true,
+        isRecent: true,
       },
     ],
   },
@@ -67,6 +101,28 @@ export const mockUserList: UserWithOrders[] = [
         status: '결제완료',
       },
     ],
+    addresses: [
+      {
+        id: 4,
+        recipient: '이영희',
+        phone: '010-3333-3333',
+        address: '인천 연수구 송도과학로 100',
+        detailAddress: '601동 1102호',
+        deliveryMessage: '전화 후 배달',
+        isDefault: false,
+        isRecent: true,
+      },
+      {
+        id: 5,
+        recipient: '이영희',
+        phone: '010-3333-3333',
+        address: '서울 종로구 사직로 88',
+        detailAddress: '3층',
+        deliveryMessage: '문을 꼭 닫아주세요',
+        isDefault: true,
+        isRecent: false,
+      },
+    ],
   },
   {
     id: 4,
@@ -78,6 +134,7 @@ export const mockUserList: UserWithOrders[] = [
     createdAt: '2024-07-04',
     status: 'active',
     orders: [],
+    addresses: [],
   },
   {
     id: 5,
@@ -96,6 +153,18 @@ export const mockUserList: UserWithOrders[] = [
         status: '결제완료',
       },
     ],
+    addresses: [
+      {
+        id: 6,
+        recipient: '최지우',
+        phone: '010-5555-5555',
+        address: '대구 북구 유통단지로 21',
+        detailAddress: '505동 303호',
+        deliveryMessage: '',
+        isDefault: true,
+        isRecent: true,
+      },
+    ],
   },
   {
     id: 6,
@@ -107,6 +176,7 @@ export const mockUserList: UserWithOrders[] = [
     createdAt: '2024-07-06',
     status: 'inactive',
     orders: [],
+    addresses: [],
   },
   {
     id: 7,
@@ -137,6 +207,18 @@ export const mockUserList: UserWithOrders[] = [
         status: '취소',
       },
     ],
+    addresses: [
+      {
+        id: 7,
+        recipient: '강예린',
+        phone: '010-7777-7777',
+        address: '광주 서구 상무중앙로 5',
+        detailAddress: '1301호',
+        deliveryMessage: '반드시 수령인에게 전달',
+        isDefault: true,
+        isRecent: true, // 같은 주소만 recent+default 가능
+      },
+    ],
   },
   {
     id: 8,
@@ -153,6 +235,18 @@ export const mockUserList: UserWithOrders[] = [
         totalPayment: 39000,
         orderDate: '2024-07-10',
         status: '결제완료',
+      },
+    ],
+    addresses: [
+      {
+        id: 8,
+        recipient: '정세진',
+        phone: '010-8888-8888',
+        address: '부산 해운대구 해운대로 777',
+        detailAddress: '501호',
+        deliveryMessage: '택배함에 넣어주세요',
+        isDefault: true,
+        isRecent: true,
       },
     ],
   },
@@ -179,6 +273,28 @@ export const mockUserList: UserWithOrders[] = [
         status: '환불',
       },
     ],
+    addresses: [
+      {
+        id: 9,
+        recipient: '이준호',
+        phone: '010-9999-9999',
+        address: '전북 전주시 완산구 전주천동로 222',
+        detailAddress: '2층',
+        deliveryMessage: '',
+        isDefault: true,
+        isRecent: false,
+      },
+      {
+        id: 10,
+        recipient: '이준호',
+        phone: '010-9999-9999',
+        address: '서울 송파구 석촌호수로 10',
+        detailAddress: '202동 501호',
+        deliveryMessage: '초인종 누르지 마세요',
+        isDefault: false,
+        isRecent: true,
+      },
+    ],
   },
   {
     id: 10,
@@ -190,8 +306,8 @@ export const mockUserList: UserWithOrders[] = [
     createdAt: '2024-07-10',
     status: 'inactive',
     orders: [],
+    addresses: [],
   },
-  // 11번째 사용자 예시 (추가)
   {
     id: 11,
     userId: 'kilo11',
@@ -207,6 +323,18 @@ export const mockUserList: UserWithOrders[] = [
         totalPayment: 80000,
         orderDate: '2024-07-12',
         status: '결제완료',
+      },
+    ],
+    addresses: [
+      {
+        id: 11,
+        recipient: '장동현',
+        phone: '010-1112-1112',
+        address: '강원 춘천시 중앙로 9',
+        detailAddress: '902호',
+        deliveryMessage: '경비실에 맡겨주세요',
+        isDefault: true,
+        isRecent: true,
       },
     ],
   },

@@ -2,11 +2,11 @@
 import { useState } from 'react';
 import UserList from './UserList';
 import UserDetail from './UserDetail';
-import { UserWithOrders } from '@/types/backOffice/user/user';
+import { UserItemType } from '@/types/backOffice/user/user';
 import { Search } from 'lucide-react';
 
 const UserListPanel = () => {
-  const [selectedUser, setSelectedUser] = useState<UserWithOrders | null>(null);
+  const [selectedUser, setSelectedUser] = useState<UserItemType | null>(null);
 
   return (
     <div className="m-auto flex h-[80vh] rounded-xl overflow-hidden shadow-lg border bg-gray-50">
@@ -27,11 +27,11 @@ const UserListPanel = () => {
           <UserList onSelect={setSelectedUser} selectedUser={selectedUser} />
         </div>
       </div>
-      <div className="w-[700px] flex-1 flex items-center justify-center bg-gray-50 p-8">
+      <div className="w-[700px] flex-1 flex items-start justify-center bg-gray-50 p-8 overflow-y-scroll">
         {selectedUser ? (
           <UserDetail user={selectedUser} />
         ) : (
-          <div className="text-gray-400 text-center flex flex-col items-center">
+          <div className="m-auto text-gray-400 text-center flex flex-col items-center">
             <span className="text-4xl mb-2">👤</span>
             <p>유저를 선택하면 상세 정보가 표시됨</p>
           </div>

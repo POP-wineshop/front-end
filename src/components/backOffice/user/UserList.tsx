@@ -1,16 +1,16 @@
 // components/UserList.tsx
 import { useState } from 'react';
-import { UserWithOrders } from '@/types/backOffice/user/user';
+import { UserItemType } from '@/types/backOffice/user/user';
 import UserItem from './UserItem';
 import { mockUserList } from '@/constants/backOffice/user/mockUserList';
 
 interface UserListProps {
-  onSelect: (user: UserWithOrders) => void;
-  selectedUser: UserWithOrders | null;
+  onSelect: (user: UserItemType) => void;
+  selectedUser: UserItemType | null;
 }
 
 const UserList = ({ onSelect, selectedUser }: UserListProps) => {
-  const [userList] = useState<UserWithOrders[]>(mockUserList);
+  const [userList] = useState<UserItemType[]>(mockUserList);
 
   return (
     <div className="flex flex-col gap-2">

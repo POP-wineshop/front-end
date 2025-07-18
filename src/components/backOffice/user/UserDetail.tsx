@@ -1,26 +1,9 @@
 // UserDetail.tsx
 import { mockUserList } from '@/constants/backOffice/user/mockUserList';
+import { Order, UserItemType } from '@/types/backOffice/user/user';
+import React from 'react';
 
-interface Order {
-  orderNumber: string;
-  totalPayment: number;
-  orderDate: string;
-  status: string;
-}
-
-interface UserItem {
-  id: number;
-  userId: string;
-  name: string;
-  email: string;
-  phone: string;
-  role: string;
-  createdAt: string;
-  status: string;
-  orders?: Order[];
-}
-
-const UserDetail = ({ user }: { user: UserItem }) => {
+const UserDetail = ({ user }: { user: UserItemType }) => {
   if (!user) return null;
 
   return (
@@ -35,7 +18,7 @@ const UserDetail = ({ user }: { user: UserItem }) => {
         </colgroup>
         <tbody>
           <tr>
-            <th className="p-2 bg-gray-100" colSpan={4}>
+            <th className="p-2 bg-[#18181b] text-white" colSpan={4}>
               회원 정보
             </th>
           </tr>
@@ -80,6 +63,75 @@ const UserDetail = ({ user }: { user: UserItem }) => {
         </tbody>
       </table>
 
+      {/* UserDetail.tsx 내 배송지 목록 테이블 추가 부분 */}
+      {user.addresses && user.addresses.length > 0 && (
+        <table className="w-full border-collapse text-sm mb-8">
+          <colgroup>
+            <col className="w-[100px]" />
+            <col className="max-w-full" />
+            <col className="w-[100px]" />
+            <col className="max-w-full" />
+          </colgroup>
+          <tbody>
+            <tr>
+              <th className="p-2 bg-[#18181b] text-white" colSpan={4}>
+                배송지 목록
+              </th>
+            </tr>
+            {user.addresses.map((addr) => (
+              // React Fragment 사용, key는 addr.id로!
+              <React.Fragment key={addr.id}>
+                <tr>
+                  <th className="p-2 bg-gray-100 w-20 whitespace-nowrap">
+                    수령인
+                  </th>
+                  <td className="p-2 text-center">{addr.recipient}</td>
+                  <th className="p-2 bg-gray-100 w-20 whitespace-nowrap">
+                    연락처
+                  </th>
+                  <td className="p-2 text-center">{addr.phone}</td>
+                </tr>
+                <tr>
+                  <th className="p-2 bg-gray-100 whitespace-nowrap">주소</th>
+                  <td className="p-2 text-center" colSpan={3}>
+                    {addr.address} {addr.detailAddress}
+                  </td>
+                </tr>
+                <tr>
+                  <th className="p-2 bg-gray-100 whitespace-nowrap">
+                    배송메시지
+                  </th>
+                  <td className="p-2 text-center" colSpan={3}>
+                    {addr.deliveryMessage || '-'}
+                  </td>
+                </tr>
+                <tr>
+                  <th className="p-2 bg-gray-100 whitespace-nowrap">상태</th>
+                  <td className="p-2 text-center" colSpan={3}>
+                    {addr.isDefault && (
+                      <span className="bg-black text-white px-2 py-1 rounded mr-1 text-xs">
+                        기본
+                      </span>
+                    )}
+                    {addr.isRecent && (
+                      <span className="bg-gray-200 text-gray-700 px-2 py-1 rounded text-xs">
+                        최근
+                      </span>
+                    )}
+                  </td>
+                </tr>
+                {/* 각 배송지 구분선 */}
+                <tr>
+                  <td colSpan={4}>
+                    <div className="border-b my-2" />
+                  </td>
+                </tr>
+              </React.Fragment>
+            ))}
+          </tbody>
+        </table>
+      )}
+
       {/* 주문 내역 */}
       <table className="w-full border-collapse text-sm table-fixed">
         <colgroup>
@@ -90,7 +142,7 @@ const UserDetail = ({ user }: { user: UserItem }) => {
         </colgroup>
         <tbody>
           <tr>
-            <th className="p-2 bg-gray-100" colSpan={4}>
+            <th className="p-2 bg-[#18181b] text-white" colSpan={4}>
               주문 내역
             </th>
           </tr>

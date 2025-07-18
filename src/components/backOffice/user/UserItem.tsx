@@ -1,8 +1,8 @@
 // components/UserItem.tsx
-import { UserWithOrders } from '@/types/backOffice/user/user';
+import { UserItemType } from '@/types/backOffice/user/user';
 
 interface UserItemProps {
-  user: UserWithOrders;
+  user: UserItemType;
   selected?: boolean;
 }
 
