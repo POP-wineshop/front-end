@@ -45,19 +45,19 @@ const WineFilter = () => {
   const [wineType, setWineType] = useState<string>('');
   const [keyword, setKeyword] = useState<string>('');
 
-  useEffect(() => {
-    const handleNavigateToFilteredList = () => {
-      navigate(`/list`, {
-        state: {
-          country,
-          region,
-          wineType,
-        },
-      });
-    };
+  // useEffect(() => {
+  //   const handleNavigateToFilteredList = () => {
+  //     navigate(`/list`, {
+  //       state: {
+  //         country,
+  //         region,
+  //         wineType,
+  //       },
+  //     });
+  //   };
 
-    handleNavigateToFilteredList();
-  }, [country, region, wineType]);
+  //   handleNavigateToFilteredList();
+  // }, [country, region, wineType]);
 
   const handleFilterIncludingKeyword = () => {
     navigate(`/list`, {
