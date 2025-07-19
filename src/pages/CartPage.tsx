@@ -153,6 +153,7 @@ const CartPage = () => {
           .then(() => {
             console.log(`장바구니 내 아이템 제거 성공 : `, item.cartItemId);
             alert(`장바구니 내 아이템 제거 성공!`);
+            navigate('/cart');
           })
           .catch((error) => {
             console.error(`장바구니 내 아이템 제거 실패 : `, error);
@@ -220,44 +221,49 @@ const CartPage = () => {
   return (
     <div className="w-full flex flex-col items-center">
       <div className="w-[800px]">
-        <div className="items-left py-16 w-full">
-          <span className="cart-page-title font-mapodacapo text-[48px] font-bold italic">
-            Cart
-          </span>
+        <div className="items-left py-16 w-full flex flex-col items-start relative">
+          <div className="flex items-center gap-4">
+            <span className="cart-page-title font-mapodacapo text-[48px] font-bold italic drop-shadow-lg">
+              Cart
+            </span>
+          </div>
         </div>
-        <div className="cart-items-container w-full py-8">
-          <div className="flex gap-4 my-2">
+        <div className="cart-items-container w-full">
+          <div className="bg-white/80 flex items-center gap-6 px-6   py-4">
             <input
               type="checkbox"
               checked={allCartItemsSelected}
               onChange={handleSelectAllCartItems}
+              className="w-5 h-5 accent-[#A83E3E] border-gray-300 rounded focus:ring-[#A83E3E] focus:ring-2"
             />
             <span
-              className="text-xs font-bold hover:underline cursor-pointer"
+              className="text-sm font-semibold text-[#A83E3E] hover:underline cursor-pointer transition"
               onClick={handleSelectAllCartItems}
             >
               전체 선택
             </span>
             <span
               onClick={handleDeleteSelectedCartItems}
-              className="text-xs font-bold hover:underline cursor-pointer"
+              className="text-sm font-semibold text-gray-500 hover:text-[#A83E3E] hover:underline cursor-pointer transition"
             >
               선택 삭제
             </span>
           </div>
           {/* 주문 진행 중인 상품 목록의 데이터 형태에 따라 달라짐 */}
-          {cartItemList?.map((cartItem) => (
-            <CartItem
-              key={cartItem.wineId}
-              cartWineItem={cartItem}
-              selected={selectedCartItemList.some(
-                (item) => item.wineId === cartItem.wineId
-              )}
-              onSelect={() => handleSelectCartItem(cartItem.wineId)}
-              onAddQuantityState={handleAddQuantityState}
-              onSubstractQuantityState={handleSubstractQuantityState}
-            />
-          ))}
+          <div className="cart-items-container border-t border-b border-[#E4E7EC] divide-y divide-[#E4E7EC]">
+            {cartItemList?.map((cartItem) => (
+              <CartItem
+                key={cartItem.wineId}
+                cartWineItem={cartItem}
+                selected={selectedCartItemList.some(
+                  (item) => item.wineId === cartItem.wineId
+                )}
+                onSelect={() => handleSelectCartItem(cartItem.wineId)}
+                onAddQuantityState={handleAddQuantityState}
+                onSubstractQuantityState={handleSubstractQuantityState}
+              />
+            ))}
+          </div>
         </div>
         <div className="cart-payment-container w-full py-8">
           <CartPayment

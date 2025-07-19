@@ -117,13 +117,17 @@ export const CartItem = ({
   // };
 
   return (
-    <>
-      <hr />
+    <div className="bg-white/80 p-6 w-full flex flex-col space-y-4">
       <div className="cart-item flex justify-center items-center w-full h-full">
-        <input type="checkbox" checked={selected} onChange={onSelect} />
-        <div className="w-[180px] h-60 border m-3 flex-shrink-0">
+        <input
+          type="checkbox"
+          checked={selected}
+          onChange={onSelect}
+          className="w-4 h-4 accent-[#A83E3E] border-gray-300 rounded focus:ring-[#A83E3E] focus:ring-2"
+        />
+        <div className="w-[180px] h-60 border border-[#E4E7EC] rounded-lg m-3 flex-shrink-0 bg-gray-50">
           <img
-            className="cart-item-img object-contain max-w-full max-h-full m-auto"
+            className="cart-item-img object-contain max-w-full max-h-full m-auto p-2"
             src={DuckhornMerlot}
             alt="장바구니에 담긴 와인 이미지"
           />
@@ -131,16 +135,16 @@ export const CartItem = ({
         <div className="cart-item-context h-60 m-3 w-full">
           <div className="flex justify-between items-center h-1/2">
             <div className="flex flex-col justify-center items-left ">
-              <span className="cart-item-name-eng text-lg font-base">
+              <span className="cart-item-name-eng text-lg font-montserrat text-gray-600">
                 {wineNameEng}
               </span>
-              <span className="cart-item-name-kor text-xl font-bold">
+              <span className="cart-item-name-kor text-xl font-bold text-[#A83E3E] font-montserrat">
                 {wineNameKor}
               </span>
             </div>
             <div className="cart-item-buttons flex items-center gap-4">
               <button
-                className="cart-item-button-like text-black"
+                className="cart-item-button-like text-black hover:scale-110 transition"
                 onClick={() => setIsLiked(!isLiked)}
               >
                 {isLiked === false ? (
@@ -151,16 +155,52 @@ export const CartItem = ({
               </button>
               <button
                 onClick={handleInstantOrder}
-                className="cart-item-button-order bg-[#e8e5eb] px-4 py-2 rounded-xl font-bold"
+                className="cart-item-button-order bg-[#A83E3E] text-white px-4 py-2 rounded-lg font-bold hover:bg-[#7a2229] transition font-montserrat text-sm flex items-center"
+                title="즉시 개별 주문하기"
               >
-                따로 주문하기
+                {/* 아이콘 예시: 쇼핑백(장바구니) + 번개(즉시주문) 조합 */}
+                {/* 
+                이 SVG는 "개별 주문하기" 버튼에 들어가는 아이콘입니다.
+                아래의 SVG는 쇼핑백(장바구니)과 번개(즉시주문)의 조합을 나타냅니다.
+                - 첫 번째 <path>는 쇼핑백의 외곽선을 그립니다.
+                - 두 번째 <path>는 쇼핑백의 윗부분(입구 라인)을 그립니다.
+                - 세 번째 <path>는 번개 모양을 그리고, 노란색(#FFD600)으로 채웁니다.
+                즉, 이 아이콘은 "장바구니에서 바로 주문" 또는 "즉시 주문"의 의미를 시각적으로 전달합니다. 
+                */}
+                <svg
+                  xmlns="http://www.w3.org/2000/svg"
+                  className="inline w-5 h-5 mr-1"
+                  fill="none"
+                  viewBox="0 0 24 24"
+                  stroke="currentColor"
+                >
+                  <path
+                    d="M6 2L3 6v14a2 2 0 002 2h14a2 2 0 002-2V6l-3-4H6z"
+                    strokeWidth="2"
+                    strokeLinecap="round"
+                    strokeLinejoin="round"
+                  />
+                  <path
+                    d="M3 6h18"
+                    strokeWidth="2"
+                    strokeLinecap="round"
+                    strokeLinejoin="round"
+                  />
+                  <path
+                    d="M16 10l-4 6h3l-1 4 4-6h-3l1-4z"
+                    fill="#FFD600"
+                    stroke="#FFD600"
+                    strokeWidth="1"
+                  />
+                </svg>
+                {/* <span className="sr-only">따로 주문하기</span> */}
               </button>
             </div>
           </div>
           <div className="flex justify-between items-end h-1/3">
-            <div className="cart-item-quantity-control flex items-center">
+            <div className="cart-item-quantity-control flex items-center border rounded-md overflow-hidden">
               <button
-                className="border w-6"
+                className="px-3 py-1 text-lg"
                 onClick={() => {
                   onSubstractQuantityState(wineId);
                   console.log('수량 빼기 버튼 클릭');
@@ -168,9 +208,11 @@ export const CartItem = ({
               >
                 -
               </button>
-              <span className="w-12 text-center">{cartItemQuantity}</span>
+              <span className="w-12 text-center text-sm font-medium">
+                {cartItemQuantity}
+              </span>
               <button
-                className="border w-6"
+                className="px-3 py-1 text-lg"
                 onClick={() => {
                   onAddQuantityState(wineId);
                   console.log('수량 더하기 버튼 클릭');
@@ -180,18 +222,18 @@ export const CartItem = ({
               </button>
             </div>
             <div className="flex flex-col items-end gap-1 ">
-              <p className="cart-item-delivery-fee">
-                기본 배송 : [{deliveryFee === 0 ? '무료' : deliveryFee}] /
+              <p className="cart-item-delivery-fee text-sm text-gray-600 font-montserrat">
+                기본 배송 : [{deliveryFee === 0 ? '무료' : deliveryFee}] /
                 개별배송
               </p>
-              <span className="cart-item-cost text-right text-2xl font-bold">
+              <span className="cart-item-cost text-right text-2xl font-bold text-[#A83E3E] font-montserrat">
                 ₩{(cartItemQuantity * cartItemPrice).toLocaleString()}
               </span>
             </div>
           </div>
         </div>
       </div>
-    </>
+    </div>
   );
 };
 
