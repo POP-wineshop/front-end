@@ -48,44 +48,53 @@ const OrderPage = () => {
   }, []);
 
   return (
-    <>
-      <div className="w-full flex flex-col items-center">
-        <div className="w-[800px]">
-          <div className="items-left py-16 w-full">
-            <span className="order-page-title font-mapodacapo text-[48px] font-bold italic">
+    <div className="w-full flex flex-col items-center">
+      <div className="w-[800px]">
+        <div className="items-left py-16 w-full flex flex-col items-start relative">
+          <div className="flex items-center gap-4">
+            <span className="order-page-title font-mapodacapo text-[48px] font-bold italic drop-shadow-lg">
               Order
             </span>
           </div>
-          <div className="order-items-container w-full py-8">
-            <div className="order-items-header my-3">
-              <p className="text-2xl font-bold">주문 상품</p>
-            </div>
+        </div>
+
+        <div className="order-page-container flex flex-col gap-8 pb-16">
+          <div className="order-items-container w-full">
             {/* 주문 진행 중인 상품 목록의 데이터 형태에 따라 달라짐 */}
-            {orderInfo?.orderItems ? (
-              orderInfo.orderItems.map((orderingWineItem: OrderingWineItem) => (
-                <OrderItem
-                  key={orderingWineItem.wineId}
-                  orderingWineItem={orderingWineItem}
-                />
-              ))
-            ) : (
-              <div>로딩 중입니다...</div>
-            )}
+            <div className="cart-items-container border-t border-b border-[#E4E7EC] divide-y divide-[#E4E7EC]">
+              {orderInfo?.orderItems ? (
+                orderInfo.orderItems.map(
+                  (orderingWineItem: OrderingWineItem) => (
+                    <OrderItem
+                      key={orderingWineItem.wineId}
+                      orderingWineItem={orderingWineItem}
+                    />
+                  )
+                )
+              ) : (
+                <div className="bg-white/80 p-12 text-center">
+                  <p className="text-gray-400 text-lg font-montserrat">
+                    로딩 중입니다...
+                  </p>
+                </div>
+              )}
+            </div>
           </div>
-          <div className="delivery-info-container w-full py-8">
-            <DeliveryInfo />
-            {/* <PaymentMethod /> */}
-          </div>
-          <div className="order-payment-container w-full py-8">
-            {orderInfo ? (
-              <OrderPayment orderInfo={orderInfo} />
-            ) : (
-              <div>로딩 중입니다...</div>
-            )}
-          </div>
+
+          <DeliveryInfo />
+
+          {orderInfo ? (
+            <OrderPayment orderInfo={orderInfo} />
+          ) : (
+            <div className="bg-white/80 p-12 text-center">
+              <p className="text-gray-400 text-lg font-montserrat">
+                로딩 중입니다...
+              </p>
+            </div>
+          )}
         </div>
       </div>
-    </>
+    </div>
   );
 };
 

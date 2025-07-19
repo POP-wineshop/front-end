@@ -30,23 +30,11 @@ export const OrderItem = ({ orderingWineItem }: OrderingWineItemProps) => {
   }, [orderingWineItem]);
 
   return (
-    <>
-      <hr />
-      {/* <div className="order-item">
-        <img className="order-item-img" src="" alt="주문할 와인 이미지" />
-        <div className="order-item-context">
-          <p className="order-item-name-eng">{wineNameEng}</p>
-          <p className="order-item-name-eng">{wineNameKor}</p>
-          <img className="order-item-delete" src="" alt="주문할 와인 삭제" />
-          <p className="order-item-quantity">수량: {qty}개</p>
-          <p className="order-item-cost">{qty * price}원</p>
-        </div>
-      </div> */}
-
+    <div className="bg-white/80 p-6 w-full flex flex-col space-y-4">
       <div className="order-item flex justify-center items-center w-full h-full">
-        <div className="w-[180px] h-60 border m-3 flex-shrink-0">
+        <div className="w-[180px] h-60 border border-[#E4E7EC] rounded-lg m-3 flex-shrink-0 bg-gray-50">
           <img
-            className="order-item-img object-contain w-full h-full"
+            className="order-item-img object-contain w-full h-full p-2"
             // src={wineImageUrl}
             src={DuckhornMerlot}
             alt="주문할 와인 이미지"
@@ -55,10 +43,10 @@ export const OrderItem = ({ orderingWineItem }: OrderingWineItemProps) => {
         <div className="order-item-context h-60 m-3 w-full">
           <div className="flex justify-between items-center h-1/2">
             <div className="flex flex-col justify-center items-left ">
-              <span className="order-item-name-eng text-lg font-base">
+              <span className="order-item-name-eng text-lg font-montserrat text-gray-600">
                 {wineNameEng}
               </span>
-              <span className="order-item-name-kor text-xl font-bold">
+              <span className="order-item-name-kor text-xl font-bold text-[#A83E3E] font-montserrat">
                 {wineNameKor}
               </span>
             </div>
@@ -77,22 +65,22 @@ export const OrderItem = ({ orderingWineItem }: OrderingWineItemProps) => {
           </div>
           <div className="flex justify-between items-center h-1/2">
             <div className="order-item-quantity">
-              <span className="w-12 text-left text-xl font-semibold">
+              <span className="w-12 text-left text-xl font-semibold text-[#A83E3E] font-montserrat">
                 수량 : {qty}병
               </span>
             </div>
             <div className="flex flex-col items-end gap-1 ">
-              <p className="order-item-delivery-fee">
-                기본 배송 : [{deliveryFee === 0 ? '무료' : deliveryFee}] /
+              <p className="order-item-delivery-fee text-sm text-gray-600 font-montserrat">
+                기본 배송 : [{deliveryFee === 0 ? '무료' : deliveryFee}] /
                 개별배송
               </p>
-              <span className="order-item-cost text-right text-2xl font-bold">
-                ₩{(qty * winePrice).toLocaleString()}
+              <span className="order-item-cost text-right text-2xl font-bold text-[#A83E3E] font-montserrat">
+                ₩ {(qty * winePrice).toLocaleString()}
               </span>
             </div>
           </div>
         </div>
       </div>
-    </>
+    </div>
   );
 };
