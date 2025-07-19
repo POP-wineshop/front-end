@@ -2,6 +2,15 @@ import { useState } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
 import { AddressReq, AddressRes } from '@/types/userPage/myPage/Address';
 
+const messageOptions = [
+  `배송 전에 미리 연락바랍니다.`,
+  `부재 시 경비실에 맡겨주세요.`,
+  `부재 시 문 앞에 놓아주세요.`,
+  `빠른 배송 부탁드립니다.`,
+  `택배함에 보관해 주세요.`,
+  `직접 입력`,
+];
+
 const AddressRegister = () => {
   const navigate = useNavigate();
   const [userId, setUserId] = useState<number>(2);
@@ -47,47 +56,49 @@ const AddressRegister = () => {
   };
 
   return (
-    <div className="w-full">
+    <div>
       <form
         onSubmit={(e) => {
           e.preventDefault();
           registerAddress();
           alert('배송지 추가 완료');
         }}
-        className="mx-auto my-16 flex flex-col gap-4 w-full max-w-md min-w-[400px] p-8 bg-white rounded-xl shadow-md"
+        className="flex flex-col space-y-6"
       >
-        <p className="text-xl font-bold text-center mb-4">배송지 등록</p>
+        <h2 className="text-2xl font-bold text-[#A83E3E] text-center mb-4 font-montserrat">
+          배송지 등록
+        </h2>
 
         <div>
-          <label className="block mb-1 text-sm font-medium text-gray-700">
-            이름
+          <label className="block text-lg font-bold text-[#A83E3E] mb-2 font-montserrat">
+            이름 <span className="text-red-500">*</span>
           </label>
           <input
             type="text"
             placeholder="받으실 분의 이름을 입력해주세요"
             value={recipientName}
             onChange={(e) => setRecipientName(e.target.value)}
-            className="w-full p-2 border border-[#D4D4D4] rounded-md focus:outline-none focus:ring focus:ring-1 focus:ring-[#6A1B1A]"
+            className="w-full px-4 py-2 rounded-lg border border-[#E4E7EC] bg-gray-50 font-montserrat focus:outline-none focus:ring-2 focus:ring-[#A83E3E] transition"
             required
           />
         </div>
 
         <div>
-          <label className="block mb-1 text-sm font-medium text-gray-700">
-            주소
+          <label className="block text-lg font-bold text-[#A83E3E] mb-2 font-montserrat">
+            주소 <span className="text-red-500">*</span>
           </label>
-          <div className="flex gap-2 justify-between items-center">
+          <div className="flex gap-2 justify-between items-center mb-2">
             <input
               type="text"
               placeholder="우편번호"
               value={zipcode}
               onChange={(e) => setZipcode(e.target.value)}
-              className="w-full p-2 border border-[#D4D4D4] rounded-md focus:outline-none focus:ring focus:ring-1 focus:ring-[#6A1B1A]"
+              className="w-full px-4 py-2 rounded-lg border border-[#E4E7EC] bg-gray-50 font-montserrat focus:outline-none focus:ring-2 focus:ring-[#A83E3E] transition"
               required
             />
             <button
               type="button"
-              className="w-1/4 px-4 py-2 border border-[#6A1B1A] bg-[#6A1B1A] text-white rounded-md hover:bg-[#8B2E2E] hover:border-[#8B2E2E] transition-colors duration-150"
+              className="px-4 py-2 bg-[#A83E3E] text-white whitespace-nowrap font-bold rounded-lg hover:bg-[#7a2229] transition font-montserrat text-sm"
             >
               검색
             </button>
@@ -97,7 +108,7 @@ const AddressRegister = () => {
             placeholder="기본주소 (시, 구, 동 등)"
             value={address}
             onChange={(e) => setAddress(e.target.value)}
-            className="mt-2 w-full p-2 border border-[#D4D4D4] rounded-md focus:outline-none focus:ring focus:ring-1 focus:ring-[#6A1B1A]"
+            className="w-full px-4 py-2 rounded-lg border border-[#E4E7EC] bg-gray-50 font-montserrat focus:outline-none focus:ring-2 focus:ring-[#A83E3E] transition mb-2"
             required
           />
           <input
@@ -105,55 +116,82 @@ const AddressRegister = () => {
             placeholder="상세주소 (아파트, 빌라, 동호수 등)"
             value={detailAddress}
             onChange={(e) => setDetailAddress(e.target.value)}
-            className="mt-2 w-full p-2 border border-[#D4D4D4] rounded-md focus:outline-none focus:ring focus:ring-1 focus:ring-[#6A1B1A]"
+            className="w-full px-4 py-2 rounded-lg border border-[#E4E7EC] bg-gray-50 font-montserrat focus:outline-none focus:ring-2 focus:ring-[#A83E3E] transition"
           />
         </div>
 
         <div>
-          <label className="block mb-1 text-sm font-medium text-gray-700">
-            전화번호
+          <label className="block text-lg font-bold text-[#A83E3E] mb-2 font-montserrat">
+            전화번호 <span className="text-red-500">*</span>
           </label>
           <input
             type="tel"
             placeholder="010-1234-5678"
             value={phoneNumber}
             onChange={(e) => setPhoneNumber(e.target.value)}
-            className="w-full p-2 border border-[#D4D4D4] rounded-md focus:outline-none focus:ring focus:ring-1 focus:ring-[#6A1B1A]"
+            className="w-full px-4 py-2 rounded-lg border border-[#E4E7EC] bg-gray-50 font-montserrat focus:outline-none focus:ring-2 focus:ring-[#A83E3E] transition"
             required
           />
         </div>
 
         <div>
-          <label className="block mb-1 text-sm font-medium text-gray-700">
+          <label className="block text-lg font-bold text-[#A83E3E] mb-2 font-montserrat">
             배송 메시지
           </label>
-          <select name="" id="">
-            <option value=""></option>
-          </select>
-          <input
-            type="text"
-            placeholder="배송 메시지를 입력해주세요"
-            value={deliveryMessage}
-            onChange={(e) => setPhoneNumber(e.target.value)}
-            className="w-full p-2 border border-[#D4D4D4] rounded-md focus:outline-none focus:ring focus:ring-1 focus:ring-[#6A1B1A]"
-            required
-          />
+
+          {deliveryMessage !== '직접 입력' ? (
+            <select
+              value={deliveryMessage}
+              onChange={(e) => setDeliveryMessage(e.target.value)}
+              className="w-full px-4 py-2 rounded-lg border border-[#E4E7EC] bg-gray-50 font-montserrat focus:outline-none focus:ring-2 focus:ring-[#A83E3E] transition"
+            >
+              {messageOptions.map((option) => (
+                <option key={option} value={option}>
+                  {option}
+                </option>
+              ))}
+            </select>
+          ) : (
+            <input
+              type="text"
+              placeholder="배송 메시지를 입력해주세요"
+              value={deliveryMessage}
+              onChange={(e) => setDeliveryMessage(e.target.value)}
+              onBlur={() => {
+                if (!deliveryMessage) setDeliveryMessage('');
+              }}
+              className="w-full px-4 py-2 rounded-lg border border-[#E4E7EC] bg-gray-50 font-montserrat focus:outline-none focus:ring-2 focus:ring-[#A83E3E] transition"
+            />
+          )}
+
+          <div>
+            <input
+              type="checkbox"
+              value={isDefault.toString()}
+              onChange={() => setIsDefault(!isDefault)}
+            />
+            <label className="block text-lg font-bold text-[#A83E3E] mb-2 font-montserrat">
+              기본 배송지로 설정
+            </label>
+          </div>
         </div>
 
-        <button
-          type="submit"
-          className="mt-4 py-2 bg-[#6A1B1A] text-white font-semibold rounded-md hover:bg-[#4E1212] transition"
-          onClick={registerAddress}
-        >
-          추가하기
-        </button>
+        <div className="flex justify-between gap-4 pt-4">
+          <button
+            type="submit"
+            className="w-1/2 px-4 py-2 bg-[#A83E3E] text-white font-bold rounded-lg hover:bg-[#7a2229] transition font-montserrat"
+            onClick={registerAddress}
+          >
+            추가하기
+          </button>
 
-        <Link
-          to="/mypage/address"
-          className="text-sm text-center text-[#6A1B1A] hover:underline font-medium"
-        >
-          배송지 목록으로 돌아가기
-        </Link>
+          <Link
+            to="/mypage/address"
+            className="w-1/2 px-4 py-2 bg-gray-700 text-white font-bold rounded-lg hover:bg-[#7a2229] transition font-montserrat text-center"
+          >
+            목록으로 돌아가기
+          </Link>
+        </div>
       </form>
     </div>
   );
