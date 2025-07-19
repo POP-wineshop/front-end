@@ -1,6 +1,7 @@
-import { useState } from 'react';
-import DuckhornMerlot from '@/assets/wineItem/Duckhorn_Napa Valley_Merlot.png';
 import { useNavigate } from 'react-router-dom';
+import DuckhornMerlot from '@/assets/wineItem/Duckhorn_Napa Valley_Merlot.png';
+import { Heart, HeartPlus } from 'lucide-react';
+import { useState } from 'react';
 
 type Wine = {
   id: number;
@@ -23,59 +24,75 @@ type Wine = {
 };
 
 type WineItemProps = {
-  wineData: Wine; // 여기서 any 대신 Wine 타입 쓰는 게 더 좋아
+  wineData: Wine;
 };
 
 const WineItem = ({ wineData }: WineItemProps) => {
   const navigate = useNavigate();
+  const [isLiked, setIsLiked] = useState<boolean>(false);
 
-  const [wineNameEng, setWineNameEng] = useState<string>('');
-  const [wineNameKor, setWineNameKor] = useState<string>('');
+  const grapeVariety = wineData.grapeVariety.split(',').map((v) => v.trim());
+
+  // 태그: 국가, 종류, 빈티지, 품종 등
+  const tags = [
+    wineData.country,
+    wineData.wineType,
+    wineData.vintage + '년',
+    ...grapeVariety,
+  ];
 
   return (
-    <>
-      <div className="wine-item w-full flex flex-col items-center bg-white rounded-lg p-4 h-full">
-        <div className="w-full h-full flex items-center justify-center border hover:ring-1 hover:ring-[#6A1B1A] transition duration-200 ease-in-out cursor-pointer">
-          <img
-            src={DuckhornMerlot}
-            alt="와인 이미지"
-            className="object-contain w-full h-64"
-            onClick={() => {
-              navigate(`/description/${wineData.id}`, {
-                state: { id: `${wineData.id}` },
-              });
-            }}
-          />
-        </div>
-        <div className="wine-name w-full text-left mt-4">
-          <div
-            onClick={() => {
-              navigate(`/description/${wineData.id}`, {
-                state: { id: `${wineData.id}` },
-              });
-            }}
-            className="inline-block cursor-pointer hover:underline "
+    <div className="bg-white/80 rounded-2xl shadow flex flex-col justify-center items-center p-8 min-h-[420px] transition hover:shadow-xl">
+      <div
+        className="w-full flex justify-center cursor-pointer mb-6"
+        onClick={() =>
+          navigate(`/description/${wineData.id}`, {
+            state: { id: `${wineData.id}` },
+          })
+        }
+      >
+        <img
+          src={DuckhornMerlot}
+          alt={`${wineData.korName} 이미지`}
+          className="object-contain h-52"
+        />
+      </div>
+      <div className="w-full flex flex-col items-center gap-1 mb-4">
+        <span className="font-pretendard tracking-tight text-xl font-extrabold text-gray-900 text-center line-clamp-1">
+          {wineData.korName}
+        </span>
+        <span className="font-montserrat italic text-gray-400 text-base line-clamp-1">
+          {wineData.engName}
+        </span>
+      </div>
+      <div className="flex flex-wrap gap-2 mb-6">
+        {tags.map((tag, idx) => (
+          <span
+            key={idx}
+            className="rounded-full bg-gray-100 text-gray-700 px-3 py-1 text-xs font-semibold"
           >
-            <span className="font-pretendard font-semibold line-clamp-1">
-              {wineData.korName}
-            </span>
-            <span className="italic text-gray-500 line-clamp-1">
-              {wineData.engName}
-            </span>
-          </div>
-        </div>
-        <div className="w-full text-left text-sm text-gray-600">
-          <p className="line-clamp-1">간략한 와인 설명</p>
-        </div>
-        <div className="w-full mt-2 text-right text-xl font-semibold text-gray-600">
-          {/* <p>₩{price}</p> */}
-          <p>
-            ₩{wineData.price.toLocaleString()}{' '}
-            <span className="text-gray-500 text-sm">/ btl.</span>
-          </p>
+            {tag}
+          </span>
+        ))}
+      </div>
+      <div className="w-full flex justify-between items-center">
+        <button
+          className="p-2"
+          onClick={() => setIsLiked(!isLiked)}
+          title={`${isLiked ? '클릭 시 좋아요 취소' : '클릭 시 좋아요 추가'}`}
+        >
+          {isLiked === false ? (
+            <HeartPlus className="w-6 h-6 stroke-black fill-transparent" />
+          ) : (
+            <Heart className="w-6 h-6 stroke-red-500 fill-red-500 transition-colors " />
+          )}
+        </button>
+        <div className="w-full flex justify-end items-center text-xl font-bold text-gray-800 my-auto">
+          <span>₩{wineData.price.toLocaleString()}</span>
+          <span className="text-gray-400 text-base ml-1">/ btl.</span>
         </div>
       </div>
-    </>
+    </div>
   );
 };
 
