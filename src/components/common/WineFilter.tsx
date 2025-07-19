@@ -45,20 +45,6 @@ const WineFilter = () => {
   const [wineType, setWineType] = useState<string>('');
   const [keyword, setKeyword] = useState<string>('');
 
-  // useEffect(() => {
-  //   const handleNavigateToFilteredList = () => {
-  //     navigate(`/list`, {
-  //       state: {
-  //         country,
-  //         region,
-  //         wineType,
-  //       },
-  //     });
-  //   };
-
-  //   handleNavigateToFilteredList();
-  // }, [country, region, wineType]);
-
   const handleFilterIncludingKeyword = () => {
     navigate(`/list`, {
       state: {
@@ -109,7 +95,17 @@ const WineFilter = () => {
       <div className="flex flex-col md:flex-row items-center gap-4 bg-white/80 shadow-md rounded-2xl px-8 py-4">
         <div className="flex gap-4">
           <select
-            onChange={(e) => setCountry(e.target.value)}
+            onChange={(e) => {
+              const newCountry = e.target.value;
+              setCountry(newCountry);
+              navigate(`/list`, {
+                state: {
+                  country: newCountry,
+                  region,
+                  wineType,
+                },
+              });
+            }}
             className="font-montserrat w-28 px-3 py-2 rounded-lg border border-gray-200 bg-gray-50 text-gray-700 shadow-sm focus:outline-none focus:ring-2 focus:ring-[#A83E3E] transition"
           >
             {countries.map((country) => (
@@ -119,7 +115,17 @@ const WineFilter = () => {
             ))}
           </select>
           <select
-            onChange={(e) => setRegion(e.target.value)}
+            onChange={(e) => {
+              const newRegion = e.target.value;
+              setRegion(newRegion);
+              navigate(`/list`, {
+                state: {
+                  country,
+                  region: newRegion,
+                  wineType,
+                },
+              });
+            }}
             className="font-montserrat w-28 px-3 py-2 rounded-lg border border-gray-200 bg-gray-50 text-gray-700 shadow-sm focus:outline-none focus:ring-2 focus:ring-[#A83E3E] transition"
           >
             {regions.map((region) => (
@@ -129,7 +135,17 @@ const WineFilter = () => {
             ))}
           </select>
           <select
-            onChange={(e) => setWineType(e.target.value)}
+            onChange={(e) => {
+              const newWineType = e.target.value;
+              setWineType(newWineType);
+              navigate(`/list`, {
+                state: {
+                  country,
+                  region,
+                  wineType: newWineType,
+                },
+              });
+            }}
             className="font-montserrat w-28 px-3 py-2 rounded-lg border border-gray-200 bg-gray-50 text-gray-700 shadow-sm focus:outline-none focus:ring-2 focus:ring-[#A83E3E] transition"
           >
             {wineTypes.map((wineType) => (
