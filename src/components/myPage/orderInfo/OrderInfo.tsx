@@ -58,12 +58,12 @@ const orderInfo = () => {
   };
 
   return (
-    <div className="flex flex-col space-y-6 p-6">
+    <div className="flex flex-col space-y-6">
       {orderList.length > 0 ? (
         orderList.map((order) => (
           <div
             key={order.orderId}
-            className="bg-white/80 rounded-2xl shadow-md p-6 mb-8 space-y-4"
+            className="bg-white/80 rounded-2xl shadow-md p-6 space-y-4 "
           >
             {/* 주문 정보 바 */}
             <div className="flex flex-col md:flex-row md:items-center md:justify-between gap-4">
