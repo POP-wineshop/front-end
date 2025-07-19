@@ -31,15 +31,17 @@ const WineDescriptionBottom: React.FC<WineDescriptionProps> = ({
   ];
 
   return (
-    <div className="wine-description-bottom py-8 flex flex-col items-center">
+    <div className="wine-description-bottom py-12 px-6 bg-white flex flex-col gap-10">
       {wineDescriptionText.map(({ key, value }) => (
         <div
-          className="wine-description-text mb-8 flex flex-col items-center w-2/3 min-w-120"
           key={key}
+          className="w-full max-w-3xl mx-auto flex flex-col items-start gap-4"
         >
-          <p className="text-xl font-semibold mb-2">{key}</p>
-          <hr className="w-60 border-t border-gray-300 mb-2" />
-          <p className="break-words whitespace-normal">{value}</p>
+          <h3 className="text-lg font-semibold text-[#6A1B1A]">{key}</h3>
+          <hr className="w-full border-t border-gray-300" />
+          <p className="text-gray-700 text-sm leading-relaxed whitespace-pre-wrap">
+            {value}
+          </p>
         </div>
       ))}
     </div>

@@ -1,8 +1,6 @@
 import { useEffect, useState } from 'react';
-import WineFilter from '../components/common/WineFilter';
 import WineDescriptionBottom from '../components/wineDescription/WineDescriptionBottom';
 import WineDescriptionTop from '../components/wineDescription/WineDescriptionTop';
-import OrderModal from '../components/wineDescription/OrderModal';
 import { useLocation } from 'react-router-dom';
 
 type WineData = {
@@ -47,7 +45,7 @@ const WineDescriptionPage = () => {
 
   return (
     <>
-      <div className="wine-description min-w-[900px]">
+      <div className="wine-description w-full min-w-[900px]">
         {wineData && (
           <>
             <WineDescriptionTop wineData={wineData} />

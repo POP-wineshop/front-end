@@ -145,55 +145,56 @@ const WineDescriptionTop = ({ wineData }: WineDataProps) => {
   ];
 
   return (
-    <div className="wine-description-top flex gap-4 m-8 min-w-[800px] min-h-[500px] justify-evenly items-center">
-      <div className="wine-description-top-left">
+    <div className="wine-description-top flex flex-col justify-center items-center lg:flex-row px-8 py-10 bg-[#f7f4f1]">
+      <div className="wine-description-top-left flex justify-start items-center w-[400px] h-[600px]">
         <img
-          className="object-contain w-auto h-[480px] mx-auto my-auto"
+          className="object-contain max-h-full"
           src={DuckhornMerlot}
           alt="와인 상세 이미지"
         />
       </div>
-      <div className="wine-description-top-right font-pretendard w-[500px]">
-        <div className="wine-description-name mb-8">
+      <div className="wine-description-top-right font-pretendard w-[500px] h-[600px]">
+        <div className="wine-description-name mb-6">
           <p
-            className="wine-description-name-eng italic text-lg font-light text-[#666666] mb-1 line-clamp-1"
-            title={`${engName}`}
+            className="italic text-lg text-gray-500 mb-1 line-clamp-1"
+            title={engName}
           >
             {engName}
           </p>
           <p
-            className="wine-description-name-kor text-3xl font-semibold text-[#111] line-clamp-1"
-            title={`${korName}`}
+            className="text-3xl font-bold text-[#111] line-clamp-1"
+            title={korName}
           >
             {korName}
           </p>
         </div>
-        <div className="wine-description-details">
-          <table className="border-separate border-spacing-y-4">
-            <tbody>
-              {wineDescriptionDetails.map(({ key, value }) => (
-                <tr key={key}>
-                  <th className="text-left w-40 p-0">{key}</th>
-                  <td className="p-0">{value}</td>
-                </tr>
-              ))}
-            </tbody>
-          </table>
-        </div>
-        <div className="wine-description-taste-profile border-t border-b">
+        <table className="text-sm mb-6 w-full">
+          <tbody>
+            {wineDescriptionDetails.map(({ key, value }) => (
+              <tr
+                key={key}
+                className="border-b border-dashed border-gray-300 h-10"
+              >
+                <th className="text-left w-40 text-gray-600 font-medium">
+                  {key}
+                </th>
+                <td>{value}</td>
+              </tr>
+            ))}
+          </tbody>
+        </table>
+        <div className="wine-description-taste-profile border-t border-b py-4 mb-6">
           {tasteProfileDetails.map(({ labelEng, labelKor, low, high }) => (
-            <div key={labelEng} className="flex items-center my-4 pr-4">
-              <strong className="w-40">{labelKor}</strong>
-              <span className="w-12 text-xs text-right">{low}</span>
+            <div key={labelEng} className="flex items-center my-3">
+              <strong className="w-24 text-sm text-gray-700">{labelKor}</strong>
+              <span className="w-12 text-xs text-right text-gray-400">
+                {low}
+              </span>
               <div className="flex gap-4 mx-3">
-                {/* 수평 간격 12px = 3 * 4px */}
                 {[1, 2, 3, 4, 5].map((n) => (
                   <div
                     key={n}
-                    className={`text-sm w-6 h-6 rounded-full flex items-center justify-center ${
-                      // 값과 일치하면 강조, 아니면 기본색
-                      // typeof로 객체의 타입을 먼저 추출, 그 다음 keyof로 키들의 유니언 타입('a' | 'b' | 'c' 같이 여러 값 중 하나만 가질 수 있는 타입) 만듦
-                      // 순서를 바꾸면 타입스크립트 에러, 항상 keyof typeof 순서로 사용해야 함
+                    className={`w-5 h-5 p-3 rounded-full flex items-center justify-center ${
                       n ===
                       wineData.tasteProfile[
                         labelEng as keyof typeof wineData.tasteProfile
@@ -206,56 +207,48 @@ const WineDescriptionTop = ({ wineData }: WineDataProps) => {
                   </div>
                 ))}
               </div>
-              <span className="w-12 text-xs">{high}</span>
+              <span className="w-12 text-xs text-gray-400">{high}</span>
             </div>
           ))}
         </div>
-        <div className="wine-description-order-addToCart my-4">
-          <div className="set-quantity-and-price flex w-full mb-4">
-            <div className="quantity-control w-1/2 flex items-center">
-              <button className="border w-6" onClick={substractQuantity}>
+        <div className="wine-description-order-addToCart bg-white p-4 rounded-xl shadow-sm">
+          <div className="flex justify-between items-center mb-4">
+            <div className="flex items-center border rounded-md overflow-hidden">
+              <button className="px-3 py-1 text-lg" onClick={substractQuantity}>
                 -
               </button>
-              <span className="w-12 text-center">{itemQuantity}</span>
-              <button className="border w-6" onClick={addQuantity}>
+              <span className="w-12 text-center text-sm font-medium">
+                {itemQuantity}
+              </span>
+              <button className="px-3 py-1 text-lg" onClick={addQuantity}>
                 +
               </button>
             </div>
-            <div className="total-cost w-1/2 flex gap-2 justify-end items-center text-right italic">
-              {itemQuantity !== 1 && (
-                <span className="text-sm text-gray-500 whitespace-nowrap">
-                  ₩ {price.toLocaleString()}/btl. * {itemQuantity} =
-                </span>
-              )}{' '}
-              <span className="font-semibold text-2xl">TOTAL</span>
-              <span className="font-semibold text-2xl">
-                ₩{(price * itemQuantity).toLocaleString()}
-              </span>
+            <div className="text-right text-xl font-bold">
+              ₩{(price * itemQuantity).toLocaleString()}
             </div>
           </div>
-          <div className="wine-description-buttons flex justify-between items-center gap-2">
+          <div className="flex gap-2">
             <button
-              className="text-black p-2 w-[200px] rounded-xl border flex justify-center items-center"
+              className="p-2 w-12 rounded-xl border border-gray-300 flex justify-center items-center"
               onClick={() => setIsLiked(!isLiked)}
-              title={`${
-                isLiked ? '클릭 시 좋아요 취소' : '클릭 시 좋아요 추가'
-              }`}
+              title={isLiked ? '좋아요 취소' : '좋아요 추가'}
             >
-              {isLiked === false ? (
-                <HeartPlus className="w-6 h-6 stroke-black fill-transparent" />
+              {isLiked ? (
+                <Heart className="w-6 h-6 stroke-red-500 fill-red-500 transition-colors" />
               ) : (
-                <Heart className="w-6 h-6 stroke-red-500 fill-red-500 transition-colors " />
+                <HeartPlus className="w-6 h-6 stroke-black fill-transparent" />
               )}
             </button>
             <button
               onClick={handleInstantOrder}
-              className="bg-[#e8e5eb] p-2 w-full rounded-xl font-bold"
+              className="bg-[#6A1B1A] hover:bg-[#8b2e2e] text-white p-2 w-full rounded-xl font-semibold"
             >
               주문하기
             </button>
             <button
               onClick={handleAddToCart}
-              className="bg-[#e8e5eb] p-2 w-full rounded-xl font-bold"
+              className="bg-[#e8e5eb] hover:bg-[#d6d1d1] text-black p-2 w-full rounded-xl font-semibold"
             >
               장바구니
             </button>
