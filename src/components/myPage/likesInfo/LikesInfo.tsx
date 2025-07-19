@@ -61,29 +61,50 @@ const LikesInfo = () => {
   }, [likesItemList]);
 
   return (
-    <div className="w-full flex flex-col items-center">
-      {/* <div className="items-left py-20 w-full">
-          <span className="likes-page-title text-[48px] font-bold italic">
-            Likes
-          </span>
-        </div> */}
-      <div className="likes-items-container w-full py-8">
+    <div className="bg-white/80 rounded-2xl shadow-md p-8 w-full flex flex-col space-y-6">
+      <div className="likes-items-container w-full py-4">
         {/* 주문 진행 중인 상품 목록의 데이터 형태에 따라 달라짐 */}
         {likesItemList?.map((likesItem) => (
           <LikesItem key={likesItem.id} likesWineItem={likesItem} />
         ))}
-        <hr />
+        {likesItemList.length === 0 && (
+          <p className="text-center text-gray-400 py-12 font-montserrat">
+            좋아요한 상품이 없습니다.
+          </p>
+        )}
       </div>
+
       <div className="flex items-center justify-center gap-4 my-8">
-        <img src={ToFirstPage} alt="첫 페이지" />
-        <img src={ToPreviousPage} alt="이전 페이지" />
+        <img
+          src={ToFirstPage}
+          alt="첫 페이지"
+          className="cursor-pointer hover:opacity-70 transition"
+        />
+        <img
+          src={ToPreviousPage}
+          alt="이전 페이지"
+          className="cursor-pointer hover:opacity-70 transition"
+        />
         {[1, 2, 3, 4, 5].map((page) => (
-          <span key={page}>
-            <a href="">{page}</a>
+          <span key={page} className="font-montserrat">
+            <a
+              href=""
+              className="px-3 py-1 rounded-lg hover:bg-[#A83E3E] hover:text-white transition"
+            >
+              {page}
+            </a>
           </span>
         ))}
-        <img src={ToNextPage} alt="다음 페이지" />
-        <img src={ToLastPage} alt="마지막 페이지" />
+        <img
+          src={ToNextPage}
+          alt="다음 페이지"
+          className="cursor-pointer hover:opacity-70 transition"
+        />
+        <img
+          src={ToLastPage}
+          alt="마지막 페이지"
+          className="cursor-pointer hover:opacity-70 transition"
+        />
       </div>
     </div>
   );
