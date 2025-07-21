@@ -58,10 +58,26 @@ const WineItem = ({ wineData }: WineItemProps) => {
         />
       </div>
       <div className="w-full flex flex-col items-center gap-1 mb-4">
-        <span className="font-pretendard tracking-tight text-xl font-extrabold text-gray-900 text-center line-clamp-1">
+        <span
+          className={`
+            font-pretendard tracking-tight font-extrabold text-gray-900 text-center line-clamp-2
+            ${wineData.korName.length > 15 ? 'text-lg' : 'text-xl'}
+          `}
+          style={{
+            fontSize: wineData.korName.length > 15 ? '1.125rem' : undefined,
+          }}
+        >
           {wineData.korName}
         </span>
-        <span className="font-montserrat italic text-gray-400 text-base line-clamp-1">
+        <span
+          className={`
+            font-montserrat tracking-tight italic text-gray-400 text-center line-clamp-2
+            ${wineData.engName.length > 20 ? 'text-sm' : 'text-base'}
+          `}
+          style={{
+            fontSize: wineData.engName.length > 20 ? '0.875rem' : undefined,
+          }}
+        >
           {wineData.engName}
         </span>
       </div>
