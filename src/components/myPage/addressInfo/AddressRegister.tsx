@@ -98,7 +98,7 @@ const AddressRegister = () => {
             />
             <button
               type="button"
-              className="px-4 py-2 bg-[#A83E3E] text-white whitespace-nowrap font-bold rounded-lg hover:bg-[#7a2229] transition font-montserrat text-sm"
+              className="w-[72px] px-4 py-2 bg-[#A83E3E] text-white whitespace-nowrap font-bold rounded-lg hover:bg-[#7a2229] transition font-montserrat text-sm"
             >
               검색
             </button>
@@ -163,17 +163,18 @@ const AddressRegister = () => {
               className="w-full px-4 py-2 rounded-lg border border-[#E4E7EC] bg-gray-50 font-montserrat focus:outline-none focus:ring-2 focus:ring-[#A83E3E] transition"
             />
           )}
+        </div>
 
-          <div>
-            <input
-              type="checkbox"
-              value={isDefault.toString()}
-              onChange={() => setIsDefault(!isDefault)}
-            />
-            <label className="block text-lg font-bold text-[#A83E3E] mb-2 font-montserrat">
-              기본 배송지로 설정
-            </label>
-          </div>
+        <div className="flex justify-start items-center gap-2">
+          <input
+            type="checkbox"
+            className="w-5 h-5"
+            value={isDefault.toString()}
+            onChange={() => setIsDefault(!isDefault)}
+          />
+          <label className="block font-bold font-montserrat">
+            기본 배송지로 설정
+          </label>
         </div>
 
         <div className="flex justify-between gap-4 pt-4">
