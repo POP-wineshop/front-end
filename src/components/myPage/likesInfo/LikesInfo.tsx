@@ -62,7 +62,7 @@ const LikesInfo = () => {
 
   return (
     <div className="bg-white/80 rounded-2xl shadow-md p-8 w-full flex flex-col space-y-6">
-      <div className="likes-items-container w-full py-4">
+      <div className="likes-items-container w-full py-4 border-t border-b border-[#E4E7EC] divide-y divide-[#E4E7EC]">
         {/* 주문 진행 중인 상품 목록의 데이터 형태에 따라 달라짐 */}
         {likesItemList?.map((likesItem) => (
           <LikesItem key={likesItem.id} likesWineItem={likesItem} />

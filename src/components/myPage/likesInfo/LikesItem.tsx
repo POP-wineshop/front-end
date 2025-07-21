@@ -117,7 +117,7 @@ export const LikesItem = ({ likesWineItem }: LikesItemProps) => {
   };
 
   return (
-    <div className="bg-white/80 p-6 border-t border-b border-[#E4E7EC]">
+    <div className="bg-white/80 p-6">
       <div className="likes-item flex justify-center items-center w-full h-full">
         <div
           className="w-[120px] h-40 border border-[#E4E7EC] m-3 flex-shrink-0 cursor-pointer hover:ring-2 hover:ring-[#A83E3E] transition duration-200 ease-in-out rounded-lg"
