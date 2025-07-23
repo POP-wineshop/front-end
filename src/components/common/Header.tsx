@@ -23,7 +23,7 @@ const Header = () => {
         /> */}
         <span
           onClick={() => navigate('/list')}
-          className="font-mapodacapo text-[64px] text-white font-semibold italic cursor-pointer hover:text-[#A83E3E] transition"
+          className="font-mapodacapo text-[48px] text-white font-semibold italic cursor-pointer hover:text-[#A83E3E] transition"
         >
           WINEHALLE
         </span>

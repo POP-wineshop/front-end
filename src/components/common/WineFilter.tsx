@@ -106,7 +106,7 @@ const WineFilter = () => {
                 },
               });
             }}
-            className="font-montserrat w-28 px-3 py-2 rounded-lg border border-gray-200 bg-gray-50 text-gray-700 shadow-sm focus:outline-none focus:ring-2 focus:ring-[#A83E3E] transition"
+            className="font-montserrat w-28 h-10 px-3 py-2 rounded-lg border border-gray-200 bg-gray-50 text-sm text-gray-700 shadow-sm focus:outline-none focus:ring-2 focus:ring-[#A83E3E] transition"
           >
             {countries.map((country) => (
               <option key={country.key} value={country.value}>
@@ -126,7 +126,7 @@ const WineFilter = () => {
                 },
               });
             }}
-            className="font-montserrat w-28 px-3 py-2 rounded-lg border border-gray-200 bg-gray-50 text-gray-700 shadow-sm focus:outline-none focus:ring-2 focus:ring-[#A83E3E] transition"
+            className="font-montserrat w-56 h-10 px-3 py-2 rounded-lg border border-gray-200 bg-gray-50 text-sm text-gray-700 shadow-sm focus:outline-none focus:ring-2 focus:ring-[#A83E3E] transition"
           >
             {regions.map((region) => (
               <option key={region.key} value={region.value}>
@@ -146,7 +146,7 @@ const WineFilter = () => {
                 },
               });
             }}
-            className="font-montserrat w-28 px-3 py-2 rounded-lg border border-gray-200 bg-gray-50 text-gray-700 shadow-sm focus:outline-none focus:ring-2 focus:ring-[#A83E3E] transition"
+            className="font-montserrat w-28 h-10 px-3 py-2 rounded-lg border border-gray-200 bg-gray-50 text-sm text-gray-700 shadow-sm focus:outline-none focus:ring-2 focus:ring-[#A83E3E] transition"
           >
             {wineTypes.map((wineType) => (
               <option key={wineType.key} value={wineType.value}>
@@ -158,7 +158,7 @@ const WineFilter = () => {
             <input
               type="text"
               placeholder="와인 이름 검색"
-              className="font-pretendard w-full md:w-64 px-4 py-2 rounded-lg border border-gray-200 bg-gray-50 text-gray-700 shadow-sm focus:outline-none focus:ring-2 focus:ring-[#A83E3E] transition"
+              className="font-pretendard w-full h-10 md:w-64 px-4 py-2 rounded-lg border border-gray-200 bg-gray-50 text-sm text-gray-700 shadow-sm focus:outline-none focus:ring-2 focus:ring-[#A83E3E] transition"
               onChange={(e) => setKeyword(e.target.value)}
             />
             <button

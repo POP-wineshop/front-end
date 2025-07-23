@@ -17,7 +17,6 @@ import SignupPage from './pages/SignupPage';
 import LoginPage from './pages/LoginPage';
 import MyPage from './pages/MyPage';
 import TossPaymentPage from './pages/tossPayments/TossPaymentPage';
-import Sidebar from './components/common/SideBar';
 
 function App() {
   const location = useLocation();
@@ -49,8 +48,8 @@ function App() {
             <Header />
             {/* {shouldShowWineFilter && <WineFilter />} */}
             <main
-              className="main-layout"
-              style={{ minHeight: `calc(100vh - 315px)` }}
+              className="main-layout flex justify-center items-center"
+              style={{ minHeight: `calc(100vh - 289px)` }}
             >
               <Routes>
                 <Route index element={<Navigate to="list" />} />
