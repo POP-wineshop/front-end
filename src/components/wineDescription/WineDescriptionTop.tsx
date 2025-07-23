@@ -186,7 +186,7 @@ const WineDescriptionTop = ({ wineData }: WineDataProps) => {
         <div className="wine-description-taste-profile border-t border-b py-4 mb-6">
           {tasteProfileDetails.map(({ labelEng, labelKor, low, high }) => (
             <div key={labelEng} className="flex items-center my-3">
-              <strong className="w-24 text-sm text-gray-700">{labelKor}</strong>
+              <strong className="w-36 text-sm text-gray-700">{labelKor}</strong>
               <span className="w-12 text-xs text-right text-gray-400">
                 {low}
               </span>
@@ -225,7 +225,7 @@ const WineDescriptionTop = ({ wineData }: WineDataProps) => {
               </button>
             </div>
             <div className="text-right text-xl font-bold">
-              ₩{(price * itemQuantity).toLocaleString()}
+              ₩ {(price * itemQuantity).toLocaleString()}
             </div>
           </div>
           <div className="flex gap-2">
