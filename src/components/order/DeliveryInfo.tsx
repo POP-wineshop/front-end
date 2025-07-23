@@ -1,14 +1,16 @@
+import { AddressRes } from '@/types/userPage/myPage/Address';
 import { useEffect, useState } from 'react';
 
 const DeliveryInfo = () => {
+  const [defaultAddress, setDefaultAddress] = useState<AddressRes | null>(null);
   const [receiverName, setReceiverName] = useState<string>('');
   const [zipCode, setZipCode] = useState<string>('');
   const [receiverAddress, setReceiverAddress] = useState<string>('');
   const [receiverPhoneNumber, setReceiverPhoneNumber] = useState<string>('');
   const [deliveryMessage, setDeliveryMessage] = useState<string>('');
   const [addresses, setAddresses] = useState<AddressRes[] | null>(null);
-  const [defaultAddress, setDefaultAddress] = useState<AddressRes | null>(null);
-  const [showAddressModal, setShowAddressModal] = useState<boolean>(false);
+  const [showAddressListModal, setShowAddressListModal] =
+    useState<boolean>(false);
   const [customDeliveryMessage, setCustomDeliveryMessage] =
     useState<string>('');
 
@@ -84,7 +86,7 @@ const DeliveryInfo = () => {
           <button
             type="button"
             className="mr-4 px-4 py-2 rounded-lg border border-[#A83E3E] bg-white text-[#A83E3E] font-montserrat font-semibold shadow-sm hover:bg-[#A83E3E] hover:text-white transition"
-            onClick={() => setShowAddressModal(true)}
+            onClick={() => setShowAddressListModal(true)}
           >
             배송지 목록
           </button>
@@ -101,7 +103,7 @@ const DeliveryInfo = () => {
 
             즉, Modal이 화면 중앙에 뜨고, 바깥 영역은 어둡게 처리되어 사용자가 Modal에 집중할 수 있게 해줍니다.
           */}
-          {showAddressModal && (
+          {showAddressListModal && (
             <div className="fixed inset-0 z-50 flex items-center justify-center bg-black bg-opacity-30">
               <div className="bg-white rounded-xl shadow-lg p-8 w-[400px]">
                 <div className="flex justify-between items-center mb-4">
@@ -110,7 +112,7 @@ const DeliveryInfo = () => {
                   </h2>
                   <button
                     className="text-gray-400 hover:text-[#A83E3E] text-2xl"
-                    onClick={() => setShowAddressModal(false)}
+                    onClick={() => setShowAddressListModal(false)}
                   >
                     &times;
                   </button>
@@ -134,7 +136,8 @@ const DeliveryInfo = () => {
                         {address.recipientName}
                       </div>
                       <div className="text-sm text-gray-600">
-                        [{address.zipCode}] {address.address}
+                        {/* [{address.zipCode}] {address.address} */}
+                        [01111] {address.address}
                       </div>
                       <div className="text-sm text-gray-600">
                         {address.recipientPhoneNumber}
@@ -147,7 +150,7 @@ const DeliveryInfo = () => {
                 </ul>
                 <button
                   className="w-full bg-[#A83E3E] text-white py-2 rounded-lg font-bold hover:bg-[#7a2229] transition"
-                  onClick={() => setShowAddressModal(false)}
+                  onClick={() => setShowAddressListModal(false)}
                 >
                   닫기
                 </button>
@@ -168,13 +171,14 @@ const DeliveryInfo = () => {
           </button>
         </div>
         <div className="delivery-info-default">
-          <div className="flex flex-col gap-4">
+          <div className="flex flex-col gap-2">
             <div className="w-full flex">
               <div className="w-1/2 text-left flex items-center">
-                <span className="inline-block px-2 py-1 rounded-full bg-[#A83E3E] text-white text-xs font-montserrat font-bold align-middle mr-2 shadow-sm">
-                  <span className="font-bold">기본</span>
-                </span>
-                {/* <span>{receiverName}</span> */}
+                {defaultAddress && (
+                  <span className="inline-block px-2 py-1 rounded-full bg-[#A83E3E] text-white text-xs font-montserrat font-bold align-middle mr-2 shadow-sm">
+                    <span className="font-bold">기본</span>
+                  </span>
+                )}
                 <span className="font-montserrat font-bold text-lg">
                   {receiverName}
                 </span>
@@ -184,11 +188,8 @@ const DeliveryInfo = () => {
             <p className="font-montserrat text-gray-700">
               <span className="text-[#A83E3E] font-bold">&#91;01111&#93; </span>
               <span className="font-semibold">{receiverAddress}</span>
-              {/* <span>&#91;{zipCode}&#93; </span>
-            <span>{receiverAddress}</span> */}
             </p>
             <p className="font-montserrat text-gray-700">
-              {/* <span>{receiverPhoneNumber}</span> */}
               <span className="font-semibold">{receiverPhoneNumber}</span>
             </p>
             <div className="delivery-message">
