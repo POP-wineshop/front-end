@@ -2,17 +2,17 @@ import React from 'react';
 import { Link } from 'react-router-dom';
 
 interface LoginFormProps {
-  userName: string;
+  username: string;
   password: string;
-  onUserNameChange: (e: React.ChangeEvent<HTMLInputElement>) => void;
+  onUsernameChange: (e: React.ChangeEvent<HTMLInputElement>) => void;
   onPasswordChange: (e: React.ChangeEvent<HTMLInputElement>) => void;
   onSubmit: (e: React.FormEvent<HTMLFormElement>) => void;
 }
 
 const LoginForm: React.FC<LoginFormProps> = ({
-  userName,
+  username,
   password,
-  onUserNameChange,
+  onUsernameChange,
   onPasswordChange,
   onSubmit,
 }) => {
@@ -27,16 +27,16 @@ const LoginForm: React.FC<LoginFormProps> = ({
         </p>
         <div>
           <label
-            htmlFor="userName"
+            htmlFor="username"
             className="block mb-1 text-sm font-medium text-gray-700"
           >
             아이디
           </label>
           <input
-            id="userName"
+            id="username"
             type="text"
-            value={userName}
-            onChange={onUserNameChange}
+            value={username}
+            onChange={onUsernameChange}
             placeholder="아이디를 입력해주세요"
             className="w-full p-2 border border-[#D4D4D4] rounded-md focus:outline-none focus:ring focus:ring-1 focus:ring-[#6A1B1A]"
           />
