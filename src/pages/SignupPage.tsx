@@ -2,7 +2,7 @@ import { useState } from 'react';
 import { Link, useLocation, useNavigate } from 'react-router-dom';
 
 const SignupPage = () => {
-  const [userName, setUserName] = useState<string>('');
+  const [username, setUsername] = useState<string>('');
   const [password, setPassword] = useState<string>('');
   const [pwForConfirming, setPwForConfirming] = useState<string>('');
   const [name, setName] = useState<string>('');
@@ -17,7 +17,7 @@ const SignupPage = () => {
       headers: { 'Content-Type': 'application/json' },
       body: JSON.stringify({
         name: name,
-        username: userName,
+        username: username,
         password: password,
       }),
     })
@@ -53,16 +53,16 @@ const SignupPage = () => {
 
           <div>
             <label
-              htmlFor="userName"
+              htmlFor="username"
               className="block mb-1 text-sm font-medium text-gray-700"
             >
               아이디
             </label>
             <div className="flex gap-2 justify-between items-center">
               <input
-                id="userName"
+                id="username"
                 type="text"
-                onChange={(e) => setUserName(e.target.value)}
+                onChange={(e) => setUsername(e.target.value)}
                 placeholder="아이디를 입력해주세요"
                 className="w-full p-2 border border-[#D4D4D4] rounded-md focus:outline-none focus:ring focus:ring-1 focus:ring-[#6A1B1A]"
               />

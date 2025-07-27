@@ -59,7 +59,7 @@ function App() {
                 <Route path="/mypage/*" element={<MyPage />} />
                 <Route path="/list" element={<WineListPage />} />
                 <Route
-                  path="/description/:id"
+                  path="/description/:wineId"
                   element={<WineDescriptionPage />}
                 />
                 <Route path="/order" element={<OrderPage />} />

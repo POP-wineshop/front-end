@@ -2,7 +2,8 @@ import { useState } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
 
 const LoginPage = () => {
-  const [userName, setUserName] = useState<string>('');
+  const [userId, setUserId] = useState<string>('');
+  const [username, setUsername] = useState<string>('');
   const [password, setPassword] = useState<string>('');
 
   const [accessToken, setAccessToken] = useState<string>('');
@@ -15,7 +16,7 @@ const LoginPage = () => {
       method: 'POST',
       headers: { 'Content-Type': 'application/json' },
       body: JSON.stringify({
-        username: userName,
+        username: username,
         password: password,
       }),
     })
@@ -30,7 +31,8 @@ const LoginPage = () => {
           'Refresh Token',
           `Bearer ${jsonResponse.data.refreshToken}`
         );
-        localStorage.setItem('User Name', `${userName}`);
+        localStorage.setItem('User Name', `${jsonResponse.data.username}`);
+        localStorage.setItem('User Id', `${jsonResponse.data.userId}`);
         setAccessToken(jsonResponse.data.accessToken);
         setRefreshToken(jsonResponse.data.refreshToken);
         console.log(`로그인 성공 : `, jsonResponse);
@@ -44,13 +46,13 @@ const LoginPage = () => {
   };
 
   return (
-    <div className="mx-auto pt-32 mb-32 ">
+    <div className="w-full">
       <form
         onSubmit={(e) => {
           e.preventDefault();
           handleLogin();
         }}
-        className="m-auto flex flex-col gap-4 w-full max-w-md p-8 bg-white rounded-xl shadow-md"
+        className="m-auto flex flex-col gap-4 w-full max-w-md min-h-[400px] p-8 bg-white rounded-xl shadow-md"
       >
         <p className="font-mapodacapo italic text-3xl font-bold text-center mb-4">
           Login
@@ -58,15 +60,15 @@ const LoginPage = () => {
 
         <div>
           <label
-            htmlFor="userName"
+            htmlFor="username"
             className="block mb-1 text-sm font-medium text-gray-700"
           >
             아이디
           </label>
           <input
-            id="userName"
+            id="username"
             type="text"
-            onChange={(e) => setUserName(e.target.value)}
+            onChange={(e) => setUsername(e.target.value)}
             placeholder="아이디를 입력해주세요"
             className="w-full p-2 border border-[#D4D4D4] rounded-md focus:outline-none focus:ring focus:ring-1 focus:ring-[#6A1B1A]"
           />
