@@ -1,6 +1,6 @@
-import { SignupRequest } from '../model/userTypes';
+import { SignupReq } from '../model';
 
-export async function signupUser(signupData: SignupRequest) {
+export async function signupUser(signupData: SignupReq) {
   const res = await fetch('http://localhost:8080/api/auth/signup', {
     method: 'POST',
     headers: { 'Content-Type': 'application/json' },

@@ -7,7 +7,7 @@ export interface User {
 }
 
 // 회원가입 요청에 사용할 타입 (API 요청용)
-export interface SignupRequest {
+export interface SignupReq {
   name: string;
   username: string;
   password: string;
