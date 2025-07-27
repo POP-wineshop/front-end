@@ -1,9 +1,8 @@
-import { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
-import WineFilter from './WineFilter';
 import { useDispatch, useSelector } from 'react-redux';
 import { RootState, AppDispatch } from '@/shared/store';
 import { logout } from '@/entities/client/user/model/userSlice';
+import WineFilter from './WineFilter';
 
 const Header = () => {
   const dispatch = useDispatch<AppDispatch>();
