@@ -16,10 +16,10 @@ type CartWineItem = {
 const CartPage = () => {
   const navigate = useNavigate();
 
-  const [cartItemList, setCartItemList] = useState<CartWineItem[]>([]);
-  const [selectedCartItemList, setSelectedCartItemList] = useState<
-    CartWineItem[]
-  >([]);
+  const [cartItems, setCartItems] = useState<CartWineItem[]>([]);
+  const [selectedCartItems, setSelectedCartItems] = useState<CartWineItem[]>(
+    []
+  );
   const [allCartItemsSelected, setAllCartItemsSelected] =
     useState<boolean>(false);
 
@@ -43,7 +43,7 @@ const CartPage = () => {
           return;
         }
 
-        setCartItemList(dataList);
+        setCartItems(dataList);
         console.log(`장바구니 조회 성공 : `, dataList);
       })
       .catch((err) => {
@@ -55,10 +55,10 @@ const CartPage = () => {
   // 아이템 전체 선택
   const handleSelectAllCartItems = () => {
     if (allCartItemsSelected) {
-      setSelectedCartItemList([]);
+      setSelectedCartItems([]);
       setAllCartItemsSelected(false);
     } else {
-      setSelectedCartItemList(cartItemList);
+      setSelectedCartItems(cartItems);
       setAllCartItemsSelected(true);
     }
   };
@@ -66,63 +66,63 @@ const CartPage = () => {
   // 장바구니 아이템 개별 선택/해제 함수
   const handleSelectCartItem = (id: number) => {
     // 이미 선택된 아이템이면(같은 wineId가 있으면)
-    if (selectedCartItemList.some((item) => item.wineId === id)) {
+    if (selectedCartItems.some((item) => item.wineId === id)) {
       // 해당 아이템만 빼고(selected 해제) 새로운 리스트 생성
-      const updatedList = selectedCartItemList.filter(
+      const updatedList = selectedCartItems.filter(
         (cartItem) => cartItem.wineId !== id
       );
       // 선택된 아이템 리스트 갱신
-      setSelectedCartItemList(updatedList);
+      setSelectedCartItems(updatedList);
     } else {
       // 아직 선택되지 않은 아이템일 경우, 원본 리스트에서 해당 아이템 찾기
-      const targetItem = cartItemList.find(
+      const targetItem = cartItems.find(
         (cartItem) => cartItem.wineId === id || ''
       );
 
       // 찾은 아이템이 존재하면
       if (targetItem) {
         // 기존 선택 리스트에 추가해서 새로운 리스트 생성
-        const updatedList = [...(selectedCartItemList || []), targetItem];
+        const updatedList = [...(selectedCartItems || []), targetItem];
         // 선택된 아이템 리스트 갱신
-        setSelectedCartItemList(updatedList);
+        setSelectedCartItems(updatedList);
       }
     }
   };
 
   // 장바구니 리스트에서 특정 아이템의 수량을 1 증가시키는 함수
   const handleAddQuantityState = (id: number) => {
-    const newCartItemList = cartItemList.map((item) =>
+    const newCartItems = cartItems.map((item) =>
       item.wineId === id ? { ...item, quantity: item.quantity + 1 } : item
     );
-    setCartItemList(newCartItemList);
+    setCartItems(newCartItems);
 
-    const newSelectedCartItemList = selectedCartItemList.map((item) =>
+    const newSelectedCartItems = selectedCartItems.map((item) =>
       item.wineId === id ? { ...item, quantity: item.quantity + 1 } : item
     );
-    setSelectedCartItemList(newSelectedCartItemList);
+    setSelectedCartItems(newSelectedCartItems);
   };
 
   // 장바구니 리스트에서 특정 아이템의 수량을 1 감소시키는 함수 (1 미만 불가)
   const handleSubstractQuantityState = (id: number) => {
-    const newCartItemList = cartItemList.map((item) =>
+    const newCartItems = cartItems.map((item) =>
       item.wineId === id && item.quantity > 1
         ? { ...item, quantity: item.quantity - 1 }
         : item
     );
-    setCartItemList(newCartItemList);
+    setCartItems(newCartItems);
 
-    const newSelectedCartItemList = selectedCartItemList.map((item) =>
+    const newSelectedCartItems = selectedCartItems.map((item) =>
       item.wineId === id && item.quantity > 1
         ? { ...item, quantity: item.quantity - 1 }
         : item
     );
-    setSelectedCartItemList(newSelectedCartItemList);
+    setSelectedCartItems(newSelectedCartItems);
   };
 
   // 장바구니 수량 상태를 서버에 PATCH 요청으로 동기화하는 함수
   const handlePatchCartQuantities = async () => {
     // patch 요청의 반환값을 배열로 받기 위해 map 사용
-    const patchRequests = cartItemList.map((item) =>
+    const patchRequests = cartItems.map((item) =>
       fetch(`http://localhost:8080/api/carts/${item.cartItemId}`, {
         method: 'PATCH',
         headers: {
@@ -140,8 +140,8 @@ const CartPage = () => {
 
   // 선택된 장바구니 아이템 삭제 => [Refactor 필요] 반복 호출이 아닌 여러 item을 한번에 처리하는 방향으로
   const handleDeleteSelectedCartItems = () => {
-    if (selectedCartItemList) {
-      selectedCartItemList.forEach((item) => {
+    if (selectedCartItems) {
+      selectedCartItems.forEach((item) => {
         fetch(`http://localhost:8080/api/carts/${item.cartItemId}`, {
           method: 'DELETE',
           headers: {
@@ -165,7 +165,7 @@ const CartPage = () => {
 
   // 선택된 장바구니 아이템 주문 생성
   const handleOrderSelectedCartItems = () => {
-    const selectedCartItemIds = selectedCartItemList.map(
+    const selectedCartItemIds = selectedCartItems.map(
       (item) => item.cartItemId
     );
     console.log(`선택된 장바구니 아이템 ID 목록 : `, selectedCartItemIds);
@@ -204,7 +204,7 @@ const CartPage = () => {
         Authorization: `${localStorage.getItem('Access Token')}`,
         'Content-Type': 'application/json',
       },
-      body: JSON.stringify(cartItemList),
+      body: JSON.stringify(cartItems),
     })
       .then((res) => res.json())
       .then((jsonRes) => {
@@ -251,11 +251,11 @@ const CartPage = () => {
           </div>
           {/* 주문 진행 중인 상품 목록의 데이터 형태에 따라 달라짐 */}
           <div className="cart-items-container border-t border-b border-[#E4E7EC] divide-y divide-[#E4E7EC]">
-            {cartItemList?.map((cartItem) => (
+            {cartItems?.map((cartItem) => (
               <CartItem
                 key={cartItem.wineId}
                 cartWineItem={cartItem}
-                selected={selectedCartItemList.some(
+                selected={selectedCartItems.some(
                   (item) => item.wineId === cartItem.wineId
                 )}
                 onSelect={() => handleSelectCartItem(cartItem.wineId)}
@@ -267,8 +267,8 @@ const CartPage = () => {
         </div>
         <div className="cart-payment-container w-full py-8">
           <CartPayment
-            cartItemList={cartItemList}
-            selectedCartItemList={selectedCartItemList}
+            cartItems={cartItems}
+            selectedCartItems={selectedCartItems}
             onOrderSelected={handleOrderSelectedCartItems}
             onOrderAll={handleOrderAllCartItems}
             onPatchCartQuantities={handlePatchCartQuantities}

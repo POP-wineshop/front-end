@@ -11,8 +11,8 @@ type CartWineItem = {
 };
 
 type CartPaymentProps = {
-  cartItemList: CartWineItem[];
-  selectedCartItemList: CartWineItem[];
+  cartItems: CartWineItem[];
+  selectedCartItems: CartWineItem[];
   onOrderSelected: () => void;
   onOrderAll: () => void;
   onPatchCartQuantities: () => Promise<Response[]>;
@@ -24,8 +24,8 @@ type CartPaymentItem = {
 };
 
 const CartPayment = ({
-  cartItemList,
-  selectedCartItemList,
+  cartItems,
+  selectedCartItems,
   onOrderSelected,
   onOrderAll,
   onPatchCartQuantities,
@@ -51,8 +51,8 @@ const CartPayment = ({
 
   // 선택된 장바구니 아이템 목록이 변경될 때마다 로그 출력
   // useEffect(() => {
-  //   console.log('selectedCartItemList:', selectedCartItemList);
-  // }, [selectedCartItemList]);
+  //   console.log('selectedCartItems:', selectedCartItems);
+  // }, [selectedCartItems]);
 
   // function toCurrencyFormat(value: number): string {
   //   return value.toString().replace(/\B(?<!\.\d*)(?=(\d{3})+(?!\d))/g, ',');
@@ -60,27 +60,27 @@ const CartPayment = ({
 
   useEffect(() => {
     // let cartItemPrice = 0;
-    // selectedCartItemList.forEach((item: CartWineItem) => {
+    // selectedCartItems.forEach((item: CartWineItem) => {
     //   cartItemPrice += item.winePrice * item.quantity;
     // });
     // setSelectedProductsPrice(cartItemPrice);
 
-    const total = selectedCartItemList.reduce(
+    const total = selectedCartItems.reduce(
       (acc, item) => acc + item.winePrice * item.quantity,
       0
     );
     setSelectedProductsPrice(total);
     setSelectedPaymentPrice(total + deliveryFee);
-  }, [selectedCartItemList, deliveryFee]);
+  }, [selectedCartItems, deliveryFee]);
 
   useEffect(() => {
-    const total = cartItemList.reduce(
+    const total = cartItems.reduce(
       (acc, item) => acc + item.winePrice * item.quantity,
       0
     );
     setAllProductsPrice(total);
     setAllPaymentPrice(total + deliveryFee);
-  }, [cartItemList, deliveryFee]);
+  }, [cartItems, deliveryFee]);
 
   useEffect(() => {
     setCartPaymentList([
@@ -131,7 +131,7 @@ const CartPayment = ({
           onClick={async () => {
             await onPatchCartQuantities();
             onOrderSelected();
-            console.log('selectedCartItemList:', selectedCartItemList);
+            console.log('selectedCartItems:', selectedCartItems);
           }}
         >
           선택 상품{' '}
