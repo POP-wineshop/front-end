@@ -1,14 +1,19 @@
+import { AppDispatch } from '@/shared/store';
 import { AddressRes } from '@/types/userPage/myPage/Address';
 import { useEffect, useState } from 'react';
+import { useDispatch, useSelector } from 'react-redux';
+import { selectAddresses } from '../../myPage/model/addressInfo/selector';
 
 const DeliveryInfo = () => {
+  const dispatch = useDispatch<AppDispatch>();
+
   const [defaultAddress, setDefaultAddress] = useState<AddressRes | null>(null);
   const [receiverName, setReceiverName] = useState<string>('');
   const [zipCode, setZipCode] = useState<string>('');
   const [receiverAddress, setReceiverAddress] = useState<string>('');
   const [receiverPhoneNumber, setReceiverPhoneNumber] = useState<string>('');
   const [deliveryMessage, setDeliveryMessage] = useState<string>('');
-  const [addresses, setAddresses] = useState<AddressRes[] | null>(null);
+  const addresses = useSelector(selectAddresses);
   const [showAddressListModal, setShowAddressListModal] =
     useState<boolean>(false);
   const [customDeliveryMessage, setCustomDeliveryMessage] =
@@ -22,24 +27,6 @@ const DeliveryInfo = () => {
     `택배함에 보관해 주세요.`,
     `직접 입력`,
   ];
-
-  const getAddresses = () => {
-    fetch(`http://localhost:8080/api/delivery`, {
-      headers: {
-        'Content-Type': 'application/json',
-        Authorization: `${localStorage.getItem('Access Token')}`,
-      },
-    })
-      .then((res) => res.json())
-      .then((jsonRes) => {
-        console.log(jsonRes.data);
-        alert(`배송지 조회 성공`);
-        setAddresses(jsonRes.data);
-      })
-      .catch((error) => {
-        alert(`배송지 조회 실패: ${error}`);
-      });
-  };
 
   const getDefaultAddress = () => {
     fetch(`http://localhost:8080/api/delivery/default`, {

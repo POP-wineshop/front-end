@@ -13,16 +13,7 @@ const orderSlice = createSlice({
   name: 'order',
   initialState,
   reducers: {
-    setInstantOrder: (state, action) => {
-      state.orderId = action.payload.orderId;
-      state.tossOrderId = action.payload.tossOrderId;
-      state.orderStatus = action.payload.orderStatus;
-      state.orderItems = action.payload.orderItems;
-      state.totalPrice = action.payload.totalPrice;
-    },
-
-    // 장바구니 주문 상태 설정
-    setCartOrder: (state, action) => {
+    setOrder: (state, action) => {
       state.orderId = action.payload.orderId;
       state.tossOrderId = action.payload.tossOrderId;
       state.orderStatus = action.payload.orderStatus;
@@ -32,5 +23,5 @@ const orderSlice = createSlice({
   },
 });
 
-export const { setInstantOrder } = orderSlice.actions;
+export const { setOrder } = orderSlice.actions;
 export default orderSlice.reducer;

@@ -1,10 +1,10 @@
 import { useEffect, useState } from 'react';
 import DuckhornMerlot from '@/assets/wineItem/Duckhorn_Napa Valley_Merlot.png';
-import { OrderingWineItem, OrderResData } from '../model/orderTypes';
+import { OrderWineItem, OrderResData } from '../model/orderTypes';
 import { useSelector } from 'react-redux';
 import { selectOrder } from '../model';
 
-export const OrderItem = (props: OrderingWineItem) => {
+export const OrderItem = (props: OrderWineItem) => {
   const {
     wineId,
     wineNameKor,

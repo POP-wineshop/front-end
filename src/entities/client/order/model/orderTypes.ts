@@ -7,11 +7,11 @@ export type OrderResData = {
   orderId: number;
   tossOrderId: string;
   orderStatus: string;
-  orderItems: OrderingWineItem[];
+  orderItems: OrderWineItem[];
   totalPrice: number;
 };
 
-export type OrderingWineItem = {
+export type OrderWineItem = {
   wineId: number;
   wineNameKor: string;
   winePrice: number;
