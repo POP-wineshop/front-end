@@ -1,7 +1,6 @@
-export function toCurrencyFormat(value: number): string {
-  return value.toString().replace(/\B(?<!\.\d*)(?=(\d{3})+(?!\d))/g, ',');
-}
-
+// 수량을 1 감소시키는 함수
+// quantity: 현재 수량
+// setQuantity: 수량 상태를 변경하는 함수 (arg0는 새로운 수량 값)
 export const substractQuantity = (
   quantity: number,
   setQuantity: (arg0: number) => void
@@ -14,6 +13,9 @@ export const substractQuantity = (
   }
 };
 
+// 수량을 1 증가시키는 함수
+// quantity: 현재 수량
+// setQuantity: 수량 상태를 변경하는 함수 (arg0는 새로운 수량 값)
 export const addQuantity = (
   quantity: number,
   setQuantity: (arg0: number) => void
