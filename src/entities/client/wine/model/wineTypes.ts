@@ -31,3 +31,8 @@ export type WineData = {
   korName: string;
   engName: string;
 };
+
+export type InstantOrderData = {
+  wineId: number;
+  quantity: number;
+};
