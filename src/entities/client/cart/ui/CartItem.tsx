@@ -3,109 +3,52 @@ import { useEffect, useState } from 'react';
 import DuckhornMerlot from '@/assets/wineItem/Duckhorn_Napa Valley_Merlot.png';
 import { useNavigate } from 'react-router-dom';
 import { substractQuantity } from '@/utils/common/util';
-import { CartWineItem } from '@/entities/client/cart/model';
-
-interface CartItemProps {
-  cartWineItem: CartWineItem;
-  selected: boolean;
-  onSelect: () => void;
-  onAddQuantityState: (id: number) => void;
-  onSubstractQuantityState: (id: number) => void;
-}
+import { CartItemCompProps } from '@/entities/client/cart/model/cartTypes';
+import { createInstantOrder } from '@/entities/client/order/api/orderApi';
+import { useDispatch, useSelector } from 'react-redux';
+import { AppDispatch, RootState } from '@/shared/store';
+import { setOrder } from '@/entities/client/order/model/orderSlice';
+import { selectSelectedCartItems } from '@/entities/client/cart/model';
 
 export const CartItem = ({
-  cartWineItem,
+  cartItem,
   selected,
   onSelect,
-  onAddQuantityState,
-  onSubstractQuantityState,
-}: CartItemProps) => {
+  onAddQuantity,
+  onSubtractQuantity,
+}: CartItemCompProps) => {
   const navigate = useNavigate();
+  const dispatch = useDispatch<AppDispatch>();
 
-  // cartItemId가 wineId가 아닌가보다. 데이터 내에 wineId를 같이 보내줘야함
+  // props에서 직접 사용할 수 있는 값들
+  const { cartItemId, wineId, wineName, quantity, winePrice } = cartItem;
 
-  // const [cartItemId, setCartItemId] = useState<number>(0);
-  const [wineId, setWineId] = useState<number>(0);
-  const [wineNameEng, setWineNameEng] = useState<string>('와인 영어 이름');
-  const [wineNameKor, setWineNameKor] = useState<string>('');
+  // 실제로 변경되는 상태들만 관리
   const [cartItemQuantity, setCartItemQuantity] = useState<number>(0);
-  // const [itemPrice, setItemPrice] = useState<number>(0);
-  const [cartItemPrice, setCartItemPrice] = useState<number>(0);
   const [deliveryFee, setDeliveryFee] = useState<number>(0);
-  // const [isSelected, setIsSelected] = useState<boolean>(false);
   const [isLiked, setIsLiked] = useState<boolean>(false);
-
-  useEffect(() => {
-    if (!cartWineItem) return;
-
-    // setCartItemId(cartWineItem.cartItemId);
-    setWineId(cartWineItem.wineId);
-    setWineNameKor(cartWineItem.wineName);
-    setCartItemQuantity(cartWineItem.quantity);
-    console.log(
-      `wineNameKor: ${wineNameKor}, CartItemQuantity: , ${cartItemQuantity}`
-    );
-    // setTotalPrice(cartWineItem.totalPrice);
-    setCartItemPrice(cartWineItem.winePrice); // 바뀔 걸 생각하면 여기도 개별 가격을 받아왔어야 하네;;;
-    // setDeliveryFee(cartWineItem.totalPrice >= 50000 ? 0 : 3000); // 예시: 5만원 이상 무료배송
-    setIsLiked(false); // 초기 좋아요는 false로 세팅 (필요 시 API 호출)
-  }, [cartWineItem]);
-
-  // const substractQuantity = () => {
-  //   if (cartItemQuantity >= 2) {
-  //     return setCartItemQuantity(cartItemQuantity - 1);
-  //   } else {
-  //     alert('1 이하로는 수량을 줄일 수 없습니다.');
-  //     return null;
-  //   }
-  // };
-
-  // const addQuantity = () => {
-  //   return setCartItemQuantity(cartItemQuantity + 1);
-  // };
-
-  // 숫자를 회계단위로 변환
-  // => toLocaleString()으로 해결 가능
-  // function toCurrencyFormat(value: number): string {
-  //   return value.toString().replace(/\B(?<!\.\d*)(?=(\d{3})+(?!\d))/g, ',');
-  // }
 
   const instantOrderData = {
     wineId: wineId,
-    quantity: cartItemQuantity,
+    quantity: quantity,
   };
 
   // 상품 개별 주문 페이지로 이동
-  const handleInstantOrder = () => {
-    fetch(`http://localhost:8080/api/orders/instant`, {
-      method: 'POST',
-      headers: {
-        Authorization: `${localStorage.getItem('Access Token')}`,
-        'Content-Type': 'application/json',
-      },
-      body: JSON.stringify(instantOrderData),
-    })
-      .then((res) => res.json())
-      .then((jsonRes) => {
-        console.log(`주문 생성 성공 : `, jsonRes.data);
-        alert(`주문 생성 성공!`);
-        navigate(`/order`, {
-          state: {
-            orderId: jsonRes.data.orderId,
-            tossOrderId: jsonRes.data.tossOrderId,
-          },
-        });
-      })
-      .catch((error) => {
-        console.error(`주문 생성 실패 : `, error);
-        alert(`주문 생성 실패 ㅠ : ${error}`);
-      });
-  };
+  const handleInstantOrder = async () => {
+    try {
+      const jsonRes = await createInstantOrder(instantOrderData);
+      console.log(`주문 생성 성공 : `, jsonRes.data);
 
-  // 장바구니 아이템 별 체크박스 선택 여부 표시
-  // const handleCheckboxToggle = () => {
-  //   setIsSelected(!isSelected);
-  // };
+      // 주문 데이터를 Redux store에 저장
+      dispatch(setOrder(jsonRes.data));
+      console.log('주문 데이터 저장 완료');
+      alert(`주문 생성 성공!`);
+      navigate(`/order`);
+    } catch (error) {
+      console.error(`주문 생성 실패 : `, error);
+      alert(`주문 생성 실패 ㅠ : ${error}`);
+    }
+  };
 
   return (
     <div className="bg-white/80 p-6 w-full flex flex-col space-y-4">
@@ -113,7 +56,7 @@ export const CartItem = ({
         <input
           type="checkbox"
           checked={selected}
-          onChange={onSelect}
+          onChange={() => onSelect()}
           className="w-4 h-4 accent-[#A83E3E] border-gray-300 rounded focus:ring-[#A83E3E] focus:ring-2"
         />
         <div className="w-[180px] h-60 border border-[#E4E7EC] rounded-lg m-3 flex-shrink-0 bg-gray-50">
@@ -127,10 +70,10 @@ export const CartItem = ({
           <div className="flex justify-between items-center h-1/2">
             <div className="flex flex-col justify-center items-left ">
               <span className="cart-item-name-eng text-lg font-montserrat text-gray-600">
-                {wineNameEng}
+                {wineName}
               </span>
               <span className="cart-item-name-kor text-xl font-bold text-[#A83E3E] font-montserrat">
-                {wineNameKor}
+                {wineName}
               </span>
             </div>
             <div className="cart-item-buttons flex items-center gap-4">
@@ -193,19 +136,19 @@ export const CartItem = ({
               <button
                 className="px-3 py-1 text-lg"
                 onClick={() => {
-                  onSubstractQuantityState(wineId);
+                  onSubtractQuantity(wineId);
                   console.log('수량 빼기 버튼 클릭');
                 }}
               >
                 -
               </button>
               <span className="w-12 text-center text-sm font-medium">
-                {cartItemQuantity}
+                {quantity}
               </span>
               <button
                 className="px-3 py-1 text-lg"
                 onClick={() => {
-                  onAddQuantityState(wineId);
+                  onAddQuantity(wineId);
                   console.log('수량 더하기 버튼 클릭');
                 }}
               >
@@ -214,11 +157,10 @@ export const CartItem = ({
             </div>
             <div className="flex flex-col items-end gap-1 ">
               <p className="cart-item-delivery-fee text-sm text-gray-600 font-montserrat">
-                기본 배송 : [{deliveryFee === 0 ? '무료' : deliveryFee}] /
-                개별배송
+                기본 배송 : [무료] / 개별배송
               </p>
               <span className="cart-item-cost text-right text-2xl font-bold text-[#A83E3E] font-montserrat">
-                ₩{(cartItemQuantity * cartItemPrice).toLocaleString()}
+                ₩{(quantity * winePrice).toLocaleString()}
               </span>
             </div>
           </div>

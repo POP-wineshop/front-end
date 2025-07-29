@@ -1,17 +1,28 @@
 import { createSlice, PayloadAction } from '@reduxjs/toolkit';
-import { CartWineItem } from '@/entities/client/cart/model';
+import { CartItemData } from '@/entities/client/cart/model/cartTypes';
 
-const initialState: CartWineItem[] = [];
+interface CartState {
+  cartItems: CartItemData[];
+  selectedCartItems: CartItemData[];
+}
+
+const initialState: CartState = {
+  cartItems: [],
+  selectedCartItems: [],
+};
 
 const cartSlice = createSlice({
   name: 'cart',
   initialState,
   reducers: {
-    setCartItemList(state, action: PayloadAction<CartWineItem[]>) {
-      state = action.payload;
+    setCartItems(state, action: PayloadAction<CartItemData[]>) {
+      state.cartItems = action.payload;
+    },
+    setSelectedCartItems(state, action: PayloadAction<CartItemData[]>) {
+      state.selectedCartItems = action.payload;
     },
   },
 });
 
-export const { setCartItemList } = cartSlice.actions;
+export const { setCartItems, setSelectedCartItems } = cartSlice.actions;
 export default cartSlice.reducer;

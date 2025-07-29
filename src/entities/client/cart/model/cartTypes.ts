@@ -1,4 +1,9 @@
-export interface CartWineItem {
+export type CartItemDataReq = {
+  wineId: number;
+  quantity: number;
+};
+
+export interface CartItemDataRes {
   cartItemId: number;
   wineName: string;
   quantity: number;
@@ -8,9 +13,17 @@ export interface CartWineItem {
   winePrice: number;
 }
 
-export interface CartItemProps {
-  cartItemList: CartWineItem[];
-  selectedCartItemList: CartWineItem[];
+export interface CartItemCompProps {
+  cartItem: CartItemDataRes;
+  selected: boolean;
+  onSelect: () => void;
+  onAddQuantity: (id: number) => void;
+  onSubtractQuantity: (id: number) => void;
+}
+
+export interface CartPaymentProps {
+  cartItems: CartItemDataRes[];
+  selectedCartItems: CartItemDataRes[];
   onOrderSelected: () => void;
   onOrderAll: () => void;
   onPatchCartQuantities: () => Promise<Response[]>;
