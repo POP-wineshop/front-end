@@ -64,45 +64,22 @@ export const LikesItem = ({ likesWineItem }: LikesItemProps) => {
 
   // 좋아요 해제
   const handleCancelLike = () => {
-    alert(`해당 와인을 좋아요 목록에서 제외하시겠습니까? : ${wineNameKor}`);
-    setIsLiked(false);
-    // fetch 좋아요 삭제
-    // 좋아요 목록 재렌더링
+    if (
+      isLiked &&
+      confirm(`해당 와인을 좋아요 목록에서 제외하시겠습니까? : ${wineNameKor}`)
+    ) {
+      setIsLiked(false);
+      // fetch 좋아요 삭제
+      // 좋아요 목록 재렌더링
+    } else {
+      setIsLiked(true);
+    }
   };
 
   // 장바구니 담기
   const handleAddToCart = () => {
-    fetch(`http://localhost:8080/api/carts`, {
-      method: 'POST',
-      headers: {
-        Authorization: `${localStorage.getItem('Access Token')}`,
-        'Content-Type': 'application/json',
-      },
-      body: JSON.stringify(cartOrderData),
-    })
-      .then((res) => res.json())
-      .then((jsonRes) => {
-        // data가 객체이면 배열로 변환
-        const dataList = Array.isArray(jsonRes.data)
-          ? jsonRes.data
-          : [jsonRes.data];
-
-        if (dataList.length === 0) {
-          console.warn('빈 주문 응답 수신됨');
-          alert('주문 항목이 비어 있음. 다시 시도하세요.');
-          return;
-        }
-
-        console.log(`장바구니 추가 성공 : `, dataList);
-        alert(`장바구니 추가 성공! : ${dataList}`);
-        setIsInCart(true);
-      })
-      .catch((err) => {
-        console.error(`장바구니 추가 실패 : `, err);
-        alert(`장바구니 추가 실패 ㅠ : ${err}`);
-      });
+    addToCart();
   };
-
   // 재입고 알림 신청 및 해제
   const handleToggleRestockAlarm = () => {
     if (!isRestockAlarmRegistered) {

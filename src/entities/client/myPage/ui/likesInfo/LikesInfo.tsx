@@ -6,13 +6,10 @@ import ToFirstPage from '@/assets/pagination/WineListPage_Pagination_ToFirstPage
 import ToPreviousPage from '@/assets/pagination/WineListPage_Pagination_ToPreviousPage.svg';
 import ToNextPage from '@/assets/pagination/WineListPage_Pagination_ToNextPage.svg';
 import ToLastPage from '@/assets/pagination/WineListPage_Pagination_ToLastPage.svg';
-
-// type LikesWineItem = {
-//   wineName: string;
-//   Id: number;
-//   thumbnail: string;
-//   winePrice: number;
-// };
+import { useDispatch, useSelector } from 'react-redux';
+import { AppDispatch } from '@/shared/store';
+import { selectLikesItemList } from '../../model/likesInfo/selector';
+import { readLikesItemList } from '../../api/likesInfo/likesInfoApi';
 
 type LikesWineItemExample = {
   id: number;
@@ -36,24 +33,13 @@ type LikesWineItemExample = {
 
 const LikesInfo = () => {
   const navigate = useNavigate();
-  const [likesItemList, setLikesItemList] = useState<LikesWineItemExample[]>(
-    []
-  );
+  const dispatch = useDispatch<AppDispatch>();
+  const likesItemList = useSelector(selectLikesItemList);
 
   // UI 확인용 목록 fetch
   useEffect(() => {
-    fetch(`http://localhost:8080/api/wines`)
-      .then((response) => response.json())
-      .then((jsonRes) => {
-        const exampleForLikes = jsonRes.data.slice(0, 5);
-        console.log(
-          `좋아요 페이지 임시 GET 요청 (api/wines) 응답: `,
-          exampleForLikes
-        );
-        setLikesItemList(exampleForLikes);
-      })
-      .catch((error) => console.error(`/api/wines 실행 오류 발생: `, error));
-  }, []);
+    dispatch(setLikesItemList(readLikesItemList()));
+  }, [dispatch]);
 
   useEffect(() => {
     // fetch 좋아요 리스트 GET
