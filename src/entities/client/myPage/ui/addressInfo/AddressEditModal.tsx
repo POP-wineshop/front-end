@@ -1,20 +1,15 @@
 import { useState, useEffect } from 'react';
-import { AddressRes } from '@/types/userPage/myPage/Address';
+import { useDispatch } from 'react-redux';
+import { AddressRes, AddressUpdateReq } from '@/types/userPage/myPage/Address';
+import { updateAddress } from '../../api/addressInfo/addressInfoApi';
+import { DELIVERY_MESSAGE_OPTIONS } from '@/constants/address/deliveryMessages';
+import { AppDispatch } from '@/shared/store';
 
 interface AddressEditModalProps {
   addr: AddressRes | null;
   isEditing: boolean;
   setIsEditing: (value: boolean) => void;
 }
-
-const messageOptions = [
-  `배송 전에 미리 연락바랍니다.`,
-  `부재 시 경비실에 맡겨주세요.`,
-  `부재 시 문 앞에 놓아주세요.`,
-  `빠른 배송 부탁드립니다.`,
-  `택배함에 보관해 주세요.`,
-  `직접 입력`,
-];
 
 const AddressEditModal = ({
   addr,
@@ -30,30 +25,33 @@ const AddressEditModal = ({
   const [customDeliveryMessage, setCustomDeliveryMessage] =
     useState<string>('');
 
+  const dispatch = useDispatch<AppDispatch>();
+
   const handleEdit = () => {
-    fetch(`http://localhost:8080/api/delivery/${addr?.id}`, {
-      method: 'PUT',
-      headers: {
-        'Content-Type': 'application/json',
-        Authorization: `${localStorage.getItem('Access Token')}`,
-      },
-    })
-      .then((res) => res.json())
-      .then((jsonRes) => {
-        console.log('배송지 수정 성공: ', jsonRes.data);
-        alert('배송지가 수정되었습니다.');
-        window.location.reload();
-      })
-      .catch((error) => {
-        alert('배송지 수정 실패: ' + error);
-      });
+    if (!addr) return;
+
+    const addressData: AddressUpdateReq = {
+      address,
+      detailAddress,
+      recipientName,
+      recipientPhoneNumber: phoneNumber,
+      deliveryMessage:
+        deliveryMessage !== '직접 입력'
+          ? deliveryMessage
+          : customDeliveryMessage,
+      default: addr.default,
+    };
+
+    // 전역 변수화 시킬지는 추후 결정
+    updateAddress(addr.id, addressData);
+    setIsEditing(false);
   };
 
   useEffect(() => {
     if (addr) {
+      setRecipientName(addr.recipientName);
       setAddress(addr.address);
       setDetailAddress(addr.detailAddress);
-      setRecipientName(addr.recipientName);
       setPhoneNumber(addr.recipientPhoneNumber);
       setDeliveryMessage(addr.deliveryMessage);
     }
@@ -140,7 +138,26 @@ const AddressEditModal = ({
             <label className="block text-lg font-bold text-[#A83E3E] mb-2 font-montserrat">
               배송 메시지
             </label>
-            {deliveryMessage === '직접 입력' ? (
+            {deliveryMessage !== '직접 입력' ? (
+              <select
+                value={deliveryMessage}
+                onChange={(e) => {
+                  setDeliveryMessage(e.target.value);
+                  if (e.target.value !== '직접 입력')
+                    setCustomDeliveryMessage('');
+                }}
+                className="w-full px-4 py-2 rounded-lg border border-[#E4E7EC] bg-gray-50 font-montserrat focus:outline-none focus:ring-2 focus:ring-[#A83E3E] transition"
+              >
+                <option value="" className="font-normal">
+                  메시지를 선택해주세요 &#40;선택사항&#41;
+                </option>
+                {DELIVERY_MESSAGE_OPTIONS.map((option) => (
+                  <option key={option} value={option}>
+                    {option}
+                  </option>
+                ))}
+              </select>
+            ) : (
               <input
                 type="text"
                 placeholder="배송 메시지를 입력해주세요"
@@ -154,25 +171,6 @@ const AddressEditModal = ({
                 }}
                 className="w-full px-4 py-2 rounded-lg border border-[#E4E7EC] bg-gray-50 font-montserrat focus:outline-none focus:ring-2 focus:ring-[#A83E3E] transition"
               />
-            ) : (
-              <select
-                value={deliveryMessage}
-                onChange={(e) => {
-                  setDeliveryMessage(e.target.value);
-                  if (e.target.value !== '직접 입력')
-                    setCustomDeliveryMessage('');
-                }}
-                className="w-full px-4 py-2 rounded-lg border border-[#E4E7EC] bg-gray-50 font-montserrat focus:outline-none focus:ring-2 focus:ring-[#A83E3E] transition"
-              >
-                <option value="" className="font-normal">
-                  메시지를 선택해주세요 &#40;선택사항&#41;
-                </option>
-                {messageOptions.map((option) => (
-                  <option key={option} value={option}>
-                    {option}
-                  </option>
-                ))}
-              </select>
             )}
           </div>
           <div className="flex justify-between gap-4 pt-4">

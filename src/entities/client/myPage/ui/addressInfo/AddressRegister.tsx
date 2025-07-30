@@ -1,18 +1,14 @@
 import { useState } from 'react';
+import { useDispatch } from 'react-redux';
 import { Link, useNavigate } from 'react-router-dom';
-import { AddressReq, AddressRes } from '@/types/userPage/myPage/Address';
-
-const messageOptions = [
-  `배송 전에 미리 연락바랍니다.`,
-  `부재 시 경비실에 맡겨주세요.`,
-  `부재 시 문 앞에 놓아주세요.`,
-  `빠른 배송 부탁드립니다.`,
-  `택배함에 보관해 주세요.`,
-  `직접 입력`,
-];
+import { AddressCreateReq } from '@/types/userPage/myPage/Address';
+import { addAddress } from '../../model/addressInfo/addressSlice';
+import { DELIVERY_MESSAGE_OPTIONS } from '@/constants/address/deliveryMessages';
+import { AppDispatch } from '@/shared/store';
 
 const AddressRegister = () => {
   const navigate = useNavigate();
+  const dispatch = useDispatch<AppDispatch>();
   const [userId, setUserId] = useState<number>(2);
   const [zipcode, setZipcode] = useState<string>('');
   const [address, setAddress] = useState<string>('');
@@ -22,37 +18,19 @@ const AddressRegister = () => {
   const [isDefault, setIsDefault] = useState<boolean>(false);
   const [deliveryMessage, setDeliveryMessage] = useState<string>('');
 
-  const addressReq: AddressReq[] = [
-    {
-      // zipcode:
-      userId: userId,
-      address: address,
-      detailAddress: detailAddress,
-      recipientName: recipientName,
-      recipientPhoneNumber: phoneNumber,
-      deliveryMessage: deliveryMessage,
-      default: isDefault,
-    },
-  ];
-
   const registerAddress = () => {
-    fetch(`http://localhost:8080/api/delivery/create`, {
-      method: 'POST',
-      headers: {
-        'Content-Type': 'application/json',
-        Authorization: `${localStorage.getItem('Access Token')}`,
-      },
-      body: JSON.stringify(addressReq),
-    })
-      .then((res) => res.json())
-      .then((jsonRes) => {
-        console.log(jsonRes.data);
-        alert(`배송지 등록 성공! 배송지 목록으로 이동합니다.`);
-        navigate('/mypage/address');
-      })
-      .catch((error) => {
-        alert(`배송지 등록 실패: ${error}`);
-      });
+    const addressData: AddressCreateReq = {
+      userId,
+      address,
+      detailAddress,
+      recipientName,
+      recipientPhoneNumber: phoneNumber,
+      deliveryMessage,
+      default: isDefault,
+    };
+
+    dispatch(addAddress(addressData));
+    navigate('/mypage/address');
   };
 
   return (
@@ -145,7 +123,7 @@ const AddressRegister = () => {
               onChange={(e) => setDeliveryMessage(e.target.value)}
               className="w-full px-4 py-2 rounded-lg border border-[#E4E7EC] bg-gray-50 font-montserrat focus:outline-none focus:ring-2 focus:ring-[#A83E3E] transition"
             >
-              {messageOptions.map((option) => (
+              {DELIVERY_MESSAGE_OPTIONS.map((option) => (
                 <option key={option} value={option}>
                   {option}
                 </option>

@@ -1,34 +1,20 @@
-import { useEffect, useState } from 'react';
+import { useEffect } from 'react';
+import { useDispatch, useSelector } from 'react-redux';
 import AddressItem from './AddressItem';
 import { Link } from 'react-router-dom';
 import AddressRegister from './AddressRegister';
-import { AddressRes } from '@/types/userPage/myPage/Address';
+import { fetchAddresses } from '../../model/addressInfo/thunks';
+import { selectAddresses } from '../../model/addressInfo/selector';
+import { AppDispatch } from '@/shared/store';
 
 const AddressInfo = () => {
   const pathName = window.location.pathname;
-  const [addresses, setAddresses] = useState<AddressRes[] | null>(null);
-
-  const getAddresses = () => {
-    fetch(`http://localhost:8080/api/delivery`, {
-      headers: {
-        'Content-Type': 'application/json',
-        Authorization: `${localStorage.getItem('Access Token')}`,
-      },
-    })
-      .then((res) => res.json())
-      .then((jsonRes) => {
-        console.log(jsonRes.data);
-        alert(`배송지 조회 성공`);
-        setAddresses(jsonRes.data);
-      })
-      .catch((error) => {
-        alert(`배송지 조회 실패: ${error}`);
-      });
-  };
+  const dispatch = useDispatch<AppDispatch>();
+  const addresses = useSelector(selectAddresses);
 
   useEffect(() => {
-    getAddresses();
-  }, []);
+    dispatch(fetchAddresses());
+  }, [dispatch]);
 
   return (
     <div className="bg-white/80 rounded-2xl shadow-md p-8 w-full flex flex-col space-y-6">
