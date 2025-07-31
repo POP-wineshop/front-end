@@ -1,13 +1,17 @@
 import { configureStore } from '@reduxjs/toolkit';
 import userReducer from '@/entities/client/user/model/userSlice';
 import wineReducer from '@/entities/client/wine/model/wineSlice';
-// import cartReducer from '@/entities/client/cart/model/cartSlice';
+import cartReducer from '@/entities/client/cart/model/cartSlice';
+import orderReducer from '@/entities/client/order/model/orderSlice';
+import addressInfoReducer from '@/entities/client/myPage/model/addressInfo/addressInfoSlice';
 
 export const store = configureStore({
   reducer: {
     user: userReducer,
     wine: wineReducer,
     order: orderReducer,
+    cart: cartReducer,
+    addressInfo: addressInfoReducer,
   },
 });
 
