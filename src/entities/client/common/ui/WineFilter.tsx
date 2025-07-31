@@ -56,40 +56,6 @@ const WineFilter = () => {
     });
   };
 
-  // const handleSearchWines = () => {
-  //   const url = new URL('http://localhost:8080/api/wines/search');
-  //   const params = new URLSearchParams(url.search);
-
-  //   if (country) params.append('country', country);
-  //   if (region) params.append('region', region);
-  //   if (wineType) params.append('wineType', wineType);
-  //   if (keyword) params.append('keyword', keyword);
-
-  //   const finalUrl = `${url.origin}${url.pathname}?${params.toString()}`;
-
-  //   fetch(finalUrl)
-  //     .then((res) => res.json())
-  //     .then((jsonRes) => {
-  //       console.log(jsonRes);
-  //       alert(`와인 조회 성공!
-  //         url : ${finalUrl}
-  //         국가 / 지역 : ${country} > ${region}
-  //         종류 : ${wineType}
-  //         키워드 : ${keyword}`);
-  //       // 전역 변수로 와인 목록 컴포넌트에 들어갈 와인 데이터 상태 변경
-  //       navigate(
-  //         `/list?country=${country}&region=${region}&wineType=${wineType}&keyword=${keyword}`
-  //       );
-  //     })
-  //     .catch((error) =>
-  //       alert(`와인 조회 실패 ㅠ
-  //         국가 / 지역 : ${country} > ${region}
-  //         종류 : ${wineType}
-  //         키워드 : ${keyword}
-  //         에러: ${error}`)
-  //     );
-  // };
-
   return (
     <section className="absolute left-1/2 -translate-x-1/2 flex justify-center my-6">
       <div className="flex flex-col md:flex-row items-center gap-4 bg-white/80 shadow-md rounded-2xl px-8 py-4">
