@@ -1,5 +1,26 @@
+export interface AddressReq {
+  userId: number;
+  address: string;
+  detailAddress: string;
+  recipientName: string;
+  recipientPhoneNumber: string;
+  deliveryMessage: string;
+  default: boolean;
+}
+
+export interface AddressRes {
+  id: number;
+  address: string;
+  detailAddress: string;
+  recipientName: string;
+  recipientPhoneNumber: string;
+  deliveryMessage: string;
+  default: boolean;
+}
+
 // API 요청 타입들
 export interface AddressCreateReq {
+  userId: number;
   address: string;
   detailAddress: string;
   recipientName: string;
@@ -18,14 +39,10 @@ export interface AddressUpdateReq {
 }
 
 // API 응답 타입들
-export interface AddressRes {
-  id: number;
-  address: string;
-  detailAddress: string;
-  recipientName: string;
-  recipientPhoneNumber: string;
-  deliveryMessage: string;
-  default: boolean;
+export interface AddressApiRes<T> {
+  success: boolean;
+  data: T;
+  message?: string;
 }
 
 export interface AddressListRes {
@@ -35,12 +52,12 @@ export interface AddressListRes {
 // 폼 상태 타입
 export interface AddressFormData {
   recipientName: string;
-  zipCode?: string; // 우편번호 (백엔드 미적용)
+  zipCode: string;
   address: string;
   detailAddress: string;
   phoneNumber: string;
   deliveryMessage: string;
-  customDeliveryMessage?: string; // 배송 메시지 커스텀 입력 (백엔드 미적용)
+  customDeliveryMessage: string;
   isDefault: boolean;
 }
 
@@ -52,6 +69,13 @@ export type DeliveryMessageOption =
   | '빠른 배송 부탁드립니다.'
   | '택배함에 보관해 주세요.'
   | '직접 입력';
+
+// 배송지 상태 타입
+export interface AddressState {
+  addresses: AddressRes[] | null;
+  loading: boolean;
+  error: string | null;
+}
 
 // 배송지 상태 타입 (추후 사용)
 // export interface AddressState {

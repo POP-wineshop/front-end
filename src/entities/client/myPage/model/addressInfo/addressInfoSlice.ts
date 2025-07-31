@@ -1,5 +1,5 @@
 import { createSlice, PayloadAction } from '@reduxjs/toolkit';
-import { AddressRes } from '@/types/userPage/myPage/Address';
+import { AddressRes } from './addressInfoTypes';
 
 interface AddressState {
   addresses: AddressRes[] | null;
