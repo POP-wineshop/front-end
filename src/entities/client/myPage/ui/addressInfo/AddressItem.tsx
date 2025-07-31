@@ -1,6 +1,6 @@
 import { useState } from 'react';
 import { useDispatch } from 'react-redux';
-import { AddressRes } from '@/types/userPage/myPage/Address';
+import { AddressRes } from '@/entities/client/myPage/model/addressInfo/addressInfoTypes';
 import AddressEditModal from './AddressEditModal';
 import { deleteAddress } from '../../api/addressInfo/addressInfoApi';
 import { AppDispatch } from '@/shared/store';

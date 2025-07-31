@@ -1,6 +1,9 @@
 import { useState, useEffect } from 'react';
 import { useDispatch } from 'react-redux';
-import { AddressRes, AddressUpdateReq } from '@/types/userPage/myPage/Address';
+import {
+  AddressRes,
+  AddressUpdateReq,
+} from '@/entities/client/myPage/model/addressInfo/addressInfoTypes';
 import { updateAddress } from '../../api/addressInfo/addressInfoApi';
 import { DELIVERY_MESSAGE_OPTIONS } from '@/constants/address/deliveryMessages';
 import { AppDispatch } from '@/shared/store';

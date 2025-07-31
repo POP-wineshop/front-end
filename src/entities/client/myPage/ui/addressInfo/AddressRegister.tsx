@@ -1,8 +1,8 @@
 import { useState } from 'react';
 import { useDispatch } from 'react-redux';
 import { Link, useNavigate } from 'react-router-dom';
-import { AddressCreateReq } from '@/types/userPage/myPage/Address';
-import { addAddress } from '../../model/addressInfo/addressSlice';
+import { AddressCreateReq } from '@/entities/client/myPage/model/addressInfo/addressInfoTypes';
+import { addAddress } from '../../model/addressInfo/addressInfoSlice';
 import { DELIVERY_MESSAGE_OPTIONS } from '@/constants/address/deliveryMessages';
 import { AppDispatch } from '@/shared/store';
 
