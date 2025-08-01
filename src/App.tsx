@@ -66,7 +66,7 @@ function App() {
                 <Route path="/cart" element={<CartPage />} />
                 {/* <Route path="/checkout" element={<TossPaymentPage />} /> */}
                 {/* <Route path="/post" element={<WinePostPage />} /> */}
-                <Route path="/apitest" element={<WineApiTestPage />} />
+                {/* <Route path="/apitest" element={<WineApiTestPage />} /> */}
               </Routes>
             </main>
             <Footer />
