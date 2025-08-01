@@ -2,7 +2,7 @@ import { useEffect, useState } from 'react';
 import AddressItem from './AddressItem';
 import { Link } from 'react-router-dom';
 import AddressRegister from './AddressRegister';
-import { AddressRes } from '@/types/userPage/myPage/Address';
+import { AddressRes } from '@/entities/client/myPage/model/addressInfo/addressInfoTypes';
 
 const AddressInfo = () => {
   const pathName = window.location.pathname;

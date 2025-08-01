@@ -1,5 +1,5 @@
 import { useState, useEffect } from 'react';
-import { AddressRes } from '@/types/userPage/myPage/Address';
+import { AddressRes } from '@/entities/client/myPage/model/addressInfo/addressInfoTypes';
 
 interface AddressEditModalProps {
   addr: AddressRes | null;

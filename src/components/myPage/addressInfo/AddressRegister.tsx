@@ -1,6 +1,9 @@
 import { useState } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
-import { AddressReq, AddressRes } from '@/types/userPage/myPage/Address';
+import {
+  AddressReq,
+  AddressRes,
+} from '@/entities/client/myPage/model/addressInfo/addressInfoTypes';
 
 const messageOptions = [
   `배송 전에 미리 연락바랍니다.`,
