@@ -15,9 +15,9 @@ import { AddressCreateReq, AddressUpdateReq } from './addressInfoTypes';
  * @returns Promise<void> - 비동기 작업을 수행하는 함수
  */
 export const fetchAddresses = () => async (dispatch: AppDispatch) => {
-  // 1. 서버에서 배송지 목록을 가져옵니다
+  // 1. 서버에서 배송지 목록을 가져옴
   const data = await readAddresses();
-  // 2. Redux 상태를 업데이트합니다
+  // 2. Redux 상태를 업데이트
   dispatch(setAddresses(data));
 };
 
@@ -29,19 +29,19 @@ export const fetchAddresses = () => async (dispatch: AppDispatch) => {
 export const createAddress =
   (addressData: AddressCreateReq) =>
   async (dispatch: AppDispatch, getState: () => RootState) => {
-    // 1. 서버에 새로운 배송지를 생성합니다
+    // 1. 서버에 새로운 배송지를 생성
     const newAddress = await createAddressApi(addressData);
 
-    // 2. 현재 Redux 상태에서 배송지 목록을 가져옵니다
-    // getState()는 thunk 함수에서만 사용할 수 있는 Redux의 내장 함수입니다
-    // useSelector와 달리 React 컴포넌트 외부에서도 상태에 접근할 수 있습니다
+    // 2. 현재 Redux 상태에서 배송지 목록을 가져옴
+    // getState()는 thunk 함수에서만 사용할 수 있는 Redux의 내장 함수
+    // useSelector와 달리 React 컴포넌트 외부에서도 상태에 접근
     const { addresses } = getState().addressInfo;
 
-    // 3. 새로운 배송지를 기존 목록에 추가합니다
-    // addresses가 null일 수 있으므로 기본값으로 빈 배열을 사용합니다
+    // 3. 새로운 배송지를 기존 목록에 추가
+    // addresses가 null일 수 있으므로 기본값으로 빈 배열을 사용
     const updatedAddresses = [...(addresses || []), newAddress];
 
-    // 4. 업데이트된 목록으로 Redux 상태를 갱신합니다
+    // 4. 업데이트된 목록으로 Redux 상태를 갱신
     dispatch(setAddresses(updatedAddresses));
   };
 
@@ -54,20 +54,20 @@ export const createAddress =
 export const updateAddress =
   (addrId: number, addressData: AddressUpdateReq) =>
   async (dispatch: AppDispatch, getState: () => RootState) => {
-    // 1. 서버에 배송지 수정 요청을 보냅니다
+    // 1. 서버에 배송지 수정 요청을 보냄
     const updatedAddress = await updateAddressApi(addrId, addressData);
 
-    // 2. 현재 Redux 상태에서 배송지 목록을 가져옵니다
+    // 2. 현재 Redux 상태에서 배송지 목록을 가져옴
     const { addresses } = getState().addressInfo;
 
-    // 3. 수정된 배송지로 목록을 업데이트합니다
-    // map 함수를 사용하여 특정 ID의 배송지만 새로운 정보로 교체합니다
-    // addresses가 null일 수 있으므로 기본값으로 빈 배열을 사용합니다
+    // 3. 수정된 배송지로 목록을 업데이트
+    // map 함수를 사용하여 특정 ID의 배송지만 새로운 정보로 교체
+    // addresses가 null일 수 있으므로 기본값으로 빈 배열을 사용
     const updatedAddresses =
       addresses?.map((addr) =>
         addr.id === updatedAddress.id ? updatedAddress : addr
       ) || [];
 
-    // 4. 업데이트된 목록으로 Redux 상태를 갱신합니다
+    // 4. 업데이트된 목록으로 Redux 상태를 갱신
     dispatch(setAddresses(updatedAddresses));
   };
