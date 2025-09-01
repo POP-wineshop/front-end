@@ -1,18 +1,6 @@
 import { useState } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
-import {
-  AddressReq,
-  AddressRes,
-} from '@/entities/client/myPage/model/addressInfo/addressInfoTypes';
-
-const messageOptions = [
-  `배송 전에 미리 연락바랍니다.`,
-  `부재 시 경비실에 맡겨주세요.`,
-  `부재 시 문 앞에 놓아주세요.`,
-  `빠른 배송 부탁드립니다.`,
-  `택배함에 보관해 주세요.`,
-  `직접 입력`,
-];
+import { AddressReq, AddressRes } from '@/types/userPage/myPage/Address';
 
 const AddressRegister = () => {
   const navigate = useNavigate();
@@ -59,7 +47,7 @@ const AddressRegister = () => {
   };
 
   return (
-    <div>
+    <div className="bg-white/80 rounded-2xl shadow-md p-8 w-full">
       <form
         onSubmit={(e) => {
           e.preventDefault();
@@ -101,7 +89,7 @@ const AddressRegister = () => {
             />
             <button
               type="button"
-              className="w-[72px] px-4 py-2 bg-[#A83E3E] text-white whitespace-nowrap font-bold rounded-lg hover:bg-[#7a2229] transition font-montserrat text-sm"
+              className="px-4 py-2 bg-[#A83E3E] text-white whitespace- font-bold rounded-lg hover:bg-[#7a2229] transition font-montserrat text-sm"
             >
               검색
             </button>
@@ -141,43 +129,13 @@ const AddressRegister = () => {
           <label className="block text-lg font-bold text-[#A83E3E] mb-2 font-montserrat">
             배송 메시지
           </label>
-
-          {deliveryMessage !== '직접 입력' ? (
-            <select
-              value={deliveryMessage}
-              onChange={(e) => setDeliveryMessage(e.target.value)}
-              className="w-full px-4 py-2 rounded-lg border border-[#E4E7EC] bg-gray-50 font-montserrat focus:outline-none focus:ring-2 focus:ring-[#A83E3E] transition"
-            >
-              {messageOptions.map((option) => (
-                <option key={option} value={option}>
-                  {option}
-                </option>
-              ))}
-            </select>
-          ) : (
-            <input
-              type="text"
-              placeholder="배송 메시지를 입력해주세요"
-              value={deliveryMessage}
-              onChange={(e) => setDeliveryMessage(e.target.value)}
-              onBlur={() => {
-                if (!deliveryMessage) setDeliveryMessage('');
-              }}
-              className="w-full px-4 py-2 rounded-lg border border-[#E4E7EC] bg-gray-50 font-montserrat focus:outline-none focus:ring-2 focus:ring-[#A83E3E] transition"
-            />
-          )}
-        </div>
-
-        <div className="flex justify-start items-center gap-2">
           <input
-            type="checkbox"
-            className="w-5 h-5"
-            value={isDefault.toString()}
-            onChange={() => setIsDefault(!isDefault)}
+            type="text"
+            placeholder="배송 메시지를 입력해주세요"
+            value={deliveryMessage}
+            onChange={(e) => setDeliveryMessage(e.target.value)}
+            className="w-full px-4 py-2 rounded-lg border border-[#E4E7EC] bg-gray-50 font-montserrat focus:outline-none focus:ring-2 focus:ring-[#A83E3E] transition"
           />
-          <label className="block font-bold font-montserrat">
-            기본 배송지로 설정
-          </label>
         </div>
 
         <div className="flex justify-between gap-4 pt-4">
