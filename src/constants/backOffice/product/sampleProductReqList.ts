@@ -1,4 +1,4 @@
-import { ProductReq } from '@/types/backOffice/product/productReq';
+import { ProductReq } from '@/types/backOffice/product/ProductReq';
 
 export const sampleProductReqList: ProductReq[] = [
   {
