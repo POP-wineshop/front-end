@@ -24,6 +24,8 @@ export const readAddresses = async (): Promise<any> => {
   } catch (error) {
     const errorMessage =
       error instanceof Error ? error.message : '배송지 조회 실패';
+    // 에러 로깅, Error 객체 여부 확인. 참일 경우 error.message, 거짓일 경우 '배송지 조회 실패' 문자열 사용
+    console.error(`배송지 조회 실패: ${errorMessage}`);
     showErrorMessage(`배송지 조회 실패: ${errorMessage}`);
     throw error;
   }

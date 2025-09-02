@@ -3,7 +3,7 @@ import { useDispatch } from 'react-redux';
 import {
   AddressRes,
   AddressUpdateReq,
-} from '@/entities/client/myPage/model/addressInfo/addressInfoTypes';
+} from '../../model/addressInfo/addressInfoTypes';
 import { updateAddress } from '../../api/addressInfo/addressInfoApi';
 import { DELIVERY_MESSAGE_OPTIONS } from '@/constants/address/deliveryMessages';
 import { AppDispatch } from '@/shared/store';
