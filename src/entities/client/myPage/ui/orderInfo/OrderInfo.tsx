@@ -1,25 +1,27 @@
+import { AppDispatch } from '@/shared/store';
 import { useEffect, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { Order, OrderItem } from '../../model/orderInfo/orderInfoTypes';
-import { useDispatch } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import {
-  handleRequestOrderCancel,
-  readUserOrders,
+  fetchOrders,
+  requestOrderCancel,
 } from '../../api/orderInfo/orderInfoApi';
+import { selectOrderItemList } from '../../model/orderInfo/selector';
 
 const orderInfo = () => {
   const navigate = useNavigate();
-  const [orderList, setOrderList] = useState<Order[]>([]);
-  const dispatch = useDispatch();
+  const dispatch = useDispatch<AppDispatch>();
+  const orderItemList = useSelector(selectOrderItemList);
 
   useEffect(() => {
-    dispatch(readUserOrders());
+    dispatch(fetchOrders());
   }, [dispatch]);
 
   return (
     <div className="flex flex-col space-y-6">
-      {orderList.length > 0 ? (
-        orderList.map((order) => (
+      {orderItemList.length > 0 ? (
+        orderItemList.map((order: Order) => (
           <div
             key={order.orderId}
             className="bg-white/80 rounded-2xl shadow-md p-6 space-y-4 "
@@ -42,7 +44,7 @@ const orderInfo = () => {
               </div>
               <button
                 className="bg-red-400 text-white font-bold rounded-lg px-4 py-2 hover:bg-red-600 transition whitespace-nowrap"
-                onClick={(e) => handleRequestOrderCancel(e, order.orderId)}
+                onClick={() => requestOrderCancel(order.orderId)}
               >
                 취소 요청
               </button>
