@@ -1,5 +1,6 @@
 import { setOrderItemList } from '../../model/orderInfo';
 
+// 고객 전체 주문 조회 API 호출
 export const readUserOrders = () => {
   fetch(`http://localhost:8080/api/orders/my`, {
     headers: {

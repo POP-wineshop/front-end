@@ -1,61 +1,20 @@
 import { useEffect, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
-
-type OrderItem = {
-  wineId: number;
-  wineNameKor: string;
-  winePrice: number;
-  orderedQuantity: number;
-  orderedPrice: number;
-  wineImageUrl: string;
-};
-
-type Order = {
-  orderId: number;
-  orderStatus: string;
-  orderItems: OrderItem[];
-  totalPrice: number;
-
-  // 주문 일시 추가 시 불러오기
-  orderDate: string;
-};
+import { Order, OrderItem } from '../../model/orderInfo/orderInfoTypes';
+import { useDispatch } from 'react-redux';
+import {
+  handleRequestOrderCancel,
+  readUserOrders,
+} from '../../api/orderInfo/orderInfoApi';
 
 const orderInfo = () => {
   const navigate = useNavigate();
   const [orderList, setOrderList] = useState<Order[]>([]);
+  const dispatch = useDispatch();
 
   useEffect(() => {
-    // 주문 목록 조회 API 호출
-    fetch(`http://localhost:8080/api/orders/my`, {
-      headers: {
-        Authorization: `${localStorage.getItem('Access Token')}`,
-      },
-    })
-      .then((res) => res.json())
-      .then((jsonRes) => {
-        setOrderList(jsonRes.data);
-      });
-  }, []);
-
-  // 주문 취소 API 호출
-  const handleRequestOrderCancel = (
-    e: React.MouseEvent<HTMLButtonElement>,
-    orderId: number
-  ) => {
-    e.stopPropagation();
-    fetch(`http://localhost:8080/api/orders/${orderId}/cancel`, {
-      method: 'DELETE',
-      headers: {
-        Authorization: `${localStorage.getItem('Access Token')}`,
-      },
-    })
-      .then((res) => res.json())
-      .then((jsonRes) => console.log(`주문 취소 요청 성공: ${jsonRes}`))
-      .catch((err) => {
-        console.error(`주문 취소 요청 실패: ${err}`);
-        alert(`주문 취소 요청 실패 ㅠ: ${err}`);
-      });
-  };
+    dispatch(readUserOrders());
+  }, [dispatch]);
 
   return (
     <div className="flex flex-col space-y-6">
