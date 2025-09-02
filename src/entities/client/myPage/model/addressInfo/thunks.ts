@@ -2,7 +2,7 @@
 
 import { AppDispatch, RootState } from '@/shared/store';
 import { setAddresses } from './addressInfoSlice';
-// API 함수들을 가져옵니다 (함수명 충돌을 피하기 위해 별칭 사용)
+// API 함수들을 가져옴 (함수명 충돌을 피하기 위해 별칭 사용)
 import {
   readAddresses,
   createAddress as createAddressApi,
