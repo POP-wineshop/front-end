@@ -2,6 +2,7 @@ import { BaggageClaim, Bell, BellOff, Heart, ShoppingCart } from 'lucide-react';
 import { useEffect, useState } from 'react';
 import DuckhornMerlot from '@/assets/wineItem/Duckhorn_Napa Valley_Merlot.png';
 import { useNavigate } from 'react-router-dom';
+import { LikesWineItemExample } from '../../model/likesInfo';
 
 // type LikesWineItem = {
 //   wineName: string;
@@ -10,32 +11,16 @@ import { useNavigate } from 'react-router-dom';
 //   winePrice: number;
 // };
 
-type LikesWineItemExample = {
-  id: number;
-  korName: string;
-  engName: string;
-  grapeVariety: string;
-  country: string;
-  region: string;
-  vintage: number;
-  wineType: string;
-  price: number;
-  stock: number;
-  imageUrl: string | null;
-  alcoholContent: number;
-  tasteProfile: {
-    sweetness: number;
-    acidity: number;
-    body: number;
-  };
-};
-
 type LikesItemProps = {
   likesWineItem: LikesWineItemExample;
 };
 
 export const LikesItem = ({ likesWineItem }: LikesItemProps) => {
   const navigate = useNavigate();
+  const likesWineItem = useSelector((state) =>
+    selectLikesWineItemById(state, likesWineItem.id)
+  );
+
   const [wineId, setWineId] = useState<number>(0);
   const [wineNameEng, setWineNameEng] = useState<string>('와인 영어 이름');
   const [wineNameKor, setWineNameKor] = useState<string>('와인 한글 이름');
@@ -83,11 +68,11 @@ export const LikesItem = ({ likesWineItem }: LikesItemProps) => {
   // 재입고 알림 신청 및 해제
   const handleToggleRestockAlarm = () => {
     if (!isRestockAlarmRegistered) {
-      alert(`${wineNameKor} 상품 재입고 알림을 신청하셨습니다.`);
+      alert(`${wineNameKor} 상품 재입고 알림을 신청하였습니다.`);
       setIsRestockAlarmRegistered(true);
       // 재입고 알림 신청 리스트에서 제외
     } else {
-      alert(`${wineNameKor} 상품 재입고 알림을 해제하셨습니다.`);
+      alert(`${wineNameKor} 상품 재입고 알림을 해제하였습니다.`);
       setIsRestockAlarmRegistered(false);
       // 재입고 알림 신청 리스트에 추가
     }
