@@ -3,14 +3,14 @@ import { createSlice } from '@reduxjs/toolkit';
 const likesInfoSlice = createSlice({
   name: 'likesInfo',
   initialState: {
-    likesItemList: [],
+    likesItems: [],
   },
   reducers: {
-    setLikesItemList: (state, action) => {
-      state.likesItemList = action.payload;
+    setLikesItems: (state, action) => {
+      state.likesItems = action.payload;
     },
   },
 });
 
-export const { setLikesItemList } = likesInfoSlice.actions;
+export const { setLikesItems } = likesInfoSlice.actions;
 export default likesInfoSlice.reducer;
