@@ -1,15 +1,8 @@
 import { BaggageClaim, Bell, BellOff, Heart, ShoppingCart } from 'lucide-react';
-import { useEffect, useState } from 'react';
 import DuckhornMerlot from '@/assets/wineItem/Duckhorn_Napa Valley_Merlot.png';
 import { useNavigate } from 'react-router-dom';
-import { LikesWineItemExample } from '../../model/likesInfo';
-
-// type LikesWineItem = {
-//   wineName: string;
-//   wineId: number;
-//   thumbnail: string;
-//   winePrice: number;
-// };
+import { LikesWineItemExample } from '../../model/likesInfo/likesInfoTypes';
+import { useLikesItem } from '../../model/likesInfo/useLikesItem';
 
 type LikesItemProps = {
   likesWineItem: LikesWineItemExample;
@@ -17,66 +10,20 @@ type LikesItemProps = {
 
 export const LikesItem = ({ likesWineItem }: LikesItemProps) => {
   const navigate = useNavigate();
-  const likesWineItem = useSelector((state) =>
-    selectLikesWineItemById(state, likesWineItem.id)
-  );
 
-  const [wineId, setWineId] = useState<number>(0);
-  const [wineNameEng, setWineNameEng] = useState<string>('와인 영어 이름');
-  const [wineNameKor, setWineNameKor] = useState<string>('와인 한글 이름');
-  const [likesItemPrice, setLikesItemPrice] = useState<number>(0);
-  const [isLiked, setIsLiked] = useState<boolean>(true);
-
-  // 전역변수로 장바구니 내 와인 유무 확인 후 초기값 수정 필요
-  const [isInCart, setIsInCart] = useState<boolean>(false);
-
-  // 재입고 알림 와인 설정 API 구현 이후 초기값 수정 필요
-  const [isRestockAlarmRegistered, setIsRestockAlarmRegistered] =
-    useState<boolean>(false);
-
-  useEffect(() => {
-    if (!likesWineItem) return;
-    setWineId(likesWineItem.id);
-    setWineNameKor(likesWineItem.korName);
-    setWineNameEng(likesWineItem.engName);
-    setLikesItemPrice(likesWineItem.price);
-  }, [likesWineItem]);
-
-  const cartOrderData = {
-    wineId: wineId,
-    quantity: 1,
-  };
-
-  // 좋아요 해제
-  const handleCancelLike = () => {
-    if (
-      isLiked &&
-      confirm(`해당 와인을 좋아요 목록에서 제외하시겠습니까? : ${wineNameKor}`)
-    ) {
-      setIsLiked(false);
-      // fetch 좋아요 삭제
-      // 좋아요 목록 재렌더링
-    } else {
-      setIsLiked(true);
-    }
-  };
-
-  // 장바구니 담기
-  const handleAddToCart = () => {
-    addToCart();
-  };
-  // 재입고 알림 신청 및 해제
-  const handleToggleRestockAlarm = () => {
-    if (!isRestockAlarmRegistered) {
-      alert(`${wineNameKor} 상품 재입고 알림을 신청하였습니다.`);
-      setIsRestockAlarmRegistered(true);
-      // 재입고 알림 신청 리스트에서 제외
-    } else {
-      alert(`${wineNameKor} 상품 재입고 알림을 해제하였습니다.`);
-      setIsRestockAlarmRegistered(false);
-      // 재입고 알림 신청 리스트에 추가
-    }
-  };
+  // 커스텀 훅 사용
+  const {
+    wineId,
+    wineNameKor,
+    wineNameEng,
+    likesItemPrice,
+    isLiked,
+    inCart,
+    restockAlarm,
+    handleCancelLike,
+    handleAddToCart,
+    handleToggleRestockAlarm,
+  } = useLikesItem({ initialItem: likesWineItem });
 
   return (
     <div className="bg-white/80 p-6">
@@ -127,7 +74,7 @@ export const LikesItem = ({ likesWineItem }: LikesItemProps) => {
               >
                 <Heart className="w-6 h-6 stroke-red-500 fill-red-500" />
               </button>
-              {!isInCart ? (
+              {!inCart ? (
                 <button
                   onClick={handleAddToCart}
                   className="likes-item-button-add-to-cart w-10 h-10 bg-[#A83E3E] px-2 py-2 rounded-xl font-bold hover:bg-[#7a2229] hover:scale-110 transition"
@@ -143,7 +90,7 @@ export const LikesItem = ({ likesWineItem }: LikesItemProps) => {
                   <BaggageClaim className="stroke-white" />
                 </button>
               )}
-              {!isRestockAlarmRegistered ? (
+              {!restockAlarm ? (
                 <button
                   onClick={handleToggleRestockAlarm}
                   className="likes-item-button-restock-alarm-false w-10 h-10 bg-gray-300 px-2 py-2 rounded-xl font-bold hover:bg-gray-400 hover:scale-110 transition"
