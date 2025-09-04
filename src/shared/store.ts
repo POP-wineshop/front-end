@@ -5,6 +5,7 @@ import cartReducer from '@/entities/client/cart/model/cartSlice';
 import orderReducer from '@/entities/client/order/model/orderSlice';
 import addressInfoReducer from '@/entities/client/myPage/model/addressInfo/addressInfoSlice';
 import orderInfoReducer from '@/entities/client/myPage/model/orderInfo/orderInfoSlice';
+import likesInfoReducer from '@/entities/client/myPage/model/likesInfo/likesInfoSlice';
 
 export const store = configureStore({
   reducer: {
@@ -14,6 +15,7 @@ export const store = configureStore({
     cart: cartReducer, // 장바구니 상태 관리 리듀서 등록
     addressInfo: addressInfoReducer, // 주소 정보 상태 관리 리듀서 등록
     orderInfo: orderInfoReducer, // 주문 정보 상태 관리 리듀서 등록
+    likesInfo: likesInfoReducer, // 좋아요 정보 상태 관리 리듀서 등록
   },
 });
 
