@@ -9,27 +9,7 @@ import ToLastPage from '@/assets/pagination/WineListPage_Pagination_ToLastPage.s
 import { useDispatch, useSelector } from 'react-redux';
 import { AppDispatch } from '@/shared/store';
 import { selectLikesItemList } from '../../model/likesInfo/selector';
-import { readLikesItemList } from '../../api/likesInfo/likesInfoApi';
-
-type LikesWineItemExample = {
-  id: number;
-  korName: string;
-  engName: string;
-  grapeVariety: string;
-  country: string;
-  region: string;
-  vintage: number;
-  wineType: string;
-  price: number;
-  stock: number;
-  imageUrl: string | null;
-  alcoholContent: number;
-  tasteProfile: {
-    sweetness: number;
-    acidity: number;
-    body: number;
-  };
-};
+import { fetchLikesItemList } from '../../model/likesInfo/likesInfoSlice';
 
 const LikesInfo = () => {
   const navigate = useNavigate();
@@ -38,7 +18,7 @@ const LikesInfo = () => {
 
   // UI 확인용 목록 fetch
   useEffect(() => {
-    dispatch(setLikesItemList(readLikesItemList()));
+    dispatch(fetchLikesItemList());
   }, [dispatch]);
 
   useEffect(() => {
