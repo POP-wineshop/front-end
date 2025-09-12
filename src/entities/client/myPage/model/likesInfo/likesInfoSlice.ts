@@ -1,16 +1,31 @@
-import { createSlice } from '@reduxjs/toolkit';
+import { createSlice, createAsyncThunk } from '@reduxjs/toolkit';
+import { readLikesItemList } from '../../api/likesInfo/likesInfoApi';
+
+const fetchLikesItemList = createAsyncThunk(
+  'likesInfo/fetchLikesItemList',
+  async () => {
+    return await readLikesItemList();
+  }
+);
 
 const likesInfoSlice = createSlice({
   name: 'likesInfo',
   initialState: {
-    likesItems: [],
+    likesItemList: [],
   },
   reducers: {
-    setLikesItems: (state, action) => {
-      state.likesItems = action.payload;
+    setLikesItemList: (state, action) => {
+      state.likesItemList = action.payload;
     },
+  },
+  extraReducers: (builder) => {
+    builder.addCase(fetchLikesItemList.fulfilled, (state, action) => {
+      state.likesItemList = action.payload;
+    });
   },
 });
 
-export const { setLikesItems } = likesInfoSlice.actions;
+export const { setLikesItemList } = likesInfoSlice.actions;
 export default likesInfoSlice.reducer;
+export { fetchLikesItemList };
+// ...existing code...
