@@ -1,13 +1,7 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
-
-interface LoginFormProps {
-  username: string;
-  password: string;
-  onUsernameChange: (e: React.ChangeEvent<HTMLInputElement>) => void;
-  onPasswordChange: (e: React.ChangeEvent<HTMLInputElement>) => void;
-  onSubmit: (e: React.FormEvent<HTMLFormElement>) => void;
-}
+import { LoginFormProps } from '../model';
+import LoginInput from './LoginInput';
 
 const LoginForm: React.FC<LoginFormProps> = ({
   username,
@@ -17,7 +11,7 @@ const LoginForm: React.FC<LoginFormProps> = ({
   onSubmit,
 }) => {
   return (
-    <div className="w-full">
+    <>
       <form
         onSubmit={onSubmit}
         className="m-auto flex flex-col gap-4 w-full max-w-md min-h-[400px] p-8 bg-white rounded-xl shadow-md"
@@ -25,7 +19,14 @@ const LoginForm: React.FC<LoginFormProps> = ({
         <p className="font-mapodacapo italic text-3xl font-bold text-center mb-4">
           Login
         </p>
-        <div>
+        <LoginInput
+          id="username"
+          label="아이디"
+          value={username}
+          onChange={onUsernameChange}
+          placeholder="아이디를 입력해주세요"
+        />
+        {/* <div>
           <label
             htmlFor="username"
             className="block mb-1 text-sm font-medium text-gray-700"
@@ -40,8 +41,16 @@ const LoginForm: React.FC<LoginFormProps> = ({
             placeholder="아이디를 입력해주세요"
             className="w-full p-2 border border-[#D4D4D4] rounded-md focus:outline-none focus:ring focus:ring-1 focus:ring-[#6A1B1A]"
           />
-        </div>
-        <div>
+        </div> */}
+        <LoginInput
+          id="password"
+          label="비밀번호"
+          type="password"
+          value={password}
+          onChange={onPasswordChange}
+          placeholder="비밀번호를 입력해주세요"
+        />
+        {/* <div>
           <label
             htmlFor="password"
             className="block mb-1 text-sm font-medium text-gray-700"
@@ -56,7 +65,7 @@ const LoginForm: React.FC<LoginFormProps> = ({
             placeholder="비밀번호를 입력해주세요"
             className="w-full p-2 border border-[#D4D4D4] rounded-md focus:outline-none focus:ring focus:ring-1 focus:ring-[#6A1B1A]"
           />
-        </div>
+        </div> */}
         <button
           type="submit"
           className="mt-4 py-2 bg-[#6A1B1A] text-white font-semibold rounded-md hover:bg-[#4E1212] transition"
@@ -75,7 +84,7 @@ const LoginForm: React.FC<LoginFormProps> = ({
           </Link>
         </div>
       </form>
-    </div>
+    </>
   );
 };
 
