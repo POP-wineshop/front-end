@@ -14,8 +14,8 @@ export const CartItem = ({
   cartItem,
   selected,
   onSelect,
-  onAddQuantity,
-  onSubtractQuantity,
+  onAddQuantityState,
+  onSubtractQuantityState,
 }: CartItemCompProps) => {
   const navigate = useNavigate();
   const dispatch = useDispatch<AppDispatch>();
@@ -136,7 +136,7 @@ export const CartItem = ({
               <button
                 className="px-3 py-1 text-lg"
                 onClick={() => {
-                  onSubtractQuantity(wineId);
+                  onSubtractQuantityState(wineId);
                   console.log('수량 빼기 버튼 클릭');
                 }}
               >
@@ -148,7 +148,7 @@ export const CartItem = ({
               <button
                 className="px-3 py-1 text-lg"
                 onClick={() => {
-                  onAddQuantity(wineId);
+                  onAddQuantityState(wineId);
                   console.log('수량 더하기 버튼 클릭');
                 }}
               >

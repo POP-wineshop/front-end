@@ -17,8 +17,8 @@ export interface CartItemCompProps {
   cartItem: CartItemDataRes;
   selected: boolean;
   onSelect: () => void;
-  onAddQuantity: (id: number) => void;
-  onSubtractQuantity: (id: number) => void;
+  onAddQuantityState: (id: number) => void;
+  onSubtractQuantityState: (id: number) => void;
 }
 
 export interface CartPaymentProps {
