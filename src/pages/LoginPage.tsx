@@ -1,53 +1,24 @@
-import { useState } from 'react';
-import { Link, useNavigate } from 'react-router-dom';
+import { useLogin } from '@/entities/client/user/model/useLogin';
+import LoginForm from '@/entities/client/user/ui/LoginForm';
 
 const LoginPage = () => {
-  const [userId, setUserId] = useState<string>('');
-  const [username, setUsername] = useState<string>('');
-  const [password, setPassword] = useState<string>('');
-
-  const [accessToken, setAccessToken] = useState<string>('');
-  const [refreshToken, setRefreshToken] = useState<string>('');
-
-  const navigate = useNavigate();
-
-  const handleLogin = () => {
-    fetch('http://localhost:8080/api/auth/login', {
-      method: 'POST',
-      headers: { 'Content-Type': 'application/json' },
-      body: JSON.stringify({
-        username: username,
-        password: password,
-      }),
-    })
-      .then((res) => res.json()) // () 빠졌던 부분 수정
-      .then((jsonResponse) => {
-        console.log(jsonResponse);
-        localStorage.setItem(
-          'Access Token',
-          `Bearer ${jsonResponse.data.accessToken}`
-        );
-        localStorage.setItem(
-          'Refresh Token',
-          `Bearer ${jsonResponse.data.refreshToken}`
-        );
-        localStorage.setItem('User Name', `${jsonResponse.data.username}`);
-        localStorage.setItem('User Id', `${jsonResponse.data.userId}`);
-        setAccessToken(jsonResponse.data.accessToken);
-        setRefreshToken(jsonResponse.data.refreshToken);
-        console.log(`로그인 성공 : `, jsonResponse);
-        alert(`로그인 성공!`);
-        navigate('/list');
-      })
-      .catch((error) => {
-        console.error(`로그인 실패 : `, error);
-        alert(`로그인 실패!`);
-      });
-  };
+  const { username, setUsername, password, setPassword, handleLogin } =
+    useLogin();
 
   return (
     <div className="w-full">
-      <form
+      <LoginForm
+        username={username}
+        password={password}
+        onUsernameChange={(e) => setUsername(e.target.value)}
+        onPasswordChange={(e) => setPassword(e.target.value)}
+        onSubmit={(e) => {
+          e.preventDefault();
+          handleLogin();
+        }}
+      />
+
+      {/* <form
         onSubmit={(e) => {
           e.preventDefault();
           handleLogin();
@@ -107,7 +78,7 @@ const LoginPage = () => {
             회원가입
           </Link>
         </div>
-      </form>
+      </form> */}
     </div>
   );
 };
