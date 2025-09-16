@@ -6,6 +6,7 @@ const initialState: WineState = {
   filter: {},
   loading: false,
   error: null,
+  likes: {},
 };
 
 const wineSlice = createSlice({
@@ -14,6 +15,10 @@ const wineSlice = createSlice({
   reducers: {
     setWineList(state, action: PayloadAction<WineData[]>) {
       state.wineList = action.payload;
+    },
+    toggleLike(state, action: PayloadAction<number>) {
+      const wineId = action.payload;
+      state.likes[wineId] = !state.likes[wineId];
     },
     setFilter(state, action: PayloadAction<WineListQuery>) {
       state.filter = action.payload;
@@ -27,6 +32,6 @@ const wineSlice = createSlice({
   },
 });
 
-export const { setWineList, setFilter, setLoading, setError } =
+export const { setWineList, toggleLike, setFilter, setLoading, setError } =
   wineSlice.actions;
 export default wineSlice.reducer;

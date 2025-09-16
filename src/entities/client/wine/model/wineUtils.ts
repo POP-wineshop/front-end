@@ -23,7 +23,7 @@ export function getTasteProfileDetails() {
 }
 
 // 와인 상세 정보 가져오기
-export function getWineDescriptionFields() {
+export function getWineDetailSectionFields() {
   return [
     { key: '테이스팅 노트', value: `테이스팅 노트` },
     { key: '양조 방법', value: `양조 방법` },

@@ -3,6 +3,7 @@ export type WineState = {
   filter: WineListQuery;
   loading: boolean;
   error: string | null;
+  likes: { [key: number]: boolean };
 };
 
 export type WineListQuery = {
