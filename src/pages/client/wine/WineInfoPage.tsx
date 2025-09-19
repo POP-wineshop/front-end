@@ -2,8 +2,8 @@ import { useEffect, useState } from 'react';
 import { WineData } from '@/entities/client/wine/model/wineTypes';
 import { useParams } from 'react-router-dom';
 import { fetchWineDetail } from '@/entities/client/wine/api/wineApi';
-import WineSummarySection from '@/entities/client/wine/ui/WineSummarySection';
-import WineDetailSection from '@/entities/client/wine/ui/WineDetailSection';
+import WineSummarySection from '@/entities/client/wine/ui/WineInfo/WineSummarySection';
+import WineDetailSection from '@/entities/client/wine/ui/WineInfo/WineDetailSection';
 
 const WineInfoPage = () => {
   const [wineInfoData, setWineInfoData] = useState<WineData>();
