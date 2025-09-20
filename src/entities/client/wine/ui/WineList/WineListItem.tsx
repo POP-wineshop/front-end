@@ -1,9 +1,8 @@
 import { useNavigate } from 'react-router-dom';
-import DuckhornMerlot from '@/assets/wineItem/Duckhorn_Napa Valley_Merlot.png';
 import { WineData } from '../../model/wineTypes';
 import WineTags from './WineTags';
 import LikeToggleButton from './LikeToggleButton';
-import { useWineLike } from '../../model';
+import useWineLike from '../../model/useWineLike';
 import WineNameInItem from './WineNameInItem';
 import WineImageInItem from './WineImageInItem';
 
