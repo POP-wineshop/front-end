@@ -7,9 +7,6 @@ import { useCartOrder } from './useCartOrder';
 import { useCartCalculations } from './useCartCalculations';
 
 export const useCart = () => {
-  const cartItems = useSelector(selectCartItems);
-  const selectedCartItems = useSelector(selectCartSelectedItems);
-
   // 각 기능별 훅들
   const cartItemsHook = useCartItems();
   const cartSelectionHook = useCartSelection();

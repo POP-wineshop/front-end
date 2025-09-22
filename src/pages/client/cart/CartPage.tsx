@@ -1,10 +1,8 @@
 import CartItem from '@/entities/client/cart/ui/CartItem';
 import CartPayment from '@/entities/client/cart/ui/CartPayment';
-import { useNavigate } from 'react-router-dom';
 import { useCart } from '@/entities/client/cart/model/hooks/useCart';
 
 const CartPage = () => {
-  const navigate = useNavigate();
   const {
     cartItems,
     selectedCartItems,

@@ -8,7 +8,6 @@ import { createInstantOrder } from '@/entities/client/order/api/orderApi';
 import { useDispatch, useSelector } from 'react-redux';
 import { AppDispatch, RootState } from '@/shared/store';
 import { setOrder } from '@/entities/client/order/model/orderSlice';
-import { selectSelectedCartItems } from '@/entities/client/cart/model';
 
 export const CartItem = ({
   cartItem,
