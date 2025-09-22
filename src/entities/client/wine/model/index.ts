@@ -8,3 +8,7 @@ export * from './selectors';
 export * from './wineUtils';
 // 와인 목록 조회 커스텀 훅 export
 export * from './useWineList';
+// 와인 좋아요 상태 관리 커스텀 훅 export
+export { default as useWineLike } from './useWineLike';
+// 와인 상세 정보 조회 커스텀 훅 export
+export * from './useWineInfo';

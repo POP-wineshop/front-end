@@ -1,15 +1,6 @@
 import { useParams } from 'react-router-dom';
 import { WineListQuery } from '../model/wineTypes';
 
-// 와인 정보 조회
-export async function fetchWineDetail() {
-  const { wineId } = useParams();
-  const url = new URL(`http://localhost:8080/api/wines/${wineId}`);
-  const res = await fetch(url);
-  const jsonRes = await res.json();
-  return jsonRes.data;
-}
-
 // 전체 와인 목록 조회 or 조건에 부합하는 와인 목록 조회
 export async function fetchWineList(query: WineListQuery) {
   const url = new URL('http://localhost:8080/api/wines/search');
@@ -35,6 +26,15 @@ export async function fetchWineList(query: WineListQuery) {
   if (!res.ok) {
     throw new Error('와인 목록 조회 오류 발생');
   }
+  const jsonRes = await res.json();
+  return jsonRes.data;
+}
+
+// 와인 정보 조회
+export async function fetchWineInfo() {
+  const { wineId } = useParams();
+  const url = new URL(`http://localhost:8080/api/wines/${wineId}`);
+  const res = await fetch(url);
   const jsonRes = await res.json();
   return jsonRes.data;
 }
