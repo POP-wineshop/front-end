@@ -2,7 +2,7 @@ import { useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { AppDispatch } from '@/shared/store';
 import { setSelectedCartItems } from '../cartSlice';
-import { CartItemData } from '../cartTypes';
+import { CartItemDataRes } from '../cartTypes';
 import { selectCartItems, selectCartSelectedItems } from '../selector';
 
 export const useCartSelection = () => {
@@ -14,7 +14,7 @@ export const useCartSelection = () => {
 
   // 전체 선택 상태 업데이트 함수
   const handleUpdateAllItemsSelectedState = (
-    currentSelectedItems: CartItemData[]
+    currentSelectedItems: CartItemDataRes[]
   ) => {
     const isAllSelected =
       cartItems.length > 0 && currentSelectedItems.length === cartItems.length;
@@ -34,7 +34,7 @@ export const useCartSelection = () => {
 
   // 장바구니 아이템 개별 선택/해제
   const handleSelectCartItem = (id: number) => {
-    let updatedSelectedItems: CartItemData[];
+    let updatedSelectedItems: CartItemDataRes[];
 
     if (selectedCartItems.some((item) => item.wineId === id)) {
       // 선택 해제

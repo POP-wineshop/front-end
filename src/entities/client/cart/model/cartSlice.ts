@@ -1,9 +1,9 @@
 import { createSlice, PayloadAction } from '@reduxjs/toolkit';
-import { CartItemData } from '@/entities/client/cart/model/cartTypes';
+import { CartItemDataRes } from '@/entities/client/cart/model/cartTypes';
 
 interface CartState {
-  cartItems: CartItemData[];
-  selectedCartItems: CartItemData[];
+  cartItems: CartItemDataRes[];
+  selectedCartItems: CartItemDataRes[];
 }
 
 const initialState: CartState = {
@@ -15,10 +15,10 @@ const cartSlice = createSlice({
   name: 'cart',
   initialState,
   reducers: {
-    setCartItems(state, action: PayloadAction<CartItemData[]>) {
+    setCartItems(state, action: PayloadAction<CartItemDataRes[]>) {
       state.cartItems = action.payload;
     },
-    setSelectedCartItems(state, action: PayloadAction<CartItemData[]>) {
+    setSelectedCartItems(state, action: PayloadAction<CartItemDataRes[]>) {
       state.selectedCartItems = action.payload;
     },
   },
