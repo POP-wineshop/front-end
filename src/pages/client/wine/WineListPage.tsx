@@ -1,10 +1,18 @@
 import WineListItem from '@/entities/client/wine/ui/WineList/WineListItem';
 import Pagination from '@/entities/client/common/ui/Pagination';
 import { useWineList } from '@/entities/client/wine/model/useWineList';
+import { useEffect } from 'react';
 
 const WineListPage = () => {
   const { wineList, currentPage, setCurrentPage, itemsPerPage, currentItems } =
     useWineList();
+
+  useEffect(() => {
+    console.time('와인 목록 페이지 렌더링');
+    return () => {
+      console.timeEnd('와인 목록 페이지 렌더링');
+    };
+  }, [wineList, currentPage]);
 
   return (
     <div className="m-auto w-[1600px] flex flex-col items-center min-h-screen ">
