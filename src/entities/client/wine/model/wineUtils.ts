@@ -33,11 +33,11 @@ export function getWineDetailSectionFields() {
 }
 
 // 장바구니 추가 데이터 생성
-export function createCartItemData(wineData: WineData, quantity: number) {
-  return { wineId: wineData.id, quantity };
+export function createCartItemData(wineId: number, quantity: number) {
+  return { wineId, quantity };
 }
 
 // 즉시 주문 데이터 생성
-export function createInstantOrderData(wineData: WineData, quantity: number) {
-  return { wineId: wineData.id, quantity };
+export function createInstantOrderData(wineId: number, quantity: number) {
+  return { wineId, quantity };
 }
