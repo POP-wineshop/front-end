@@ -1,10 +1,10 @@
 import { useNavigate } from 'react-router-dom';
 import { WineData } from '../../model/wineTypes';
-import WineTags from './WineTags';
-import LikeToggleButton from './LikeToggleButton';
+import WineTags from './WineListItem/WineTags';
+import LikeToggleButton from './WineListItem/LikeToggleButton';
 import useWineLike from '../../model/useWineLike';
-import WineNameInItem from './WineNameInItem';
-import WineImageInItem from './WineImageInItem';
+import WineNameInItem from './WineListItem/WineNameInItem';
+import WineImageInItem from './WineListItem/WineImageInItem';
 
 const WineListItem = (wineData: WineData) => {
   const navigate = useNavigate();

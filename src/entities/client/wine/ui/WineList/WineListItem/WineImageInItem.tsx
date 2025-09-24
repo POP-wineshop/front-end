@@ -1,5 +1,5 @@
 import DuckhornMerlot from '@/assets/wineItem/Duckhorn_Napa Valley_Merlot.png';
-import { WineData } from '../../model/wineTypes';
+import { WineData } from '../../../model/wineTypes';
 
 interface WineImageInItemProps {
   wineData: WineData;
