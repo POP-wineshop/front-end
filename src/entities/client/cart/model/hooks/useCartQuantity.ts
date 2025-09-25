@@ -9,6 +9,10 @@ export const useCartQuantity = () => {
   const cartItems = useSelector(selectCartItems);
   const selectedCartItems = useSelector(selectCartSelectedItems);
 
+  // TODO
+  // 수량 증가, 감소를 할 때마다 items 모두 분해했다가 여러 개 중 하나를 수량만 바꿔서 다시 묶는 건 비효율적이라고 생각
+  // 차라리 개별로 관리를 해서 id로 찾아서 그 아이템만 수량 바꾸는 게 나을 듯
+
   // 수량 증가
   const handleAddQuantity = (id: number) => {
     const newCartItems = cartItems.map((item) =>
