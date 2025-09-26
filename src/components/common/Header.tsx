@@ -15,12 +15,6 @@ const Header = () => {
   return (
     <header className="relative w-full flex items-center justify-between px-12 py-4 bg-[#7a2229] shadow-sm border-b sticky top-0 z-20">
       <div className="w-[400px] flex justify-start items-center gap-6">
-        {/* <img
-          className="w-16 h-16 rounded-xl hover:scale-105 cursor-pointer transition"
-          src="src/assets/logo/logo-Image.png"
-          alt="로고 이미지"
-          onClick={() => navigate(`/list`)}
-        /> */}
         <span
           onClick={() => navigate('/list')}
           className="font-mapodacapo text-[48px] text-white font-semibold italic cursor-pointer hover:text-[#A83E3E] transition"

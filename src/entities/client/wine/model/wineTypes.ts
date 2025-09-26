@@ -1,3 +1,5 @@
+// TODO: type => interface로 변경 필요 여부 추후에 다시 알아보기
+
 export type WineState = {
   wineList: WineData[];
   filter: WineListQuery;
