@@ -1,31 +1,38 @@
-import WineListPage from './pages/WineListPage';
-import WineDescriptionPage from './pages/WineDescriptionPage';
-import OrderPage from './pages/OrderPage';
-import CartPage from './pages/CartPage';
+import * as ReactDom from 'react-dom';
+import * as React from 'react';
 
-// import WinePostPage from './pages/WinePostPage';
+(window as any).React2 = React;
+console.log(
+  'React1 === React2:',
+  (window as any).React1 === (window as any).React2
+);
 
-import WineApiTestPage from './pages/WineApiTestPage';
-
-import './App.css';
 import { Navigate, Route, Routes, useLocation } from 'react-router-dom';
-import Header from './components/common/Header';
-import Footer from './components/common/Footer';
-import BackOfficePage from './pages/backOffice/BackOfficePage';
-import WineFilter from './components/common/WineFilter';
-import SignupPage from './pages/SignupPage';
-import LoginPage from './pages/LoginPage';
+import './App.css';
+
+import Header from './entities/client/common/ui/Header';
+import Footer from './entities/client/common/ui/Footer';
+
+import LoginPage from './pages/client/user/LoginPage';
+import SignupPage from './pages/client/user/SignupPage';
 import MyPage from './pages/MyPage';
+
+import WineListPage from './pages/client/wine/WineListPage';
+import WineInfoPage from './pages/client/wine/WineInfoPage';
+import OrderPage from './pages/OrderPage';
+import CartPage from './pages/client/cart/CartPage';
+
+import BackOfficePage from './pages/backOffice/BackOfficePage';
 import TossPaymentPage from './pages/tossPayments/TossPaymentPage';
+
+// import WineApiTestPage from './pages/WineApiTestPage';
+// import WinePostPage from './pages/WinePostPage';
 
 function App() {
   const location = useLocation();
   const shouldShowBackOffice = location.pathname.startsWith(`/backoffice`);
   const shouldShowTossPayments = location.pathname.startsWith(`/tosspayments`);
-
-  const shouldShowWineFilter =
-    location.pathname.startsWith(`/list`) ||
-    location.pathname.startsWith(`/description`);
+  const shouldShowWineFilter = location.pathname.startsWith(`/list`);
 
   return (
     <>
@@ -44,9 +51,7 @@ function App() {
           </div>
         ) : (
           <div className="service-page-layout">
-            {/* <Sidebar /> */}
             <Header />
-            {/* {shouldShowWineFilter && <WineFilter />} */}
             <main
               className="main-layout flex justify-center items-center"
               style={{ minHeight: `calc(100vh - 289px)` }}
@@ -57,16 +62,12 @@ function App() {
                 <Route path="/signup" element={<SignupPage />} />
                 <Route path="/login" element={<LoginPage />} />
                 <Route path="/mypage/*" element={<MyPage />} />
+
                 <Route path="/list" element={<WineListPage />} />
-                <Route
-                  path="/description/:wineId"
-                  element={<WineDescriptionPage />}
-                />
-                <Route path="/order" element={<OrderPage />} />
+                <Route path="/list/:wineId" element={<WineInfoPage />} />
+
                 <Route path="/cart" element={<CartPage />} />
-                {/* <Route path="/checkout" element={<TossPaymentPage />} /> */}
-                {/* <Route path="/post" element={<WinePostPage />} /> */}
-                {/* <Route path="/apitest" element={<WineApiTestPage />} /> */}
+                <Route path="/order" element={<OrderPage />} />
               </Routes>
             </main>
             <Footer />
