@@ -1,4 +1,4 @@
-import WineListItem from '@/entities/client/wine/ui/WineList/WineListItem';
+import WineListItem from '@/entities/client/wine/ui/wineList/WineListItem';
 import Pagination from '@/entities/client/common/ui/Pagination';
 import { useWineList } from '@/entities/client/wine/model/useWineList';
 import { useEffect } from 'react';

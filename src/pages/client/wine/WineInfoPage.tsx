@@ -2,8 +2,8 @@ import { useEffect, useState } from 'react';
 import { WineData } from '@/entities/client/wine/model/wineTypes';
 import { useParams } from 'react-router-dom';
 import { useWineInfo } from '@/entities/client/wine/model/useWineInfo';
-import WineSummarySection from '@/entities/client/wine/ui/WineInfo/WineSummarySection';
-import WineDetailSection from '@/entities/client/wine/ui/WineInfo/WineDetailSection';
+import WineSummarySection from '@/entities/client/wine/ui/wineInfo/WineSummarySection';
+import WineDetailSection from '@/entities/client/wine/ui/wineInfo/WineDetailSection';
 
 const WineInfoPage = () => {
   const { wineInfo } = useWineInfo();
