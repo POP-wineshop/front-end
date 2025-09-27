@@ -1,17 +1,18 @@
 import { useEffect, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
-import { OrderResData, selectOrder } from '../model';
+import { OrderDataRes, selectOrder } from '../model';
 import { useSelector } from 'react-redux';
 
 const OrderPayment = () => {
   const navigate = useNavigate();
 
-  const orderInfo = useSelector(selectOrder) as OrderResData;
+  const orderInfo = useSelector(selectOrder) as OrderDataRes;
 
   const totalProductPrice = orderInfo.totalPrice;
+
+  // 어떻게 할까... 배송비도 전역변수화? 아니면 그냥 navigate할 때 같이 넘겨주기?
   const [deliveryFee, setDeliveryFee] = useState<number>(0);
-  //   const [discount, setDiscount] = useState<number>(0);
-  //   const [additionalPayment, setAdditionalPayment] = useState<number>(0);
+
   const totalPaymentPrice = totalProductPrice + deliveryFee;
 
   const orderPaymentList = [

@@ -1,16 +1,17 @@
-import { OrderItem } from '@/entities/client/order/ui/OrderItem';
+import { OrderItem } from '@/entities/client/order/ui/orderItemList/OrderItem';
 import DeliveryInfo from '@/entities/client/order/ui/DeliveryInfo';
 import PaymentMethod from '@/entities/client/order/ui/PaymentMethod';
 import OrderPayment from '@/entities/client/order/ui/OrderPayment';
 import { useEffect, useState } from 'react';
 import { useLocation } from 'react-router-dom';
-import { OrderingWineItem, OrderResData } from '@/entities/client/order/model';
+import { OrderWineItem, OrderDataRes } from '@/entities/client/order/model';
+import OrderItemList from '@/entities/client/order/ui/OrderItemList';
 
 const OrderPage = () => {
   const location = useLocation();
   const orderId = location.state.orderId;
 
-  const [orderInfo, setOrderInfo] = useState<OrderResData | null>();
+  const [orderInfo, setOrderInfo] = useState<OrderDataRes | null>();
 
   useEffect(() => {
     fetch(`http://localhost:8080/api/orders/${orderId}`, {
@@ -43,11 +44,12 @@ const OrderPage = () => {
         </div>
 
         <div className="order-page-container flex flex-col gap-8 pb-16">
+          <OrderItemList />
           <div className="order-items-container w-full">
             {/* 주문 진행 중인 상품 목록의 데이터 형태에 따라 달라짐 */}
             <div className="cart-items-container border-t border-b border-[#E4E7EC] divide-y divide-[#E4E7EC]">
               {orderInfo?.orderItems ? (
-                orderInfo.orderItems.map((item: OrderingWineItem) => (
+                orderInfo.orderItems.map((item: OrderWineItem) => (
                   <OrderItem key={item.wineId} {...item} />
                 ))
               ) : (
@@ -63,7 +65,7 @@ const OrderPage = () => {
           <DeliveryInfo />
 
           {orderInfo ? (
-            <OrderPayment orderInfo={orderInfo} />
+            <OrderPayment />
           ) : (
             <div className="bg-white/80 p-12 text-center">
               <p className="text-gray-400 text-lg font-montserrat">
