@@ -6,10 +6,10 @@ import {
   Routes,
   useNavigate,
 } from 'react-router-dom';
-import UserInfo from '@/components/myPage/userInfo/UserInfo';
-import OrderInfo from '@/components/myPage/orderInfo/OrderInfo';
-import AddressInfo from '@/components/myPage/addressInfo/AddressInfo';
-import LikesInfo from '@/components/myPage/likesInfo/LikesInfo';
+import UserInfo from '@/entities/client/myPage/ui/userInfo/UserInfo';
+import OrderInfo from '@/entities/client/myPage/ui/orderInfo/OrderInfo';
+import AddressInfo from '@/entities/client/myPage/ui/addressInfo/AddressInfo';
+import LikesInfo from '@/entities/client/myPage/ui/likesInfo/LikesInfo';
 
 type OrderItem = {
   wineId: number;

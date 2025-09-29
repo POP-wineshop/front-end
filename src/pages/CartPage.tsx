@@ -1,6 +1,6 @@
 import { useEffect, useState } from 'react';
-import CartItem from '../components/cart/CartItem';
-import CartPayment from '../components/cart/CartPayment';
+import CartItem from '../entities/client/cart/ui/CartItemList/CartItem';
+import CartPayment from '../entities/client/cart/ui/CartPayment';
 import { useNavigate } from 'react-router-dom';
 
 type CartWineItem = {
@@ -254,13 +254,13 @@ const CartPage = () => {
             {cartItems?.map((cartItem) => (
               <CartItem
                 key={cartItem.wineId}
-                cartWineItem={cartItem}
+                cartItem={cartItem}
                 selected={selectedCartItems.some(
                   (item) => item.wineId === cartItem.wineId
                 )}
                 onSelect={() => handleSelectCartItem(cartItem.wineId)}
-                onAddQuantityState={handleAddQuantityState}
-                onSubstractQuantityState={handleSubstractQuantityState}
+                onAddQuantity={handleAddQuantityState}
+                onSubstractQuantity={handleSubstractQuantityState}
               />
             ))}
           </div>
